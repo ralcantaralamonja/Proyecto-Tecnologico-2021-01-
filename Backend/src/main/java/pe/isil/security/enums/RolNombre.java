@@ -1,4 +1,5 @@
 package pe.isil.security.enums;
 
-public class RolNombre {
+public enum RolNombre {
+    ADMIN, USER
 }
