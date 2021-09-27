@@ -3,11 +3,10 @@ package pe.isil.security.model.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,23 +24,23 @@ public class Usuario {
     private String username;
     @NotNull
     private String password;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "fecha_creacion")
-    private LocalDate fechaCreacion;
+    private LocalDateTime fechaCreacion;
     @NotNull
     private String correo;
 
     private int estado;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name ="rol_usuario", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_rol"))
     private Set<Rol> roles = new HashSet<>();
 
     public Usuario(String username, String password, String correo) {
         this.username = username;
         this.password = password;
-        this.fechaCreacion = LocalDate.now();
+        this.fechaCreacion = LocalDateTime.now();
         this.correo = correo;
-        this.estado = 1;
+        this.estado = 1; //por defecto los usuarios se crean activos
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import pe.isil.security.model.entity.Usuario;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,7 +16,7 @@ public class UsuarioPrincipal implements UserDetails {
 
     private String username;
     private String password;
-    private LocalDate fechaCreacion;
+    private LocalDateTime fechaCreacion;
     private String correo;
     private int estado;
     private Collection<? extends GrantedAuthority> authorities;
@@ -64,7 +64,7 @@ public class UsuarioPrincipal implements UserDetails {
         return true;
     }
 
-    public LocalDate getFechaCreacion() {
+    public LocalDateTime getFechaCreacion() {
         return fechaCreacion;
     }
 
