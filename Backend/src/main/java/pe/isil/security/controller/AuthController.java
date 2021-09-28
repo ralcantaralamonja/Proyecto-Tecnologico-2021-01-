@@ -53,7 +53,8 @@ public class AuthController {
         if (usuarioService.existByCorreo(nuevoUsuario.getCorreo()))
             return new ResponseEntity(new Mensaje("Correo ya existe"), HttpStatus.BAD_REQUEST);
         Usuario usuario =
-                new Usuario(nuevoUsuario.getUsername(), passwordEncoder.encode(nuevoUsuario.getPassword()),
+                new Usuario(nuevoUsuario.getNombres(), nuevoUsuario.getApellidos(),
+                        nuevoUsuario.getUsername(), passwordEncoder.encode(nuevoUsuario.getPassword()),
                         nuevoUsuario.getCorreo());
         Set<Rol> roles = new HashSet<>();
         roles.add(rolService.getByRolNombre(RolNombre.USER).get());
@@ -68,10 +69,15 @@ public class AuthController {
     public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return new ResponseEntity(new Mensaje("usuario o contraseña incorrectos"), HttpStatus.BAD_REQUEST);
+        if (usuarioService.getByUsername(loginUsuario.getUsername()).get().getEstado() == 2) {
+            return new ResponseEntity(
+                    new Mensaje("Su usuario no esta activo. Comuniquese con el administrador del sistema")
+                    , HttpStatus.UNAUTHORIZED);
+        }
         Authentication authentication =
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuario.getUsername(), loginUsuario.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt= jwtProvider.generateToken(authentication);
+        String jwt = jwtProvider.generateToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
         return new ResponseEntity<>(jwtDto, HttpStatus.OK);

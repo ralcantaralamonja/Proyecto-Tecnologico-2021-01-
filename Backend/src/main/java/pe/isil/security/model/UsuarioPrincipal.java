@@ -14,6 +14,11 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UsuarioPrincipal implements UserDetails {
 
+    private String nombres;
+    private String apellidos;
+    //private String telefono;
+    //private String foto;
+
     private String username;
     private String password;
     private LocalDateTime fechaCreacion;
@@ -26,7 +31,9 @@ public class UsuarioPrincipal implements UserDetails {
                 usuario.getRoles().stream().map(
                         rol -> new SimpleGrantedAuthority(rol
                                 .getRolNombre().name())).collect(Collectors.toList());
-        return new UsuarioPrincipal(usuario.getUsername(), usuario.getPassword(), usuario.getFechaCreacion(), usuario.getCorreo(), usuario.getEstado(), authorities);
+        return new UsuarioPrincipal(usuario.getNombres(), usuario.getApellidos(),
+                usuario.getUsername(), usuario.getPassword(), usuario.getFechaCreacion(),
+                usuario.getCorreo(), usuario.getEstado(), authorities);
     }
 
     @Override
