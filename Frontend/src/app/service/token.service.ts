@@ -26,10 +26,10 @@ export class TokenService {
 
 
 
-  public setUserName(userName: string): void{
+  public setUserName(username: string): void{
     
     window.sessionStorage.removeItem(USERNAME_KEY);
-    window.sessionStorage.setItem(USERNAME_KEY, userName);
+    window.sessionStorage.setItem(USERNAME_KEY, username);
 
   }
 

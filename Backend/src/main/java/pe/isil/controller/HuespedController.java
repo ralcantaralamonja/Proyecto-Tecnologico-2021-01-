@@ -2,7 +2,6 @@ package pe.isil.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.isil.dto.HuespedDto;
 import pe.isil.dto.Mensaje;
@@ -74,7 +73,7 @@ public class HuespedController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteHuesped(@PathVariable("id") Integer id) {
         if (!huespedService.existsById(id))
             return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);

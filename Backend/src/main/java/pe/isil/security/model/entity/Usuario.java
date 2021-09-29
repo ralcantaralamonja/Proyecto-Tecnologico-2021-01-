@@ -41,8 +41,10 @@ public class Usuario {
 
     private int estado;
 
+    @NotNull
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name ="rol_usuario", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_rol"))
+    @JoinTable(name ="rol_usuario", joinColumns = @JoinColumn(name = "id_usuario"),
+            inverseJoinColumns = @JoinColumn(name = "id_rol"))
     private Set<Rol> roles = new HashSet<>();
 
     public Usuario(String nombres, String apellidos, String username, String password, String correo) {

@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         this.isLoginFail=false;
 
         this.tokenService.setToken(data.token);
-        this.tokenService.setUserName(data.nombreUsuario);
+        this.tokenService.setUserName(data.username);
         this.tokenService.setAuthorities(data.authorities);
         this.roles = data.authorities;
         this.router.navigate(['/inicio']);
@@ -50,8 +50,8 @@ export class LoginComponent implements OnInit {
       err => {
         this.isLogged = false;
         this.isLoginFail = true;
-        this.errMsj = err.console.error.mensaje;
-        console.log(this.errMsj);
+        this.errMsj = err.error.mensaje;
+        console.log("error -> " + err.error.mensaje);
       }
     )
   }

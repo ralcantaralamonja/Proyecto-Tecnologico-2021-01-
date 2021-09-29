@@ -68,11 +68,18 @@ public class AuthController {
     @PostMapping("login")
     public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return new ResponseEntity(new Mensaje("usuario o contraseña incorrectos"), HttpStatus.BAD_REQUEST);
-        if (usuarioService.getByUsername(loginUsuario.getUsername()).get().getEstado() == 2) {
-            return new ResponseEntity(
-                    new Mensaje("Su usuario no esta activo. Comuniquese con el administrador del sistema")
-                    , HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity(new Mensaje("los campos no pueden estar vacios"), HttpStatus.BAD_REQUEST);
+        if (!usuarioService.existByUsername(loginUsuario.getUsername()))
+            return new ResponseEntity(new Mensaje("Usuario no existe"), HttpStatus.NOT_FOUND);
+        if (usuarioService.existByUsername(loginUsuario.getUsername())) {
+            if (!passwordEncoder.matches(loginUsuario.getPassword(), usuarioService.getByUsername(loginUsuario.getUsername()).get().getPassword())) {
+                return new ResponseEntity(new Mensaje("Clave incorrecta"), HttpStatus.UNAUTHORIZED);
+            }
+            if (usuarioService.getByUsername(loginUsuario.getUsername()).get().getEstado() == 2) {
+                return new ResponseEntity(
+                        new Mensaje("Su usuario no esta activo. Comuniquese con el administrador del sistema")
+                        , HttpStatus.UNAUTHORIZED);
+            }
         }
         Authentication authentication =
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuario.getUsername(), loginUsuario.getPassword()));

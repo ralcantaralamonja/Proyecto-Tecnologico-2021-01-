@@ -88,3 +88,10 @@
   .login-box a:hover {
     color: #fff;
   }
+
+  #Error{
+    text-align: center;
+    border-radius: 20px;
+    background: #D3DEA9;
+    border-style: hidden;
+  }
