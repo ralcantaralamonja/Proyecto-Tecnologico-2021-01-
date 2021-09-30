@@ -1,7 +1,7 @@
-body {
+#LoginBody {
     margin: 0;
     padding: 0;
-    background: url(../../Documentos/Img/atardecer-edificios.jpg) no-repeat center top;
+    background: url(src/assets/imagenes/atardecer-edificios.jpg) no-repeat center top;
     background-size: cover;
     font-family: sans-serif;
     height: 100vh;
@@ -46,12 +46,13 @@ body {
     display: block;
   }
   
-  .login-box input {
+  .login-box button {
     width: 100%;
     margin-bottom: 20px;
+    margin-top: 20px;
   }
   
-  .login-box input[type="text"], .login-box input[type="password"] {
+  .login-box button[type="text"], .login-box button[type="password"] {
     border: 50px;
     border-bottom: 1px solid #fff;
     background: transparent;
@@ -61,7 +62,7 @@ body {
     font-size: 16px;
   }
   
-  .login-box input[type="submit"] {
+  .login-box button[type="submit"] {
     border: none;
     outline: none;
     height: 40px;
@@ -71,7 +72,7 @@ body {
     border-radius: 20px;
   }
   
-  .login-box input[type="submit"]:hover {
+  .login-box button[type="submit"]:hover {
     cursor: pointer;
     background: #ffc107;
     color: #000;
@@ -86,4 +87,11 @@ body {
   
   .login-box a:hover {
     color: #fff;
+  }
+
+  #Error{
+    text-align: center;
+    border-radius: 20px;
+    background: #D3DEA9;
+    border-style: hidden;
   }
