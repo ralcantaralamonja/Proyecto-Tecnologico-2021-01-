@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Huesped } from '../entity/huesped';
@@ -11,7 +11,7 @@ export class HuespedService {
   huespedURL = 'http://localhost:8080/api/huespedes';
 
   constructor(private httpClient: HttpClient) { }
-
+ 
   public lista(): Observable<Huesped[]> {
     return this.httpClient.get<Huesped[]>(this.huespedURL);
   }
@@ -32,3 +32,4 @@ export class HuespedService {
     return this.httpClient.delete<any>(this.huespedURL + `/${id}`);
   }
 }
+

@@ -28,7 +28,7 @@ export class ListaHuespedComponent implements OnInit {
     this.cargarHuespedes();
     this.roles = this.tokenService.getAuthorities();
     this.roles.forEach(rol => {
-      if (rol === 'ROLE_ADMIN') {
+      if (rol === 'ADMIN') {
         this.isAdmin = true;
       }
     });

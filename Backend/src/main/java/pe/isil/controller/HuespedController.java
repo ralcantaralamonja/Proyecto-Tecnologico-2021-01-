@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/huesped")
+@RequestMapping("/api/huespedes")
 //@CrossOrigin(origins = "http://localhost:4200")
 public class HuespedController {
 
