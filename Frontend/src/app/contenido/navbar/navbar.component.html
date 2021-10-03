@@ -23,13 +23,13 @@
             </ul>
 
             <!-- Right Side -->
-            <div class="btn-group float-end">
+            <div class="btn-group float-end" *ngIf="isLogged">
                 <a href="#" class="dropdown-toggle text-decoration-none text-light" data-bs-toggle="dropdown">
                 <i class="bi bi-person-circle"></i>
                 <span>Lista</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a href="#" class="dropdown-item"><i class="bi bi-lock-fill"></i> Change Password</a></li>
+                    <li><a routerLink="/lista-huesped" class="dropdown-item"><i class="bi bi-lock-fill"></i> Lista 1</a></li>
                     <li><a href="#" class="dropdown-item"><i class="bi bi-gear-fill"></i> Admin Setion</a></li>
                     <li><a href="#" class="dropdown-item"><i class="bi bi-gear-wide-connected"></i> IMAP Settings</a></li>
                     <li>
