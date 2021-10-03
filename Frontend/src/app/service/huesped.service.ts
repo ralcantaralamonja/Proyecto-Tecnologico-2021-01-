@@ -13,26 +13,22 @@ export class HuespedService {
   constructor(private httpClient: HttpClient) { }
 
   public lista(): Observable<Huesped[]> {
-    return this.httpClient.get<Huesped[]>(this.huespedURL + 'lista');
+    return this.httpClient.get<Huesped[]>(this.huespedURL);
   }
 
   public detalle(id: number): Observable<Huesped> {
-    return this.httpClient.get<Huesped>(this.huespedURL + `detalle/${id}`);
-  }
-
-  public detalleName(nombre: string): Observable<Huesped> {
-    return this.httpClient.get<Huesped>(this.huespedURL + `detalleName/${nombre}`);
+    return this.httpClient.get<Huesped>(this.huespedURL + `/${id}`);
   }
 
   public save(huesped: Huesped): Observable<any> {
-    return this.httpClient.post<any>(this.huespedURL + 'create', huesped);
+    return this.httpClient.post<any>(this.huespedURL, huesped);
   }
 
   public update(id: number, huesped: Huesped): Observable<any> {
-    return this.httpClient.put<any>(this.huespedURL + `update/${id}`, huesped);
+    return this.httpClient.put<any>(this.huespedURL + `/${id}`, huesped);
   }
 
   public delete(id: number): Observable<any> {
-    return this.httpClient.delete<any>(this.huespedURL + `delete/${id}`);
+    return this.httpClient.delete<any>(this.huespedURL + `/${id}`);
   }
 }

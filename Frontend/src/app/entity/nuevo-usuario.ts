@@ -4,12 +4,12 @@ export class NuevoUsuario{
     username:string;
     password: string;
     correo: string;
-    constructor(nombre: string, apellido: string, nombreUsuario: string, email: string, password: string){
+    constructor(nombres: string, apellidos: string, username: string, correo: string, password: string){
 
-        this.nombres = nombre;
-        this.apellidos = apellido;
-        this.username = nombreUsuario;
-        this.correo = email;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.username = username;
+        this.correo = correo;
         this.password = password;
         
     }
