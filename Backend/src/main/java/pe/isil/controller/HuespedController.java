@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/huesped")
-//@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api/huespedes")
+@CrossOrigin(origins = "*")
 public class HuespedController {
 
     //METODOS CON PERMISOS DE ADMIN
