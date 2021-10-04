@@ -22,8 +22,8 @@ const routes: Routes = [
   
   {path: 'lista-huesped', component:ListaHuespedComponent,canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
   {path: 'nuevo', component:NuevoHuespedComponent, canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
-  {path: 'editar',component:EditarHuespedComponent, canActivate: [guard], data: {expectRol:['ADMIN', 'USER']} },
-  {path: 'detalle', component:DetalleHuespedComponent, canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}}
+  {path: 'editar/:huespedId',component:EditarHuespedComponent, canActivate: [guard], data: {expectRol:['ADMIN', 'USER']} },
+  {path: 'detalle/:huespedId', component:DetalleHuespedComponent, canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}}
   
 
 ];
