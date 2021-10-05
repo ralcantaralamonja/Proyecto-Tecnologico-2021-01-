@@ -18,14 +18,12 @@ const routes: Routes = [
   {path: 'registro', component: RegistroComponent},
   {path: 'inicio', component:InicioComponent},
   {path: 'login', component:LoginComponent},
-
   
   {path: 'lista-huesped', component:ListaHuespedComponent,canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
   {path: 'nuevo', component:NuevoHuespedComponent, canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
   {path: 'editar/:huespedId',component:EditarHuespedComponent, canActivate: [guard], data: {expectRol:['ADMIN', 'USER']} },
   {path: 'detalle/:huespedId', component:DetalleHuespedComponent, canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}}
   
-
 ];
 
 @NgModule({
