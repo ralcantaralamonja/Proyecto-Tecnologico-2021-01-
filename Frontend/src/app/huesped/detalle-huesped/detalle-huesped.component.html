@@ -1,5 +1,7 @@
-<app-navbar></app-navbar>
-<div class="container">
+<body>
+  <app-navbar></app-navbar>
+  
+  <div class="container" >
     <div class="row mt-5" *ngIf="huesped">
       <div class="col-md-4 mx-auto">
           <div class="card" style="width: 18rem;">
@@ -9,12 +11,12 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item"><b>ID: </b>{{huesped.huespedId}}</li>
                 <li class="list-group-item"><b>NOMBRE: </b>{{huesped.nombre}}</li>
-                <li class="list-group-item"><b>APELLIDO: </b>{{huesped.apellido}}€</li>
-                <li class="list-group-item"><b>TELEFONO: </b>{{huesped.telefono}}€</li>
-                <li class="list-group-item"><b>CORREO: </b>{{huesped.correo}}€</li>
-                <li class="list-group-item"><b>USUARIO-REGISTRO: </b>{{huesped.usuarioRegistro}}€</li>
-                <li class="list-group-item"><b>USUARIO-ULT-MODIFICACION: </b>{{huesped.usuarioUltModificacion}}€</li>
-                <li class="list-group-item"><b>OBSERVACIONES: </b>{{huesped.observaciones}}€</li>
+                <li class="list-group-item"><b>APELLIDO: </b>{{huesped.apellido}}</li>
+                <li class="list-group-item"><b>TELEFONO: </b>{{huesped.telefono}}</li>
+                <li class="list-group-item"><b>CORREO: </b>{{huesped.correo}}</li>
+                <li class="list-group-item"><b>USUARIO-REGISTRO: </b>{{huesped.usuarioRegistro}}</li>
+                <li class="list-group-item"><b>USUARIO-ULT-MODIFICACION: </b>{{huesped.usuarioUltModificacion}}</li>
+                <li class="list-group-item"><b>OBSERVACIONES: </b>{{huesped.observaciones}}</li>
 
               </ul>
               <div class="card-footer">
@@ -25,3 +27,7 @@
       </div>
   </div>
   </div>
+</body>
+
+
+

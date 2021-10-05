@@ -1,3 +1,5 @@
+<body>
+    
 <app-navbar></app-navbar>
 <div class="container">
     <div class="row mt-5">
@@ -35,11 +37,18 @@
                     <input type="text" class="form-control" id="observaciones" name="observaciones" [(ngModel)]="observaciones" required>
                 </div>
                
-                <button class="btn btn-outline-success btn-block" [disabled]="!f.valid">
+                <div id="btn">
+
+                    <button class="btn btn-success" [disabled]="!f.valid">
                     <i class="fas fa-plus-circle"></i> Crear</button>
-                <button class="btn btn-outline-primary btn-block" routerLink="/lista-huesped">
+
+                <button class="btn btn-primary" routerLink="/lista-huesped">
                     <i class="fas fa-arrow-alt-circle-left"></i> Volver</button>
+
+                </div>
+                
             </form>
         </div>
     </div>
 </div>
+</body>
