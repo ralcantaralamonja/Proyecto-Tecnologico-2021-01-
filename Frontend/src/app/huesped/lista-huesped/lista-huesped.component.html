@@ -23,34 +23,40 @@
         <div>
             <table class="table">
                 <thead class="thead-dark">
-                <tr *ngFor="let huespedes of huesped">
-                    <th scope="col" >{{huespedes.huespedId}}</th>
-                    <th scope="col">{{huespedes.nombre}}</th>
-                    <th scope="col"> {{huespedes.apellido}}</th>
-                    <th scope="col"> {{huespedes.telefono}}</th>
-                    <th scope="col"> {{huespedes.correo}}</th>
-                    <th></th>
+                <tr >
+                    <th scope="col" >Id</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido </th>
+                    <th scope="col">Telefono </th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Usuario Registro</th>
+                    <th scope="col">Usuario Ultima Modificacion</th>
+                    <th scope="col">Observaciones</th>
+
+                    <th colspan="3"></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row"></th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><button class="btn btn-outline-primary" routerLink = "/detalle"><i class="far fa-eye"></i> Ver</button></td>
-                    <td ><button class="btn btn-outline-warning" routerLink = "/editar"><i class="far fa-edit"></i> Editar</button></td>
-                    <td ><button class="btn btn-outline-danger" ><i class="far fa-trash-alt"></i> Eliminar</button></td>
+                <tr *ngFor="let huespedes of huesped">
+                    <td>{{huespedes.huespedId}}</td>
+                    <td>{{huespedes.nombre}}</td>
+                    <td>{{huespedes.apellido}}</td>
+                    <td>{{huespedes.telefono}}</td>
+                    <td> {{huespedes.correo}}</td>
+                    <td> {{huespedes.usuarioRegistro}}</td>
+                    <td> {{huespedes.usuarioUltModificacion}}</td>
+                    <td> {{huespedes.observaciones}}</td>
+
+                    <td><button class="btn btn-outline-primary" routerLink = "/detalle/{{huespedes.huespedId}}"><i class="far fa-eye"></i> Ver</button></td>
+                    <td ><button class="btn btn-outline-warning" routerLink = "/editar/{{huespedes.huespedId}}"><i class="far fa-edit"></i> Editar</button></td>
+                    <td ><button class="btn btn-outline-danger" (click)="borrar(huespedes.huespedId)" ><i class="far fa-trash-alt"></i> Eliminar</button></td>
+                   <!--/{{huespedes.huespedId}}-->
                    
-                    <td>
-                        <button class="btn btn-outline-success" routerLink = "/nuevo">
-                          <i class="fas fa-plus-circle"></i> Nuevo Producto</button>
-                      </td>
                 </tr>
-               
+                <td>
+                    <button class="btn btn-outline-success" routerLink = "/nuevo">
+                      <i class="fas fa-plus-circle"></i> Nuevo Huesped</button>
+                  </td>
                 </tbody>
                   
             </table>

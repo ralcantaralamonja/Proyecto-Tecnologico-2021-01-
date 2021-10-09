@@ -5,6 +5,7 @@ import {HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { interceptorProvider } from './interceptor/interceptors.service';
 import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -37,7 +38,8 @@ import { NuevoHuespedComponent } from './huesped/nuevo-huesped/nuevo-huesped.com
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [interceptorProvider],
   bootstrap: [AppComponent]
