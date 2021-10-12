@@ -33,7 +33,7 @@
                     <th scope="col">Usuario Ultima Modificacion</th>
                     <th scope="col">Observaciones</th>
 
-                    <th></th>
+                    <th colspan="3"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -47,7 +47,6 @@
                     <td> {{huespedes.usuarioUltModificacion}}</td>
                     <td> {{huespedes.observaciones}}</td>
 
-                    <td></td>
                     <td><button class="btn btn-outline-primary" routerLink = "/detalle/{{huespedes.huespedId}}"><i class="far fa-eye"></i> Ver</button></td>
                     <td ><button class="btn btn-outline-warning" routerLink = "/editar/{{huespedes.huespedId}}"><i class="far fa-edit"></i> Editar</button></td>
                     <td ><button class="btn btn-outline-danger" (click)="borrar(huespedes.huespedId)" ><i class="far fa-trash-alt"></i> Eliminar</button></td>

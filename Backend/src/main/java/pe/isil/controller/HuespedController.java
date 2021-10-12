@@ -80,5 +80,4 @@ public class HuespedController {
         huespedService.delete(id);
         return new ResponseEntity(new Mensaje("Huesped eliminado"), HttpStatus.OK);
     }
-
 }
