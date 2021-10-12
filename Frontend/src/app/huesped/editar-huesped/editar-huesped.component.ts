@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Huesped } from 'src/app/entity/huesped';
 import { HuespedService } from 'src/app/service/huesped.service';
+import { TokenService } from 'src/app/service/token.service';
 
 @Component({
   selector: 'app-editar-huesped',
@@ -11,14 +12,16 @@ import { HuespedService } from 'src/app/service/huesped.service';
 })
 export class EditarHuespedComponent implements OnInit {
 
-  huesped: Huesped = null;
+  huesped: Huesped = null;  
+  usuarioUltModificacion: string = '';
 
   constructor(
 
     private huespedService: HuespedService,
     private actiavedRouter: ActivatedRoute,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private tokenService: TokenService
 
   ) { }
 
@@ -40,6 +43,7 @@ export class EditarHuespedComponent implements OnInit {
 
   onUpdate(): void{
     const id = this.actiavedRouter.snapshot.params.huespedId;
+    this.huesped.usuarioUltModificacion = this.tokenService.getUserName();
     this.huespedService.update(id, this.huesped).subscribe(
       data => {
         this.toastr.success('Huesped Actualizado Correctamente', 'OK', {
