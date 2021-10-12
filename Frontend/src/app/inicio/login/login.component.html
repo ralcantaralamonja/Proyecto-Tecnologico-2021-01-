@@ -14,13 +14,14 @@
         <div class="form-group">
           <label for="username">Usuario</label>
           <input type="text" name="nombreUsuario" id="nombreUsuario" class="form-control" [(ngModel)]="nombreUsuario"
-            required placeholder="Enter username">
+            required="" pattern="[a-zA-Z]+"  placeholder="Enter username" >
         </div>
         <!-- PASSWORD INPUT -->
         <div class="form-group">
           <label for="password">Password</label>
           <input type="password" name="password" id="password" class="form-control" [(ngModel)]="password" required
-            placeholder="Enter Password">
+            placeholder="Enter Password" maxlength="8" pattern="[^a-zA-Z0-9]*+"
+            >
         </div>
         <div class="form-group">
           <button class="btn btn-outline-success btn-block" [disabled]="!f.valid">

@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
         
         console.log("token -> " + data.token);
         this.roles = data.authorities;
-        this.router.navigate(['/']);
+        this.router.navigate(['/inicio']);
       },
       err => {
         this.isLogged = false;
