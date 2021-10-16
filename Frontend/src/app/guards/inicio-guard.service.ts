@@ -5,33 +5,33 @@ import { TokenService } from '../service/token.service';
 @Injectable({
   providedIn: 'root'
 })
-export class InicioGuardService implements CanActivate{
+export class InicioGuardService implements CanActivate {
 
   realRole: string;
 
 
-  constructor( 
+  constructor(
     private tokenService: TokenService,
     private router: Router
-    ) { }
+  ) { }
 
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean 
-  
-  
-  {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const expectedRol = route.data.expectRol;
     const roles = this.tokenService.getAuthorities();
     this.realRole = 'USER';
-    roles.forEach(rol =>{
+    roles.forEach(rol => {
+      if (rol === 'MANAGER') {
+        this.realRole = 'MANAGER';
+      }
       if (rol === 'ADMIN') {
         this.realRole = 'ADMIN';
       }
     });
     console.log(this.tokenService.getToken());
-    
-    if (!this.tokenService.getToken()  || expectedRol.indexOf(this.realRole) === -1) {
-      this.router.navigate(['/']);
+
+    if (!this.tokenService.getToken() || expectedRol.indexOf(this.realRole) === -1) {
+      this.router.navigate(['login']);
       return false;
     }
     return true;

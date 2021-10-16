@@ -19,6 +19,9 @@ export class HuespedGuardService implements CanActivate{
     const roles = this.tokenService.getAuthorities();
     this.realRole = 'USER';
     roles.forEach(rol =>{
+      if (rol === 'MANAGER') {
+        this.realRole = 'MANAGER';
+      }
       if (rol === 'ADMIN') {
         this.realRole = 'ADMIN';
       }
@@ -26,7 +29,7 @@ export class HuespedGuardService implements CanActivate{
     console.log(this.tokenService.getToken());
     
     if (!this.tokenService.getToken()  || expectedRol.indexOf(this.realRole) === -1) {
-      this.router.navigate(['/']);
+      this.router.navigate(['login']);
       return false;
     }
     return true;

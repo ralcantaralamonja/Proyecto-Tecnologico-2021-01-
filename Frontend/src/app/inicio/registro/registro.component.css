@@ -1,13 +1,16 @@
+
 #RegistroBody {
     margin: 0;
     padding: 0;
     background: url(src/assets/imagenes/atardecer-edificios.jpg) no-repeat center top;
     background-size: cover;
     font-family: sans-serif;
-    height: 100vh;
+    height: 120vh;
   }
   
   .login-box {
+    margin-top: 80px;
+    margin-bottom: 100px;
     width: 400px;
     height: 410px;
     background: #D3DEA9;

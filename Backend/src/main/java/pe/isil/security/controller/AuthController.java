@@ -58,6 +58,8 @@ public class AuthController {
                         nuevoUsuario.getCorreo());
         Set<Rol> roles = new HashSet<>();
         roles.add(rolService.getByRolNombre(RolNombre.USER).get());
+        if (nuevoUsuario.getRoles().contains("MANAGER"))
+            roles.add(rolService.getByRolNombre(RolNombre.MANAGER).get());
         if (nuevoUsuario.getRoles().contains("ADMIN"))
             roles.add(rolService.getByRolNombre(RolNombre.ADMIN).get());
         usuario.setRoles(roles);
