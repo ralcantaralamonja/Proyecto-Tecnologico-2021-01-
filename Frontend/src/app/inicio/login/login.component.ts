@@ -36,6 +36,9 @@ export class LoginComponent implements OnInit {
 
   onLogin(): void{
     this.loginUsuario = new LoginUsuario(this.nombreUsuario, this.password);
+    
+    console.log("usuario -> " + this.nombreUsuario);
+    console.log("clave -> " + this.password);
     this.authService.login(this.loginUsuario).subscribe(
       data =>{
         this.isLogged=true;
@@ -45,9 +48,8 @@ export class LoginComponent implements OnInit {
         this.tokenService.setUserName(data.username);
         this.tokenService.setAuthorities(data.authorities);
         
-        console.log("token -> " + data.token);
         this.roles = data.authorities;
-        this.router.navigate(['/']);
+        this.router.navigate(['/inicio']);
       },
       err => {
         this.isLogged = false;

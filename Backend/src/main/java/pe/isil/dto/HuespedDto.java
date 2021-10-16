@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @AllArgsConstructor
@@ -17,6 +18,7 @@ public class HuespedDto {
     @NotBlank
     private String apellido;
     private String telefono ;
+    @Email
     private String correo;
     @NotBlank
     private String usuarioRegistro;

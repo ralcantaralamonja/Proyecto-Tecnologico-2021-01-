@@ -32,6 +32,7 @@ CREATE TABLE HUESPED
     Apellido                 VARCHAR(30),
     Telefono                 VARCHAR(9),
     Correo                   VARCHAR(150),
+    Estado                   INT                NOT NULL, -- 1 -> activo | 2 -> inactivo
     Usuario_Registro         VARCHAR(30)        NOT NULL,
     Fecha_Registro           DATETIME           NOT NULL,
     Usuario_Ult_Modificacion VARCHAR(30),
@@ -227,5 +228,6 @@ VALUES (1, 1),
 
 INSERT INTO TIPO_DOCUMENTO (Nombre)
 VALUES ('DNI'),
+       ('PASAPORTE'),
        ('PASAPORTE'),
        ('CARNET DE EXTRANJERIA')

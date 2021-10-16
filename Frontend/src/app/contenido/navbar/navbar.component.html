@@ -1,19 +1,19 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <!-- Site Logo Here -->
-        <a class="navbar-brand" href="#">Hotel blondy's house</a>
+        <a class="navbar-brand" routerLink="/">Hotel blondy's house</a>
+        
         <!-- Mobile Toggle Button -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMobileToggle" aria-controls="navbarMobileToggle" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarMobileToggle">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+
+                <li class="nav-item" *ngIf="isLogged">
+                    <a class="nav-link active" aria-current="page" routerLink="/inicio">Inicio</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"></a>
-                </li>
+               
                 <li class="nav-item" *ngIf="!isLogged">
                     <a class="nav-link" routerLink="/login">Iniciar sesion</a>
                 </li>
@@ -22,7 +22,13 @@
                 </li>
             </ul>
 
+           
+
             <!-- Right Side -->
+            <div class="btn-group float-end">
+                <div *ngIf="isLogged; else loggedOut"><h2> {{nombreUsuario}}</h2></div>
+                <ng-template #loggedOut><h2></h2></ng-template>
+            </div>
             <div class="btn-group float-end" *ngIf="isLogged">
                 <a href="#" class="dropdown-toggle text-decoration-none text-light" data-bs-toggle="dropdown">
                 <i class="bi bi-person-circle"></i>
@@ -35,4 +41,7 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
+                
+            
+                    
                

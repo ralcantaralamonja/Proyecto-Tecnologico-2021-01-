@@ -65,8 +65,9 @@ public class AuthController {
         return new ResponseEntity(new Mensaje("Se registro correctamente"), HttpStatus.CREATED);
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult) {
+        System.out.println("bool " + usuarioService.existByUsername(loginUsuario.getUsername()));
         if (bindingResult.hasErrors())
             return new ResponseEntity(new Mensaje("los campos no pueden estar vacios"), HttpStatus.BAD_REQUEST);
         if (!usuarioService.existByUsername(loginUsuario.getUsername()))

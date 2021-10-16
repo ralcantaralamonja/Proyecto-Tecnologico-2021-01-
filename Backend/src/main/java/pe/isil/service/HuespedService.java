@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pe.isil.model.Huesped;
 import pe.isil.repository.HuespedRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ public class HuespedService {
     }
 
     public List<Huesped> findAll(){
-        return huespedRepository.findAll();
+        return huespedRepository.findAllByEstadoEquals(1);
     }
 
     public Optional<Huesped> findById(Integer id){
@@ -31,11 +32,14 @@ public class HuespedService {
     }
 
     public void delete(Integer id){
-        huespedRepository.deleteById(id);
+        Huesped huesped = findById(id).get();
+        huesped.setEstado(2);
+        huesped.setFechaUltModificacion(LocalDateTime.now());
+        huespedRepository.save(huesped);
     }
 
     public boolean existsById(Integer id){
-        return huespedRepository.existsById(id);
+        return huespedRepository.existsByHuespedId(id);
     }
 
 }

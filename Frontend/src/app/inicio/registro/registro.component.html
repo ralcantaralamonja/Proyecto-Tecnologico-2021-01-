@@ -17,36 +17,36 @@
           <label >Nombre</label>
           <input type="text" name="nombre" id="nombres" class="form-control" placeholder="Enter username" 
           [(ngModel)]="nombres"
-            required> 
+            required="" pattern="[a-zA-Z]+" > 
         </div>
         <!-- PASSWORD INPUT -->
         <div class="form-group">
           <label for="apellidos">Apellido</label>
           <input type="text" name="apellidos" id="apellidos" class="form-control"
-            placeholder="Enter Apellido" [(ngModel)]="apellidos" required>
+            placeholder="Enter Apellido" [(ngModel)]="apellidos" required="" pattern="[a-zA-Z]+">
         </div>
 
         <div class="form-group">
             <label for="username">Username</label>
             <input type="text" name="username" id="username" class="form-control"
-              placeholder="Enter Username " [(ngModel)]="username" required>
+              placeholder="Enter Username " [(ngModel)]="username" required="" pattern="[a-zA-Z]+">
           </div>
 
           <div class="form-group">
             <label for="password">Password</label>
             <input type="password" name="password" id="password" class="form-control"
-              placeholder="Enter Password" [(ngModel)]="password" required>
+              placeholder="Enter Password" [(ngModel)]="password" required="" maxlength="8" pattern="[^a-zA-Z0-9]*+">
           </div>
 
           <div class="form-group">
             <label for="correo">Correo</label>
             <input type="password" name="correo" id="correo" class="form-control"
-              placeholder="Enter Correo" [(ngModel)]="correo" required>
+              placeholder="Enter Correo" [(ngModel)]="correo" required=""  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$+">
           </div>
 
 
         <div class="form-group">
-          <button class="btn btn-outline-success btn-block">
+          <button class="btn btn-outline-success btn-block" [disabled]="!f.valid">
             <i class="fas fa-sign-in-alt"></i> Crear Cuenta</button>
         </div>
 
