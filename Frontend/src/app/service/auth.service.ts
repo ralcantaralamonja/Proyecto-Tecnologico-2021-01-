@@ -11,7 +11,7 @@ import { NuevoUsuario } from '../entity/nuevo-usuario';
 export class AuthService {
 
   //authURL = 'http://192.168.1.254:8080/admin/';
-  authURL = 'http://127.0.0.1:8080/admin/';
+  authURL = 'http://192.168.0.254:8080/admin/';
 
   constructor(private httpClient: HttpClient) { }
 
