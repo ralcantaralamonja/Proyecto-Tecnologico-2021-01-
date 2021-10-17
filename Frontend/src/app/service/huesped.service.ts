@@ -2,13 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Huesped } from '../entity/huesped';
+import { NuevoHuesped } from '../entity/nuevoHuesped';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HuespedService {
 
-  huespedURL = 'http://localhost:8080/api/huespedes';
+  //huespedURL = 'http://192.168.1.254:8080/api/huespedes';
+  huespedURL = 'http://127.0.0.1:8080/api/huespedes';
 
   constructor(private httpClient: HttpClient) { }
  
@@ -20,7 +22,7 @@ export class HuespedService {
     return this.httpClient.get<Huesped>(this.huespedURL + `/${id}`);
   }
 
-  public save(huesped: Huesped): Observable<any> {
+  public save(huesped: NuevoHuesped): Observable<any> {
     return this.httpClient.post<any>(this.huespedURL, huesped);
   }
 

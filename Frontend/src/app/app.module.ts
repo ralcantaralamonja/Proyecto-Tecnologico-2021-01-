@@ -18,6 +18,7 @@ import { ListaHuespedComponent } from './huesped/lista-huesped/lista-huesped.com
 import { DetalleHuespedComponent } from './huesped/detalle-huesped/detalle-huesped.component';
 import { EditarHuespedComponent } from './huesped/editar-huesped/editar-huesped.component';
 import { NuevoHuespedComponent } from './huesped/nuevo-huesped/nuevo-huesped.component';
+import { DesignComponent } from './contenido/design/design.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { NuevoHuespedComponent } from './huesped/nuevo-huesped/nuevo-huesped.com
     ListaHuespedComponent,
     DetalleHuespedComponent,
     EditarHuespedComponent,
-    NuevoHuespedComponent
+    NuevoHuespedComponent,
+    DesignComponent
   ],
   imports: [
     BrowserModule,

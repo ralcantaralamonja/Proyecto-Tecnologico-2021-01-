@@ -10,13 +10,13 @@ import { LoginComponent } from './inicio/login/login.component';
 import { RegistroComponent } from './inicio/registro/registro.component';
 
 import { HuespedGuardService as guard} from './guards/huesped-guard.service';
-
+import { InicioGuardService  as inicioGuard } from './guards/inicio-guard.service';
 
 const routes: Routes = [
 
   {path: '', component: HomeComponent},
   {path: 'registro', component: RegistroComponent},
-  {path: 'inicio', component:InicioComponent},
+  {path: 'inicio', component:InicioComponent,canActivate: [inicioGuard], data: {expectRol:['ADMIN', 'USER']}},
   {path: 'login', component:LoginComponent},
   
   {path: 'lista-huesped', component:ListaHuespedComponent,canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
@@ -27,7 +27,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

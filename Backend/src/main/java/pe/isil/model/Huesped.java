@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -23,6 +24,7 @@ public class Huesped {
     private String apellido;
     private String telefono ;
     private String correo;
+    private int estado;
     @NotNull
     @Column(name = "Usuario_Registro")
     private String usuarioRegistro;
@@ -43,5 +45,6 @@ public class Huesped {
         this.usuarioRegistro = usuarioRegistro;
         this.fecha_Registro = LocalDateTime.now();
         this.observaciones = observaciones;
+        this.estado = 1;
     }
 }

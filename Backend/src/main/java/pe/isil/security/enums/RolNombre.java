@@ -1,5 +1,5 @@
 package pe.isil.security.enums;
 
 public enum RolNombre {
-    ADMIN, USER
+    ADMIN, MANAGER, USER
 }
