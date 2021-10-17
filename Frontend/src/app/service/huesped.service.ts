@@ -10,7 +10,7 @@ import { NuevoHuesped } from '../entity/nuevoHuesped';
 export class HuespedService {
 
   //huespedURL = 'http://192.168.1.254:8080/api/huespedes';
-  huespedURL = 'http://192.168.0.254:8080/api/huespedes';
+  huespedURL = 'http://192.168.18.75:8080/api/huespedes';
 
   constructor(private httpClient: HttpClient) { }
  
