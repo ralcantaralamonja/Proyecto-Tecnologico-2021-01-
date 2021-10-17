@@ -24,11 +24,11 @@ public class UsuarioService {
         return usuarioRepository.existsByUsername(username);
     }
 
-    public boolean existByCorreo(String correo){
+    public boolean existByCorreo(String correo) {
         return usuarioRepository.existsByCorreo(correo);
     }
 
-    public void save(Usuario usuario){
+    public void save(Usuario usuario) {
         usuarioRepository.save(usuario);
     }
 }
