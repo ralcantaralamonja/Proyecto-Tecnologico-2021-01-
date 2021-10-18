@@ -11,5 +11,6 @@ import java.util.List;
 public interface DocumentoRepository extends JpaRepository<Documento, Integer> {
     Documento findByHuespedId(Integer id);
     boolean existsByDocumentoId(Integer id);
+    boolean existsByHuespedId(Integer id);
     Documento findByNumeroDocumento(String numeroDoc);
 }

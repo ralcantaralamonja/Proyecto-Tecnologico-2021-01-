@@ -32,7 +32,9 @@ public class HuespedDto {
     private LocalDateTime fechaUltModificacion ;
     private String observaciones ;
 
+    @NotBlank
     private String tipoDocumento;
+    @NotBlank
     private String numeroDocumento;
 
     private int estado;

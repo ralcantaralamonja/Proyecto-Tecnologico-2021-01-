@@ -27,8 +27,8 @@ public class HuespedService implements CrudService<Huesped, Integer> {
         return huespedRepository.findById(id);
     }
 
-    public void createOrUpdate(Huesped huesped) {
-        huespedRepository.save(huesped);
+    public Huesped createOrUpdate(Huesped huesped) {
+        return huespedRepository.save(huesped);
     }
 
     public void delete(Integer id) {

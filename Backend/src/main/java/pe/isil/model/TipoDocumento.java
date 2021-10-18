@@ -1,9 +1,11 @@
 package pe.isil.model;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pe.isil.enums.TipoNombre;
 
 import javax.persistence.*;
 import java.util.List;
@@ -18,6 +20,10 @@ public class TipoDocumento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id_Tipo")
     private Integer tipoId;
-    private String nombre;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "nombre")
+    private TipoNombre nombre;
 
 }
