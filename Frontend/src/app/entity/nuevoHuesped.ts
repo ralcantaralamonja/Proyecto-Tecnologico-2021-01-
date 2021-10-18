@@ -1,4 +1,4 @@
-export class NuevoHuesped {
+/*export class NuevoHuesped {
 
     huespedId?: number;
     nombre: string;
@@ -16,4 +16,24 @@ export class NuevoHuesped {
         this.usuarioRegistro = usuarioRegistros;
         this.observaciones = observacion        
     }
+}*/
+
+export class NuevoHuesped {
+   
+    data: Data;
+    
+}
+
+class Data {
+    numero: number;
+    nombre_completo: string;
+   
+
+    constructor( numeros: number, nombres_completos: string ){       
+        
+        this.numero = numeros;
+        this.nombre_completo = nombres_completos;
+    
+    }
+
 }

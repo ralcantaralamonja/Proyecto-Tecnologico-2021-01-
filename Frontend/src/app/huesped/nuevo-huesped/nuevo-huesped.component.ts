@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -12,16 +13,20 @@ import { TokenService } from 'src/app/service/token.service';
 })
 export class NuevoHuespedComponent implements OnInit {
 
-  nombre = '';
+ /* nombre = '';
   apellido = '';
   telefono = '';
   correo = '';
   usuarioRegistro = this.tokenService.getUserName();
   observaciones = ''
-
+*/
+    numero   = '';
+    nombre_completo = this.tokenService.getUserName();
+    
+  
 
   constructor(
-
+    private httpClient: HttpClient,
     private huespedService: HuespedService,
     private toastr: ToastrService,
     private router: Router,
@@ -29,11 +34,14 @@ export class NuevoHuespedComponent implements OnInit {
 
   ) { }
 
+  
+  
+
   ngOnInit(): void {
   }
 
   onCreate(): void {
-    const huesped = new NuevoHuesped(this.nombre, this.apellido, this.telefono, this.correo, this.usuarioRegistro, this.observaciones);
+    const huesped = new NuevoHuesped(/*this.numero, this.data.nombre_completo*/ );
     this.huespedService.save(huesped).subscribe(
       data => {
         this.toastr.success('Huesped Creado correctamente', 'OK', {

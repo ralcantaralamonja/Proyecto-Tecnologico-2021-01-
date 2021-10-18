@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Huesped } from '../entity/huesped';
 import { NuevoHuesped } from '../entity/nuevoHuesped';
+import { map } from 'rxjs/operators'
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,25 +12,39 @@ import { NuevoHuesped } from '../entity/nuevoHuesped';
 export class HuespedService {
 
   //huespedURL = 'http://192.168.1.254:8080/api/huespedes';
-<<<<<<< HEAD
+
 //  huespedURL = 'http://192.168.18.75:8080/api/huespedes';
-huespedURL = 'http://localhost:8080/api/huespedes';
-=======
+//huespedURL = 'http://localhost:8080/api/huespedes';
+
 
 
 
   //huespedURL = 'http://192.168.18.75:8080/api/huespedes';
   huespedURL = 'http://127.0.0.1:8080/api/huespedes';
 
->>>>>>> 176cc082095e4ec57c64f4501fa85a9deaae2292
+ 
 
   constructor(private httpClient: HttpClient) { }
  
-  //huespedDetalle(){
-    //const ruta = "https://apiperu.dev/api/dni/";
+  /*huespedDetalle(numero: string){
+    const ruta = "https://apiperu.dev/api/dni/" + numero;
 
-   // return this.httpClient.get(ruta);
-  //}
+    return this.httpClient.get(ruta);
+  }*/
+
+  categoriasInsert(nombre:string, descripcion:string){
+    const ruta = "https://apiperu.dev/api/dni/";
+
+    const formData: FormData = new FormData();
+    formData.append("nombre", nombre);
+    formData.append("descripcion", descripcion);
+
+    return this.httpClient.post(ruta, formData).pipe(
+      map((res) => {
+        return res;
+      })
+    )
+  }
 
 
   public lista(): Observable<Huesped[]> {
