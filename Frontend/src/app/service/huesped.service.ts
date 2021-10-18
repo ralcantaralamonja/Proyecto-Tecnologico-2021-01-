@@ -10,11 +10,27 @@ import { NuevoHuesped } from '../entity/nuevoHuesped';
 export class HuespedService {
 
   //huespedURL = 'http://192.168.1.254:8080/api/huespedes';
+<<<<<<< HEAD
+//  huespedURL = 'http://192.168.18.75:8080/api/huespedes';
+huespedURL = 'http://localhost:8080/api/huespedes';
+=======
+
+
+
   //huespedURL = 'http://192.168.18.75:8080/api/huespedes';
   huespedURL = 'http://127.0.0.1:8080/api/huespedes';
 
+>>>>>>> 176cc082095e4ec57c64f4501fa85a9deaae2292
+
   constructor(private httpClient: HttpClient) { }
  
+  //huespedDetalle(){
+    //const ruta = "https://apiperu.dev/api/dni/";
+
+   // return this.httpClient.get(ruta);
+  //}
+
+
   public lista(): Observable<Huesped[]> {
     return this.httpClient.get<Huesped[]>(this.huespedURL);
   }
