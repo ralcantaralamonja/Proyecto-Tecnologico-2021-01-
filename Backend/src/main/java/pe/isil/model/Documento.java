@@ -32,4 +32,10 @@ public class Documento {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Id_Huesped", referencedColumnName = "Id_Huesped", insertable = false, updatable = false)
     private Huesped huesped;
+
+    public Documento(String numeroDocumento, Integer tipoId, Integer huespedId) {
+        this.numeroDocumento = numeroDocumento;
+        this.tipoId = tipoId;
+        this.huespedId = huespedId;
+    }
 }

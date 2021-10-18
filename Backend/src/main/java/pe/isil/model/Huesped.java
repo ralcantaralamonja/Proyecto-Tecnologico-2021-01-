@@ -45,9 +45,9 @@ public class Huesped {
         this.apellido = apellido;
         this.telefono = telefono;
         this.correo = correo;
+        this.estado = 1;
         this.usuarioRegistro = usuarioRegistro;
         this.fecha_Registro = LocalDateTime.now();
         this.observaciones = observaciones;
-        this.estado = 1;
     }
 }

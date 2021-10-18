@@ -30,8 +30,8 @@ public class DocumentoService implements CrudService<Documento, Integer> {
     }
 
     @Override
-    public void createOrUpdate(Documento id) {
-        documentoRepository.save(id);
+    public Documento createOrUpdate(Documento id) {
+        return documentoRepository.save(id);
     }
 
     @Override
@@ -42,6 +42,10 @@ public class DocumentoService implements CrudService<Documento, Integer> {
     @Override
     public boolean existsById(Integer id) {
         return documentoRepository.existsById(id);
+    }
+
+    public boolean existsByHuespedId(Integer id) {
+        return documentoRepository.existsByHuespedId(id);
     }
 
     public Documento findByHuespedId(Integer id){

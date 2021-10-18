@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface CrudService <T, K>{
     List<T> findAll();
     Optional<T> findById(K k);
-    void createOrUpdate(T t);
+    T createOrUpdate(T t);
     void delete(K k);
     boolean existsById(K k);
 }
