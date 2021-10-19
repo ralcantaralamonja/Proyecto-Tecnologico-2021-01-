@@ -30,7 +30,12 @@ public class DocumentoService implements CrudService<Documento, Integer> {
     }
 
     @Override
-    public Documento createOrUpdate(Documento id) {
+    public Documento create(Documento id) {
+        return documentoRepository.save(id);
+    }
+
+    @Override
+    public Documento update(Documento id) {
         return documentoRepository.save(id);
     }
 

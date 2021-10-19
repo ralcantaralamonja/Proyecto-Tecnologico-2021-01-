@@ -20,6 +20,10 @@ public class UsuarioService {
         return usuarioRepository.findByUsername(username);
     }
 
+    public Optional<Usuario> getById(Integer id){
+        return usuarioRepository.findById(id);
+    }
+
     public boolean existByUsername(String username){
         return usuarioRepository.existsByUsername(username);
     }
@@ -28,7 +32,17 @@ public class UsuarioService {
         return usuarioRepository.existsByCorreo(correo);
     }
 
+    public boolean existsById(Integer id) {
+        return usuarioRepository.existsByUsuarioId(id);
+    }
+
     public void save(Usuario usuario) {
         usuarioRepository.save(usuario);
+    }
+
+    public void delete(Integer id){
+        usuarioRepository.findById(id).ifPresent(
+                usuario -> usuario.setEstado(3)
+        );
     }
 }

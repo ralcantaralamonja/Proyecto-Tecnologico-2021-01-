@@ -58,16 +58,16 @@ public class HuespedController {
         if (huespedDto.getApellido().isBlank())
             return new ResponseEntity(new Mensaje("el apellido es obligatorio"), HttpStatus.BAD_REQUEST);
         int idTipoDoc = getIdTipo(huespedDto);
-        Huesped huespedDB = huespedService.createOrUpdate(toHuesped(huespedDto));
+        Huesped huespedDB = huespedService.create(toHuesped(huespedDto));
         Documento documento = new Documento(huespedDto.getNumeroDocumento(), idTipoDoc, huespedDB.getHuespedId());
-        Documento docDB = documentoService.createOrUpdate(documento);
+        Documento docDB = documentoService.create(documento);
         huespedDB.setDocumento(docDB);
-        huespedService.createOrUpdate(huespedDB);
+        huespedService.create(huespedDB);
         return new ResponseEntity(new Mensaje("registro exitoso"), HttpStatus.CREATED);
     }
 
     //TODO
-    // ************ manejarlo con stored procedures ************
+    // ************ para proximos avances manejarlo con stored procedures ************
     @PutMapping("/{id}")
     public ResponseEntity<?> updateHuesped(@PathVariable("id") Integer id, @RequestBody HuespedDto huespedDto) {
         if (!huespedService.existsById(id))
@@ -83,7 +83,7 @@ public class HuespedController {
         huesped.setFechaUltModificacion(LocalDateTime.now());
         huesped.setEstado(2);
         huesped.setObservaciones("REGISTRO EDITADO");
-        huespedService.createOrUpdate(huesped);
+        huespedService.update(huesped);
         //se clona el registro
         Huesped clonHuesped = clonarHuesped(huesped);
 
@@ -92,14 +92,14 @@ public class HuespedController {
         clonHuesped.setTelefono(huespedDto.getTelefono());
         clonHuesped.setCorreo(huespedDto.getCorreo());
         clonHuesped.setObservaciones(huespedDto.getObservaciones());
-        Huesped huespedUpdated = huespedService.createOrUpdate(clonHuesped);
+        Huesped huespedUpdated = huespedService.create(clonHuesped);
 
         if (documentoService.existsByHuespedId(id)){
             Documento documento = documentoService.findByHuespedId(id);
             documento.setNumeroDocumento(huespedDto.getNumeroDocumento());
             documento.setTipoId(getIdTipo(huespedDto));
             documento.setHuespedId(huespedUpdated.getHuespedId());
-            documentoService.createOrUpdate(documento);
+            documentoService.update(documento);
         }
         return new ResponseEntity(new Mensaje("Huesped actualizado"), HttpStatus.OK);
     }

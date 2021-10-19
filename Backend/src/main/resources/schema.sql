@@ -89,7 +89,7 @@ CREATE TABLE USUARIO
     Correo         VARCHAR(255),
     Fecha_Creacion DATETIME     NOT NULL,
     Estado         INT          NOT NULL
-); -- 1 -> Activo | 2 - Inactivo
+); -- 1 -> Activo | 2 - Inactivo | 3 - Eliminado
 
 CREATE TABLE ROL
 (
