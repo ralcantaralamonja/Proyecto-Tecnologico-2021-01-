@@ -49,7 +49,7 @@ export class RegistroComponent implements OnInit {
         });
 
        
-        this.router.navigate(['/login']);
+        this.router.navigate(['/inicio']);
       },
       err => {
        

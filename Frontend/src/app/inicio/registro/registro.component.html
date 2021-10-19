@@ -1,8 +1,9 @@
 
-  <div class="text-center" *ngIf="isLogged; else loggedOut">
+  <!--<div class="text-center" *ngIf="isLogged; else loggedOut">
     <h2>Ya has iniciado sesión</h2>
-  </div>
-  <ng-template #loggedOut>
+  </div>-->
+  <!--<ng-template #loggedOut>-->
+    <app-navbar></app-navbar>
 
     <body id="RegistroBody">
       <div class="login-box">
@@ -55,4 +56,4 @@
         <div id="Error" class="alert alert-danger mt-3"> </div>
       </div>
     </body>
-  </ng-template>
+  <!--</ng-template>-->

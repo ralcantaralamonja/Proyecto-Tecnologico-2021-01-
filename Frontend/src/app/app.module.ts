@@ -19,6 +19,10 @@ import { DetalleHuespedComponent } from './huesped/detalle-huesped/detalle-huesp
 import { EditarHuespedComponent } from './huesped/editar-huesped/editar-huesped.component';
 import { NuevoHuespedComponent } from './huesped/nuevo-huesped/nuevo-huesped.component';
 import { DesignComponent } from './contenido/design/design.component';
+import { NuevoUsuarioComponent } from './usuario/nuevo-usuario/nuevo-usuario.component';
+import { DetalleUsuarioComponent } from './usuario/detalle-usuario/detalle-usuario.component';
+import { EditarUsuarioComponent } from './usuario/editar-usuario/editar-usuario.component';
+import { ListaUsuarioComponent } from './usuario/lista-usuario/lista-usuario.component';
 
 
 @NgModule({
@@ -33,7 +37,11 @@ import { DesignComponent } from './contenido/design/design.component';
     DetalleHuespedComponent,
     EditarHuespedComponent,
     NuevoHuespedComponent,
-    DesignComponent
+    DesignComponent,
+    NuevoUsuarioComponent,
+    DetalleUsuarioComponent,
+    EditarUsuarioComponent,
+    ListaUsuarioComponent
   ],
   imports: [
     BrowserModule,
