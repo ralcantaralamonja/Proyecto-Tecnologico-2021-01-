@@ -6,6 +6,7 @@ import pe.isil.security.model.entity.Usuario;
 import pe.isil.security.repository.UsuarioRepository;
 
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @Transactional
@@ -16,15 +17,15 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public Optional<Usuario> getByUsername(String username){
+    public Optional<Usuario> getByUsername(String username) {
         return usuarioRepository.findByUsername(username);
     }
 
-    public Optional<Usuario> getById(Integer id){
+    public Optional<Usuario> getById(Integer id) {
         return usuarioRepository.findById(id);
     }
 
-    public boolean existByUsername(String username){
+    public boolean existByUsername(String username) {
         return usuarioRepository.existsByUsername(username);
     }
 
@@ -40,9 +41,12 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
     }
 
-    public void delete(Integer id){
+    public void delete(Integer id) {
         usuarioRepository.findById(id).ifPresent(
-                usuario -> usuario.setEstado(3)
+                u -> {
+                    u.setEstado(3);
+                    usuarioRepository.save(u);
+                }
         );
     }
 }

@@ -82,7 +82,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzMjgxMzA1OCwiZXhwIjoxNjMyODQ5MDU4fQ.wwF3xfdAB1qRouKyuSSxTuD9N1QMlstTyczBcJT0HcxvCQ2E7Z-LlmUFBZdcMpPaT59_asaJoDw4PTS16v5mEw",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNDU0MjY1OCwiZXhwIjoxNjM0NTc4NjU4fQ._lLX2lXAVXmDRopUZpE_jDYBKfFsWYmehsfYtOD_p_b30bMi2YSogr3tBpP_R5lVrj4owoq2_MooEZfQxXSoYg",
 									"type": "string"
 								}
 							]
@@ -99,7 +99,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/huesped/",
+							"raw": "http://localhost:8080/api/huespedes",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -107,8 +107,7 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"huesped",
-								""
+								"huespedes"
 							]
 						}
 					},
@@ -122,7 +121,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzMjgxMzA1OCwiZXhwIjoxNjMyODQ5MDU4fQ.wwF3xfdAB1qRouKyuSSxTuD9N1QMlstTyczBcJT0HcxvCQ2E7Z-LlmUFBZdcMpPaT59_asaJoDw4PTS16v5mEw",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNDU0MjY1OCwiZXhwIjoxNjM0NTc4NjU4fQ._lLX2lXAVXmDRopUZpE_jDYBKfFsWYmehsfYtOD_p_b30bMi2YSogr3tBpP_R5lVrj4owoq2_MooEZfQxXSoYg",
 									"type": "string"
 								}
 							]
@@ -131,7 +130,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\":\"La Tal\",\r\n    \"apellido\":\"Maruja\",\r\n    \"telefono\": \"5252525\",\r\n    \"correo\":\"marujita@gmail.com\",\r\n    \"usuarioRegistro\":\"Don Lucho\",\r\n    \"observaciones\":\"no da propina\"\r\n}",
+							"raw": "{\r\n    \"nombre\":\"La Tal\",\r\n    \"apellido\":\"Maruja\",\r\n    \"telefono\": \"5252525\",\r\n    \"correo\":\"marujita@gmail.com\",\r\n    \"usuarioRegistro\":\"Don Lucho\",\r\n    \"observaciones\":\"no da propina\",\r\n    \"tipoDocumento\":\"DNI\",\r\n    \"numeroDocumento\":\"44556699\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -139,7 +138,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/huesped/",
+							"raw": "http://localhost:8080/api/huespedes",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -147,8 +146,7 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"huesped",
-								""
+								"huespedes"
 							]
 						}
 					},
@@ -162,7 +160,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzMjgxMzA1OCwiZXhwIjoxNjMyODQ5MDU4fQ.wwF3xfdAB1qRouKyuSSxTuD9N1QMlstTyczBcJT0HcxvCQ2E7Z-LlmUFBZdcMpPaT59_asaJoDw4PTS16v5mEw",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNDU0MjY1OCwiZXhwIjoxNjM0NTc4NjU4fQ._lLX2lXAVXmDRopUZpE_jDYBKfFsWYmehsfYtOD_p_b30bMi2YSogr3tBpP_R5lVrj4owoq2_MooEZfQxXSoYg",
 									"type": "string"
 								}
 							]
@@ -171,7 +169,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\":\"La Tal\",\r\n    \"apellido\":\"Maruja\",\r\n    \"telefono\": \"999666333\",\r\n    \"correo\":\"marujita@gmail.com\",\r\n    \"usuarioUltModificacion\":\"Don Cecilio\",\r\n    \"observaciones\":\"no da propina\"\r\n}",
+							"raw": "{\r\n    \"nombre\":\"La Tal\",\r\n    \"apellido\":\"Maruja\",\r\n    \"telefono\": \"999666333\",\r\n    \"correo\":\"marujita@hotmail.com\",\r\n    \"usuarioUltModificacion\":\"Don Cecilio\",\r\n    \"observaciones\":\"No da propina. Reserva habitacion numero 11\",    \r\n    \"tipoDocumento\":\"DNI\",\r\n    \"numeroDocumento\":\"00556699\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -179,7 +177,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/huesped/1",
+							"raw": "http://localhost:8080/api/huespedes/13",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -187,8 +185,8 @@
 							"port": "8080",
 							"path": [
 								"api",
-								"huesped",
-								"1"
+								"huespedes",
+								"13"
 							]
 						}
 					},
@@ -272,6 +270,199 @@
 								"api",
 								"huesped",
 								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "api reniec",
+			"item": [
+				{
+					"name": "get by dni",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer 2ad4c7f85cc0c5b02da0b2084d7953401bd4c0ce2342e3e9451de55b7e540af8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://apiperu.dev/api/dni/45867242",
+							"protocol": "https",
+							"host": [
+								"apiperu",
+								"dev"
+							],
+							"path": [
+								"api",
+								"dni",
+								"45867242"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "usuarios",
+			"item": [
+				{
+					"name": "nuevo usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNDYyNjMyMywiZXhwIjoxNjM0NjYyMzIzfQ.PsP_4YTdOD0vfdz8PwNEeyDXgGD_Axf0mOlJE136RosQHhhFQXf57mS1s6X6de0k5imkdlfMHkvpCw4EJyHIvA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombres\": \"Ricardo\",\r\n    \"apellidos\":\"Alcantara\",\r\n    \"username\":\"ricardito\",\r\n    \"password\":\"12345\",\r\n    \"correo\":\"ninioricardito@elfavoritodelmaistro.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/registro-usuario",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"registro-usuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "nuevo manager",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNDY2NTMzOCwiZXhwIjoxNjM0NzAxMzM4fQ.QhjhqAoLfPTnxnnRpRF8--Ml0Y4uFYFYFPK3cpEXF2xIdZjVoXUQs1x-YPJjLcRUq7jC0gh2aZB2khYzirmaCw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombres\": \"Norvil\",\r\n    \"apellidos\":\"Arce\",\r\n    \"username\":\"norvilsama\",\r\n    \"password\":\"666\",\r\n    \"correo\":\"norvilsama@mail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/registro-manager",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"registro-manager"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3J2aWxzYW1hIiwiaWF0IjoxNjM0NjczMDY5LCJleHAiOjE2MzQ3MDkwNjl9.6OhKzfwQDFgMRN7Ed5W4645lloGwqRzg8piJJ692SwDfYQ0Wd3QWhUKMOwm8fbtO8ATnwtNODGMjpDaliFSUqA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"ricardito\",\r\n    \"password\":\"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/admin/users/delete/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"users",
+								"delete",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bloquear usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNDY3ODk4MywiZXhwIjoxNjM0NzE0OTgzfQ.s-zK3iNRIWKajGALozEYNs_QUuRK_8LLcmfOUpkvabMTNkWnrUTTxUq0UBvEvyBVp2V6itx7s_YG5f0ChXgmKw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/users/bloqueo/avillar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"users",
+								"bloqueo",
+								"avillar"
 							]
 						}
 					},

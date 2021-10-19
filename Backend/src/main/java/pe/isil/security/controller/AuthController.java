@@ -2,7 +2,6 @@ package pe.isil.security.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,9 +16,11 @@ import pe.isil.security.dto.LoginUsuario;
 import pe.isil.security.dto.NuevoUsuario;
 import pe.isil.security.enums.RolNombre;
 import pe.isil.security.jwt.JwtProvider;
+import pe.isil.security.model.UsuarioPrincipal;
 import pe.isil.security.model.entity.Rol;
 import pe.isil.security.model.entity.Usuario;
 import pe.isil.security.service.RolService;
+import pe.isil.security.service.UserDetailsServiceImpl;
 import pe.isil.security.service.UsuarioService;
 
 import javax.validation.Valid;
@@ -27,6 +28,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+//@EnableGlobalMethodSecurity
 @RestController
 @RequestMapping("/admin")
 @CrossOrigin
@@ -35,13 +37,15 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final UsuarioService usuarioService;
+    private final UserDetailsServiceImpl userDetailsService;
     private final RolService rolService;
     private final JwtProvider jwtProvider;
 
-    public AuthController(PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, UsuarioService usuarioService, RolService rolService, JwtProvider jwtProvider) {
+    public AuthController(PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, UsuarioService usuarioService, UserDetailsServiceImpl userDetailsService, RolService rolService, JwtProvider jwtProvider) {
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.usuarioService = usuarioService;
+        this.userDetailsService = userDetailsService;
         this.rolService = rolService;
         this.jwtProvider = jwtProvider;
     }
@@ -77,16 +81,28 @@ public class AuthController {
         return new ResponseEntity<>(jwtDto, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    @PostMapping("/registro-usuario")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult) {
-        return register(nuevoUsuario, bindingResult, "USER");
+    @PostMapping("/users/registro-user/{username}")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody NuevoUsuario nuevoUsuario, @PathVariable String username, BindingResult bindingResult) {
+        UserDetails details = userDetailsService.loadUserByUsername(username);
+        if (details != null ){
+            if (details.getAuthorities().stream()
+                    .anyMatch(a -> a.getAuthority().equals("MANAGER"))) {
+                return register(nuevoUsuario, bindingResult, "USER");
+            }
+        }
+        return new ResponseEntity<>(new Mensaje("No autorizado"), HttpStatus.UNAUTHORIZED);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/registro-manager")
-    public ResponseEntity<?> registerManager(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult) {
-        return register(nuevoUsuario, bindingResult, "MANAGER");
+    @PostMapping("/users/registro-manager/{username}")
+    public ResponseEntity<?> registerManager(@Valid @RequestBody NuevoUsuario nuevoUsuario, @PathVariable String username, BindingResult bindingResult) {
+        UserDetails details = userDetailsService.loadUserByUsername(username);
+        if (details != null ){
+            if (details.getAuthorities().stream()
+                    .anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+                return register(nuevoUsuario, bindingResult, "MANAGER");
+            }
+        }
+        return new ResponseEntity<>(new Mensaje("No autorizado"), HttpStatus.UNAUTHORIZED);
     }
 
     public ResponseEntity<?> register(NuevoUsuario nuevoUsuario, BindingResult bindingResult, String rol) {
@@ -109,16 +125,19 @@ public class AuthController {
         return new ResponseEntity(new Mensaje("Se registro correctamente"), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")   // tambien para bloquear por clave errada al 3er intento
-    public ResponseEntity<?> deletedManager(@PathVariable("id") Integer id) {
-        return delete(id, new Rol(1, RolNombre.ADMIN));
-    }
-
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','MANAGER')")
-    public ResponseEntity<?> deletedUser(@PathVariable("id") Integer id) {
-        return delete(id, new Rol(1, RolNombre.MANAGER));
+    @PutMapping("/users/delete/{id}")
+    public ResponseEntity<?> deletedManager(@PathVariable("id") Integer id, @RequestBody LoginUsuario usuario) {
+        UserDetails details = userDetailsService.loadUserByUsername(usuario.getUsername());
+        if (details != null ){
+            if (details.getAuthorities().stream()
+                    .anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+                return delete(id, new Rol(1, RolNombre.ADMIN));
+            } else if (details.getAuthorities().stream()
+                    .anyMatch(a -> a.getAuthority().equals("MANAGER"))) {
+                return delete(id, new Rol(2, RolNombre.MANAGER));
+            }
+        }
+        return new ResponseEntity<>(new Mensaje("No autorizado"), HttpStatus.UNAUTHORIZED);
     }
 
     public ResponseEntity<?> delete(Integer id, Rol rolUserActual) {
@@ -126,11 +145,23 @@ public class AuthController {
             return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
 
         Usuario usuario = usuarioService.getById(id).get();
-        if (usuario.getRoles().contains(rolUserActual)) {
-            return new ResponseEntity(new Mensaje("No tiene permiso para realizar esta operacion"), HttpStatus.FORBIDDEN);
+        if (usuario.getRoles().stream().anyMatch(rol -> rol.getRolNombre().equals(rolUserActual.getRolNombre()))) {
+            return new ResponseEntity(new Mensaje("No tiene permiso para realizar esta operacion"), HttpStatus.UNAUTHORIZED);
         }
         usuarioService.delete(id);
         return new ResponseEntity(new Mensaje("Usuario eliminado"), HttpStatus.OK);
     }
 
+    @PutMapping("/users/bloqueo/{username}")
+    public ResponseEntity<?> bloquearUsuario(@PathVariable String username) {
+        if (!usuarioService.existByUsername(username))
+            return new ResponseEntity(new Mensaje("Usuario no existe"), HttpStatus.NOT_FOUND);
+        return usuarioService.getByUsername(username).map(
+                usuario -> {
+                    usuario.setEstado(2);
+                    usuarioService.save(usuario);
+                    return new ResponseEntity(new Mensaje("Usuario bloqueado, comuniquese con un administrador"), HttpStatus.OK);
+                }
+        ).orElse(new ResponseEntity(new Mensaje("Usuario no existe"), HttpStatus.NOT_FOUND));
+    }
 }

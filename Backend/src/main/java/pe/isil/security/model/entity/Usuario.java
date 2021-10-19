@@ -54,7 +54,6 @@ public class Usuario {
         this.password = password;
         this.fechaCreacion = LocalDateTime.now();
         this.correo = correo;
-        this.estado = 2; //por defecto los usuarios se crean inactivos
-                         //hasta ser aprobados
+        this.estado = 1; //por defecto los usuarios se crean activos
     }
 }
