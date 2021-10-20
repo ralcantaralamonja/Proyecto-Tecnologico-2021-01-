@@ -14,12 +14,15 @@ import { InicioGuardService  as inicioGuard } from './guards/inicio-guard.servic
 import { AdminGuardService  as adminGuard } from './guards/admin-guard.service';
 
 import { ListaUsuarioComponent } from './usuario/lista-usuario/lista-usuario.component';
+import { NuevoUsuarioComponent } from './usuario/nuevo-usuario/nuevo-usuario.component';
 
 const routes: Routes = [
 
   {path: '', component: HomeComponent},
   {path: 'registro', component: RegistroComponent,canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
   {path: 'inicio', component:InicioComponent,canActivate: [inicioGuard], data: {expectRol:['ADMIN', 'USER']}},
+  {path: 'usuario', component:ListaUsuarioComponent,canActivate: [inicioGuard], data: {expectRol:['ADMIN', 'USER']}},
+
   {path: 'login', component:LoginComponent},
   
   {path: 'lista-huesped', component:ListaHuespedComponent,canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
@@ -27,8 +30,12 @@ const routes: Routes = [
   {path: 'editar/:huespedId',component:EditarHuespedComponent, canActivate: [guard], data: {expectRol:['ADMIN', 'USER']} },
   {path: 'lista-usuario', component:ListaUsuarioComponent, canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
 
-  {path: 'detalle/:huespedId', component:DetalleHuespedComponent, canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}}
+  {path: 'detalle/:huespedId', component:DetalleHuespedComponent, canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
   
+
+  {path: 'nuevo-usuario', component:NuevoUsuarioComponent,canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
+
+
 ];
 
 @NgModule({
