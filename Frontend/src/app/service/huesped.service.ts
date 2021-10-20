@@ -44,7 +44,6 @@ export class HuespedService {
     )
   }
 
-
   public lista(): Observable<Huesped[]> {
     return this.httpClient.get<Huesped[]>(this.huespedURL);
   }

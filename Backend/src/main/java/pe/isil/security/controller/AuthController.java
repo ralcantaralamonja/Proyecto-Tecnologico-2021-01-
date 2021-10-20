@@ -170,5 +170,4 @@ public class AuthController {
         List<Usuario> usuarios = usuarioService.findAll();
         return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
     }
-
 }
