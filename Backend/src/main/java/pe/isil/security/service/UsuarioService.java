@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pe.isil.security.model.entity.Usuario;
 import pe.isil.security.repository.UsuarioRepository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -49,4 +50,9 @@ public class UsuarioService {
                 }
         );
     }
+
+    public List<Usuario> findAll(){
+        return usuarioRepository.findAll();
+    }
+
 }

@@ -11,18 +11,7 @@ import { map } from 'rxjs/operators'
 })
 export class HuespedService {
 
-  //huespedURL = 'http://192.168.1.254:8080/api/huespedes';
-
-//  huespedURL = 'http://192.168.18.75:8080/api/huespedes';
-//huespedURL = 'http://localhost:8080/api/huespedes';
-
-
-
-
-  //huespedURL = 'http://192.168.18.75:8080/api/huespedes';
-  huespedURL = 'http://127.0.0.1:8080/api/huespedes';
-
- 
+  huespedURL = 'http://127.0.0.1:8080/api/huespedes'; 
 
   constructor(private httpClient: HttpClient) { }
  

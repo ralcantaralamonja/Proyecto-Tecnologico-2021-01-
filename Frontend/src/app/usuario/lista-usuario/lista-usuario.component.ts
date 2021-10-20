@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { LoginUsuario } from 'src/app/entity/login-usuario';
 import { NuevoUsuario } from 'src/app/entity/nuevo-usuario';
 import { Usuario } from 'src/app/entity/usuario';
 import { TokenService } from 'src/app/service/token.service';
@@ -15,7 +16,7 @@ export class ListaUsuarioComponent implements OnInit {
   nuevoUsuario : Usuario[] = [];
   roles:string[];
   isAdmin = false;
-
+  loginUsuario: LoginUsuario;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -25,6 +26,8 @@ export class ListaUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.loginUsuario.username = this.tokenService.getUserName();
+    this.loginUsuario.password = 'ricardoinfiel';
     this.cargarUsuarios();
     this.roles = this.tokenService.getAuthorities();
     this.roles.forEach(rol => {
@@ -47,7 +50,7 @@ export class ListaUsuarioComponent implements OnInit {
   }
 
   borrar(id: string) {
-    this.usuarioService.delete(id).subscribe(
+    this.usuarioService.eliminar(id, this.loginUsuario).subscribe(
       data => {
         this.toastr.success('Usuario ha sido Eliminado correctamente', 'OK', {
           timeOut: 3000, positionClass: 'toast-top-center'
@@ -61,5 +64,4 @@ export class ListaUsuarioComponent implements OnInit {
       }
     );
   }
-
 }

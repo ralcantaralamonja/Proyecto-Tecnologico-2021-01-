@@ -10,7 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pe.isil.dto.HuespedDto;
 import pe.isil.dto.Mensaje;
+import pe.isil.model.Huesped;
 import pe.isil.security.dto.JwtDto;
 import pe.isil.security.dto.LoginUsuario;
 import pe.isil.security.dto.NuevoUsuario;
@@ -24,9 +26,7 @@ import pe.isil.security.service.UserDetailsServiceImpl;
 import pe.isil.security.service.UsuarioService;
 
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 //@EnableGlobalMethodSecurity
 @RestController
@@ -126,7 +126,7 @@ public class AuthController {
     }
 
     @PutMapping("/users/delete/{id}")
-    public ResponseEntity<?> deletedManager(@PathVariable("id") Integer id, @RequestBody LoginUsuario usuario) {
+    public ResponseEntity<?> deleteUser(@PathVariable("id") Integer id, @RequestBody LoginUsuario usuario) {
         UserDetails details = userDetailsService.loadUserByUsername(usuario.getUsername());
         if (details != null ){
             if (details.getAuthorities().stream()
@@ -152,11 +152,11 @@ public class AuthController {
         return new ResponseEntity(new Mensaje("Usuario eliminado"), HttpStatus.OK);
     }
 
-    @PutMapping("/users/bloqueo/{username}")
-    public ResponseEntity<?> bloquearUsuario(@PathVariable String username) {
-        if (!usuarioService.existByUsername(username))
+    @PutMapping("/users/bloqueo")
+    public ResponseEntity<?> bloquearUsuario(@RequestBody LoginUsuario loginUsuario) {
+        if (!usuarioService.existByUsername(loginUsuario.getUsername()))
             return new ResponseEntity(new Mensaje("Usuario no existe"), HttpStatus.NOT_FOUND);
-        return usuarioService.getByUsername(username).map(
+        return usuarioService.getByUsername(loginUsuario.getUsername()).map(
                 usuario -> {
                     usuario.setEstado(2);
                     usuarioService.save(usuario);
@@ -164,4 +164,11 @@ public class AuthController {
                 }
         ).orElse(new ResponseEntity(new Mensaje("Usuario no existe"), HttpStatus.NOT_FOUND));
     }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<Usuario>> usuariosList() {
+        List<Usuario> usuarios = usuarioService.findAll();
+        return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
+    }
+
 }
