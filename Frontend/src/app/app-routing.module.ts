@@ -11,6 +11,8 @@ import { RegistroComponent } from './inicio/registro/registro.component';
 
 import { HuespedGuardService as guard} from './guards/huesped-guard.service';
 import { InicioGuardService  as inicioGuard } from './guards/inicio-guard.service';
+import { AdminGuardService  as adminGuard } from './guards/admin-guard.service';
+
 import { ListaUsuarioComponent } from './usuario/lista-usuario/lista-usuario.component';
 
 const routes: Routes = [
@@ -21,7 +23,7 @@ const routes: Routes = [
   {path: 'login', component:LoginComponent},
   
   {path: 'lista-huesped', component:ListaHuespedComponent,canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
-  {path: 'nuevo', component:NuevoHuespedComponent, canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
+  {path: 'nuevo', component:NuevoHuespedComponent, canActivate: [adminGuard], data: {expectRol:['MANAGER', 'ADMIN']}},
   {path: 'editar/:huespedId',component:EditarHuespedComponent, canActivate: [guard], data: {expectRol:['ADMIN', 'USER']} },
   {path: 'lista-usuario', component:ListaUsuarioComponent, canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
 
