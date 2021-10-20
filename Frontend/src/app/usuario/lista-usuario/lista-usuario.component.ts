@@ -13,7 +13,7 @@ import { UsuarioService } from 'src/app/service/usuario.service';
 })
 export class ListaUsuarioComponent implements OnInit {
 
-  nuevoUsuario : Usuario[] = [];
+  nuevoUsuario : NuevoUsuario[] = [];
   roles:string[];
   isAdmin = false;
   loginUsuario: LoginUsuario;
@@ -26,8 +26,8 @@ export class ListaUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.loginUsuario.username = this.tokenService.getUserName();
-    this.loginUsuario.password = 'ricardoinfiel';
+    //this.loginUsuario.username = this.tokenService.getUserName();
+    //this.loginUsuario.password = 'ricardoinfiel';
     this.cargarUsuarios();
     this.roles = this.tokenService.getAuthorities();
     this.roles.forEach(rol => {

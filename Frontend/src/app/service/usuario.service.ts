@@ -39,11 +39,11 @@ export class UsuarioService {
     return this.httpClient.put<any>(this.usuarioURL + `/users/delete/` + `${id}`, loginUsuario);
   }
 
-  public nuevoUsuario(username: string, nuevoUsuario: NuevoUsuario): Observable<any> {
+  public nuevoUsuario(username: string, nuevoUsuario: Usuario): Observable<any> {
     return this.httpClient.post<any>(this.usuarioURL + '/users/registro-user/' + `${username}`, nuevoUsuario);
   }
 
-  public nuevoManager(username: string, nuevoUsuario: NuevoUsuario): Observable<any> {
+  public nuevoManager(username: string, nuevoUsuario: Usuario): Observable<any> {
     return this.httpClient.post<any>(this.usuarioURL + '/users/registro-manager/' + `${username}`, nuevoUsuario);
   }
 

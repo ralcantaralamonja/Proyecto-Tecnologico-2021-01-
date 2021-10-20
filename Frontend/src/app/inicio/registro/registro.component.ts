@@ -20,6 +20,9 @@ export class RegistroComponent implements OnInit {
   correo: string;
   username: string;
   password: string;
+  rol: string;
+  estado: string;
+
   roles: string[] = [];
   errMsj: string;
   isLogged = false;
@@ -41,7 +44,7 @@ export class RegistroComponent implements OnInit {
   }
 
   onRegister(): void{
-    this.nuevoUsuario = new NuevoUsuario(this.nombres, this.apellidos,  this.username, this.correo,  this.password);
+    this.nuevoUsuario = new NuevoUsuario(this.nombres, this.apellidos,  this.username, this.correo,  this.password, this.rol, this.estado);
     this.usuarioService.nuevoUsuario(this.usernameLogeado, this.nuevoUsuario).subscribe(
       data =>{
         this.toastr.success('Usuario creado', 'OK', {
