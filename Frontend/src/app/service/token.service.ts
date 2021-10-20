@@ -14,7 +14,6 @@ export class TokenService {
   constructor() { }
 
   public setToken(token: string): void {
-
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
   }
@@ -34,10 +33,8 @@ export class TokenService {
   }
 
   public setAuthorities(authorities: string[]): void {
-
     window.sessionStorage.removeItem(AUTHORITIES_KEY);
     window.sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
-
   }
 
   public getAuthorities(): string[] {

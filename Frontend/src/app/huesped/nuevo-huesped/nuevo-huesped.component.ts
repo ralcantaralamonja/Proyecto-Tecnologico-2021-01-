@@ -13,17 +13,16 @@ import { TokenService } from 'src/app/service/token.service';
 })
 export class NuevoHuespedComponent implements OnInit {
 
- /* nombre = '';
-  apellido = '';
-  telefono = '';
-  correo = '';
-  usuarioRegistro = this.tokenService.getUserName();
-  observaciones = ''
-*/
-    numero   = '';
-    nombre_completo = this.tokenService.getUserName();
-    
-  
+  /* nombre = '';
+   apellido = '';
+   telefono = '';
+   correo = '';
+   usuarioRegistro = this.tokenService.getUserName();
+   observaciones = ''
+ */
+
+  numero = '';
+  nombre_completo = this.tokenService.getUserName();
 
   constructor(
     private httpClient: HttpClient,
@@ -34,14 +33,11 @@ export class NuevoHuespedComponent implements OnInit {
 
   ) { }
 
-  
-  
-
   ngOnInit(): void {
   }
 
   onCreate(): void {
-    const huesped = new NuevoHuesped(/*this.numero, this.data.nombre_completo*/ );
+    const huesped = new NuevoHuesped(/*this.numero, this.data.nombre_completo*/);
     this.huespedService.save(huesped).subscribe(
       data => {
         this.toastr.success('Huesped Creado correctamente', 'OK', {
@@ -51,7 +47,7 @@ export class NuevoHuespedComponent implements OnInit {
       },
       err => {
         this.toastr.error(err.error.mensaje, 'Fail', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
+          timeOut: 3000, positionClass: 'toast-top-center',
         });
       }
     );
