@@ -5,7 +5,7 @@ export class Usuario{
     password: string;
     correo: string;
     estado: string;
-    rol: string;
+    rol: string[];
     constructor(nombres: string, apellidos: string, username: string, correo: string, password: string, estado:string, rol: string){
 
         this.nombres = nombres;
@@ -14,7 +14,7 @@ export class Usuario{
         this.correo = correo;
         this.password = password;
         this.estado = estado;
-        this.rol = rol;
+        this.rol[0] = rol;
         
     }
 }

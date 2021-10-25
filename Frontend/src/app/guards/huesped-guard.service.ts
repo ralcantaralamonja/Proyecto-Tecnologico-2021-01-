@@ -29,7 +29,7 @@ export class HuespedGuardService implements CanActivate{
     console.log(this.tokenService.getToken());
     
     if (!this.tokenService.getToken()  || expectedRol.indexOf(this.realRole) === -1) {
-      this.router.navigate(['login']);
+      this.router.navigate(['inicio']);
       return false;
     }
     return true;

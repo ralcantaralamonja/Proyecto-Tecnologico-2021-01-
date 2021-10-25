@@ -13,8 +13,9 @@ import { UsuarioService } from 'src/app/service/usuario.service';
 })
 export class ListaUsuarioComponent implements OnInit {
 
-  nuevoUsuario : NuevoUsuario[] = [];
-  roles:string[];
+  usuario: Usuario;
+  usuarios: Usuario[] = [];
+  roles: string[];
   isAdmin = false;
   loginUsuario: LoginUsuario;
 
@@ -25,15 +26,16 @@ export class ListaUsuarioComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-    //this.loginUsuario.username = this.tokenService.getUserName();
-    //this.loginUsuario.password = 'ricardoinfiel';
     this.cargarUsuarios();
     this.roles = this.tokenService.getAuthorities();
     this.roles.forEach(rol => {
       if (rol === 'ADMIN') {
         this.isAdmin = true;
       }
+      this.loginUsuario.username = this.tokenService.getUserName();
+      this.loginUsuario.password = 'ricardoinfiel';
+      console.log(this.loginUsuario.username);
+      console.log(this.tokenService.getUserName());
     });
 
   }
@@ -41,7 +43,7 @@ export class ListaUsuarioComponent implements OnInit {
   cargarUsuarios(): void {
     this.usuarioService.lista().subscribe(
       data => {
-        this.nuevoUsuario = data;
+        this.usuarios = data;
       },
       err => {
         console.log(err);
@@ -50,6 +52,7 @@ export class ListaUsuarioComponent implements OnInit {
   }
 
   borrar(id: string) {
+    console.log(this.loginUsuario.username);
     this.usuarioService.eliminar(id, this.loginUsuario).subscribe(
       data => {
         this.toastr.success('Usuario ha sido Eliminado correctamente', 'OK', {
@@ -63,5 +66,9 @@ export class ListaUsuarioComponent implements OnInit {
         });
       }
     );
+  }
+
+  activar(username:string){
+
   }
 }
