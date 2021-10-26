@@ -31,8 +31,13 @@ export class UsuarioService {
     return this.httpClient.post<any>(this.usuarioURL + 'users/registro-user/' + `${username}`, nuevoUsuario);
   }
 
+<<<<<<< HEAD
+  public nuevoManager(username: string, nuevoUsuario: NuevoUsuario): Observable<any> {
+    return this.httpClient.post<any>(this.usuarioURL + '/users/registro-manager/' + `${username}`, nuevoUsuario);
+=======
   public nuevoManager(username: string, nuevoUsuario: Usuario): Observable<any> {
     return this.httpClient.post<any>(this.usuarioURL + 'users/registro-manager/' + `${username}`, nuevoUsuario);
+>>>>>>> 4e45696b2927c6e032433d0b91d563bc78322882
   }
 
 }

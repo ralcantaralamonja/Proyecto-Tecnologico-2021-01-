@@ -43,6 +43,7 @@ export class RegistroComponent implements OnInit {
     }    
   }
 
+
   onRegister(): void{
     this.nuevoUsuario = new NuevoUsuario(this.nombres, this.apellidos,  this.username, this.correo,  this.password, this.rol, this.estado);
     this.usuarioService.nuevoUsuario(this.usernameLogeado, this.nuevoUsuario).subscribe(
@@ -54,9 +55,7 @@ export class RegistroComponent implements OnInit {
       },
       err => {       
         this.errMsj = err.error.mensaje;
-        this.toastr.error(this.errMsj, 'Fail', {
-          timeOut: 3000, positionClass:'toast-top-center'
-        })
+        this.toastr.error(this.errMsj, 'Fail');
         console.log("error -> " + err.error.mensaje);
       }
     )

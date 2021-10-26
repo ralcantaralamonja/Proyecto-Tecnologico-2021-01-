@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { LoginUsuario } from 'src/app/entity/login-usuario';
 import { AuthService } from 'src/app/service/auth.service';
 import { TokenService } from 'src/app/service/token.service';
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private tokenService: TokenService,
     private authService: AuthService,
+    private toastr: ToastrService,
     private router: Router
   ) { }
 
@@ -32,6 +34,9 @@ export class LoginComponent implements OnInit {
       this.isLoginFail = false;
       this.roles = this.tokenService.getAuthorities();
     }
+  }
+  test() {
+    this.toastr.success("I'm a toast!", "Success!");
   }
 
   onLogin(): void{
@@ -53,6 +58,8 @@ export class LoginComponent implements OnInit {
         this.isLogged = false;
         this.isLoginFail = true;
         this.errMsj = err.error.mensaje;
+        this.toastr.error(this.errMsj, 'Fail');
+
         console.log("error -> " + err.error.mensaje);
       }
     )

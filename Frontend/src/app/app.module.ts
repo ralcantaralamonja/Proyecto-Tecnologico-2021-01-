@@ -48,7 +48,11 @@ import { ListaUsuarioComponent } from './usuario/lista-usuario/lista-usuario.com
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot(
+      {
+        timeOut: 3000, positionClass:'toast-top-center',
+      }
+    ),
     BrowserAnimationsModule
   ],
   providers: [interceptorProvider],
