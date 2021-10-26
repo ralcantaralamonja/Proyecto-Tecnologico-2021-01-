@@ -12,10 +12,6 @@ import { Usuario } from '../entity/usuario';
 export class UsuarioService {
 
   usuarioURL = 'http://127.0.0.1:8080/admin/';
-  apiReniec = 'https://apiperu.dev/api/dni/';
-
-  contentType: string = 'application/json';
-  token: string = 'Bearer 2ad4c7f85cc0c5b02da0b2084d7953401bd4c0ce2342e3e9451de55b7e540af8';
 
   constructor(private httpClient: HttpClient) { }
 

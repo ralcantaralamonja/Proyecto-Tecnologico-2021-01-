@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NuevoHuesped } from 'src/app/entity/nuevoHuesped';
+import { Persona, ResponseDni } from 'src/app/entity/responseDni';
 import { HuespedService } from 'src/app/service/huesped.service';
 import { TokenService } from 'src/app/service/token.service';
 
@@ -13,16 +14,18 @@ import { TokenService } from 'src/app/service/token.service';
 })
 export class NuevoHuespedComponent implements OnInit {
 
-  /* nombre = '';
-   apellido = '';
-   telefono = '';
-   correo = '';
-   usuarioRegistro = this.tokenService.getUserName();
-   observaciones = ''
- */
-
-  numero = '';
-  nombre_completo = this.tokenService.getUserName();
+  nombre = '';
+  apellido = '';
+  telefono = '';
+  correo = '';
+  usuarioRegistro = this.tokenService.getUserName();
+  observaciones = '';
+  tipoDocumento = 'DNI';
+  numeroDocumento = '';
+  
+  nombre_completo = '';
+  responseDni: ResponseDni;
+  persona: Persona;
 
   constructor(
     private httpClient: HttpClient,
@@ -30,14 +33,13 @@ export class NuevoHuespedComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private tokenService: TokenService
-
   ) { }
 
   ngOnInit(): void {
   }
 
-  onCreate(): void {
-    const huesped = new NuevoHuesped(/*this.numero, this.data.nombre_completo*/);
+  crearHuesped() {
+    const huesped = new NuevoHuesped(this.nombre, this.apellido, this.telefono, this.correo, this.usuarioRegistro, this.observaciones, this.tipoDocumento, this.numeroDocumento);
     this.huespedService.save(huesped).subscribe(
       data => {
         this.toastr.success('Huesped Creado correctamente', 'OK', {
@@ -53,5 +55,17 @@ export class NuevoHuespedComponent implements OnInit {
     );
   }
 
-
+  consultarDni(dni: string) {
+    this.huespedService.consultarDni(dni).subscribe(
+      data => {
+        this.responseDni = data;
+        this.persona = this.responseDni.data;
+        this.nombre = this.persona.nombres;
+        this.apellido = this.persona.apellido_paterno + ' ' + this.persona.apellido_materno;
+      },
+      err => {
+        console.log('errooooor que menso ' + err);
+      }
+    )
+  }
 }
