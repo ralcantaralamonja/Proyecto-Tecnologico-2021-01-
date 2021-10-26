@@ -14,8 +14,11 @@ export class ListaHuespedComponent implements OnInit {
   isLoginFail = false;
   huesped: Huesped[] = [];
   roles: string[];
-  isAdmin = false;
+  isUser = false;
+  isAdmin = true;
   errMsj: string;
+
+//Añadir mas validaciones como isAdmin, isUser, isManager 
 
   constructor( 
 
@@ -31,7 +34,7 @@ export class ListaHuespedComponent implements OnInit {
     this.roles = this.tokenService.getAuthorities();
     this.roles.forEach(rol => {
       if (rol === 'ADMIN') {
-        this.isAdmin = true;
+        this.isAdmin = false;
       }
     });
 

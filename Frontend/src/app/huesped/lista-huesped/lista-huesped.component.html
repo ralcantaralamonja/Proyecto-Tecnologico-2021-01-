@@ -46,13 +46,14 @@
 
                     <td><button class="btn btn-outline-primary" routerLink = "/detalle/{{huespedes.data.numero}}"><i class="far fa-eye"></i> Ver</button></td>
                     <td ><button class="btn btn-outline-warning" routerLink = "/editar/{{huespedes.data.numero}}"><i class="far fa-edit"></i> Editar</button></td>
-                    <td ><button class="btn btn-outline-danger" (click)="borrar(huespedes.data.numero)" ><i class="far fa-trash-alt"></i> Eliminar</button></td>
+                    <td *ngIf="isAdmin" ><button class="btn btn-outline-danger" (click)="borrar(huespedes.data.numero)" ><i class="far fa-trash-alt"></i> Eliminar</button></td>
                    <!--/{{huespedes.huespedId}}-->
                    
                 </tr>
                 <td>
+                    <div class="mt-3" *ngIf="isAdmin">
                     <button class="btn btn-outline-success" routerLink = "/nuevo">
-                      <i class="fas fa-plus-circle"></i> Nuevo Huesped</button>
+                      <i class="fas fa-plus-circle"></i> Nuevo Huesped</button></div>
                   </td>
                 </tbody>
                   
