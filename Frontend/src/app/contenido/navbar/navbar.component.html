@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <!-- Site Logo Here -->
-        <a class="navbar-brand" routerLink="/">Hotel blondy's house</a>
+        <a class="navbar-brand"     >Hotel blondy's house</a>
         
         <!-- Mobile Toggle Button -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMobileToggle" aria-controls="navbarMobileToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,6 +20,13 @@
                 <li class="nav-item" *ngIf="isLogged" (click)="onLogOut()">
                     <a class="nav-link" href="#">Cerrar sesion</a>
                 </li>
+                <li class="nav-item" *ngIf="isLogged">
+                    <a class="nav-link" routerLink="/registro">Crear nueva cuenta</a>
+                </li>
+                <li class="nav-item" *ngIf="isLogged">
+                    <a class="nav-link" routerLink="/usuario">Listado de Usuarios</a>
+                </li>
+
             </ul>
 
            

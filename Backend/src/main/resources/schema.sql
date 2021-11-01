@@ -89,7 +89,7 @@ CREATE TABLE USUARIO
     Correo         VARCHAR(255),
     Fecha_Creacion DATETIME     NOT NULL,
     Estado         INT          NOT NULL
-); -- 1 -> Activo | 2 - Inactivo
+); -- 1 -> Activo | 2 - Inactivo | 3 - Eliminado
 
 CREATE TABLE ROL
 (
@@ -217,17 +217,18 @@ ALTER TABLE DOCUMENTO
 
 INSERT INTO ROL
 VALUES (1, 'ADMIN'),
-       (2, 'USER');
+       (2, 'MANAGER'),
+       (3, 'USER');
 
 INSERT INTO USUARIO (Id_Usuario, Username, Password, Estado, Fecha_Creacion)
 VALUES (1, 'admin', '$2a$10$Uv3FW83F97Y5sc3iUziZ4Ov72SkPiwg12g5GsBqBjQ2IZjWcQB44K', 1, sysdate());
 
 INSERT INTO ROL_USUARIO (Id_Usuario, Id_Rol)
 VALUES (1, 1),
-       (1, 2);
+       (1, 2),
+       (1, 3);
 
 INSERT INTO TIPO_DOCUMENTO (Nombre)
 VALUES ('DNI'),
-       ('PASAPORTE'),
        ('PASAPORTE'),
        ('CARNET DE EXTRANJERIA')

@@ -6,34 +6,39 @@
             <form (ngSubmit)="onUpdate()" novalidate #f="ngForm">
 
 
-                <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre"
-                    [(ngModel)]="huesped.nombre" maxlength="30" required>
-                </div>
+               
                 
                 <div class="form-group">
-                    <label for="apellido">Apellido</label>
-                    <input type="text" class="form-control" id="apellido" name="apellido"
-                    [(ngModel)]="huesped.apellido" maxlength="30" required>
+                    <label for="data.nombre_completo">Nombres Completo</label>
+                    <input type="text" class="form-control" id="data.nombre_completo" name="data.nombre_completo"
+                    [(ngModel)]="huesped.data.nombre_completo" maxlength="30" required>
                 </div>
                 <div></div>
                 <div class="form-group">
-                    <label for="telefono">Telefono</label>
-                    <input type="number" class="form-control" id="telefono" name="telefono"
-                    [(ngModel)]="huesped.telefono" maxlength="9" required>
+                    <label for="data.nombres">Nombres</label>
+                    <input type="text" class="form-control" id="data.nombres" name="data.nombres"
+                    [(ngModel)]="huesped.data.nombres" maxlength="9" required>
                 </div>
                 <div class="form-group">
-                    <label for="correo">Correo</label>
-                    <input type="email" class="form-control" id="correo" name="correo"
-                    [(ngModel)]="huesped.correo" maxlength="150" required>
+                    <label for="data.apellido_paterno">Apellido Paterno</label>
+                    <input type="text" class="form-control" id="data.apellido_paterno" name="data.apellido_paterno"
+                    [(ngModel)]="huesped.data.apellido_paterno" maxlength="150" required>
                 </div>
                 <div class="form-group">
-                    <label for="observaciones">Obervaciones</label>
-                    <input type="text" class="form-control" id="observaciones" name="observaciones"
-                    [(ngModel)]="huesped.observaciones" maxlength="400" required>
-                </div>            
+                    <label for="data.apellido_materno">Apellido Materno</label>
+                    <input type="text" class="form-control" id="data.apellido_materno" name="ata.apellido_materno"
+                    [(ngModel)]="huesped.data.apellido_materno" maxlength="400" required>
+                </div>           
+                <div class="form-group">
+                    <label for="data.domicilio_direccion">Direccion</label>
+                    <input type="text" class="form-control" id="data.domicilio_direccion" name="data.domicilio_direccion"
+                    [(ngModel)]="huesped.data.domicilio_direccion" maxlength="300" required>
+                </div> 
 
+
+
+
+                
                 <div id="btn"> 
                        <button class="btn btn-success " [disabled]="!f.valid">
                     <i class="fas fa-pencil-alt"></i> Actualizar</button>

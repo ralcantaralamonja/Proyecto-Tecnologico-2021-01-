@@ -1,8 +1,9 @@
 
-  <div class="text-center" *ngIf="isLogged; else loggedOut">
+  <!--<div class="text-center" *ngIf="isLogged; else loggedOut">
     <h2>Ya has iniciado sesión</h2>
-  </div>
-  <ng-template #loggedOut>
+  </div>-->
+  <!--<ng-template #loggedOut>-->
+    <app-navbar></app-navbar>
 
     <body id="RegistroBody">
       <div class="login-box">
@@ -40,9 +41,14 @@
           <div class="form-group">
             <label for="correo">Correo</label>
             <input type="email" name="correo" id="correo" class="form-control" placeholder="Enter Correo"
-              [(ngModel)]="correo" required="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$+">
+              [(ngModel)]="correo" required="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
           </div>
 
+          <div class="form-group">
+            <label for="rol">Rol</label>
+            <input type="rol" name="rol" id="rol" class="form-control" placeholder="Enter rol"
+              [(ngModel)]="rol" required="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$+">
+          </div>
 
           <div class="form-group">
             <button class="btn btn-outline-success btn-block" [disabled]="!f.valid">
@@ -50,9 +56,10 @@
           </div>
 
           <a routerLink="/login">Ya tengo una cuenta</a><br>
+          <div id="Error" class="alert alert-danger mt-3"> </div>
 
         </form>
-        <div id="Error" class="alert alert-danger mt-3"> </div>
+
       </div>
     </body>
-  </ng-template>
+  <!--</ng-template>-->

@@ -40,10 +40,11 @@ export class EditarHuespedComponent implements OnInit {
       }
     );
   }
+//    this.huesped.usuarioUltModificacion = this.tokenService.getUserName();
 
   onUpdate(): void{
     const id = this.actiavedRouter.snapshot.params.huespedId;
-    this.huesped.usuarioUltModificacion = this.tokenService.getUserName();
+    this.huesped.data.nombre_completo = this.tokenService.getUserName();
     this.huespedService.update(id, this.huesped).subscribe(
       data => {
         this.toastr.success('Huesped Actualizado Correctamente', 'OK', {

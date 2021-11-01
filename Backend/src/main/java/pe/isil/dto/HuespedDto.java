@@ -4,15 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pe.isil.model.TipoDocumento;
 
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
 public class HuespedDto {
+    private Integer huespedId;
     @NotBlank
     private String nombre ;
     @NotBlank
@@ -22,6 +27,15 @@ public class HuespedDto {
     private String correo;
     @NotBlank
     private String usuarioRegistro;
+    private LocalDateTime fecha_Registro ;
     private String usuarioUltModificacion;
+    private LocalDateTime fechaUltModificacion ;
     private String observaciones ;
+
+    @NotBlank
+    private String tipoDocumento;
+    @NotBlank
+    private String numeroDocumento;
+
+    private int estado;
 }

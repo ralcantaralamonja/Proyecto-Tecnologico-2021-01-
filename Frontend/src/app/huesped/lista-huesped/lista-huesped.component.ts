@@ -10,10 +10,15 @@ import { TokenService } from 'src/app/service/token.service';
   styleUrls: ['./lista-huesped.component.css']
 })
 export class ListaHuespedComponent implements OnInit {
-
+  isLogged = false;
+  isLoginFail = false;
   huesped: Huesped[] = [];
   roles: string[];
-  isAdmin = false;
+  isUser = false;
+  isAdmin = true;
+  errMsj: string;
+
+//Añadir mas validaciones como isAdmin, isUser, isManager 
 
   constructor( 
 
@@ -29,7 +34,7 @@ export class ListaHuespedComponent implements OnInit {
     this.roles = this.tokenService.getAuthorities();
     this.roles.forEach(rol => {
       if (rol === 'ADMIN') {
-        this.isAdmin = true;
+        this.isAdmin = false;
       }
     });
 
@@ -55,9 +60,16 @@ export class ListaHuespedComponent implements OnInit {
         this.cargarHuespedes();
       },
       err => {
-        this.toastr.error(err.error.mensaje, 'Fail', {
-          timeOut: 3000, positionClass: 'toast-top-center',
-        });
+        //this.toastr.error(err.error.mensaje, 'Fail', {
+         //timeOut: 3000, positionClass: 'toast-top-center',
+        //});
+
+        
+        this.isLogged = false;
+        this.isLoginFail = true;
+        this.errMsj = err.error.mensaje;
+        console.log("error -> " + err.error.mensaje);
+
       }
     );
   }

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class HuespedService {
+public class HuespedService implements CrudService<Huesped, Integer> {
 
     private final HuespedRepository huespedRepository;
 
@@ -19,26 +19,30 @@ public class HuespedService {
         this.huespedRepository = huespedRepository;
     }
 
-    public List<Huesped> findAll(){
+    public List<Huesped> findAll() {
         return huespedRepository.findAllByEstadoEquals(1);
     }
 
-    public Optional<Huesped> findById(Integer id){
+    public Optional<Huesped> findById(Integer id) {
         return huespedRepository.findById(id);
     }
 
-    public void createOrUpdate(Huesped huesped){
-        huespedRepository.save(huesped);
+    public Huesped create(Huesped huesped) {
+        return huespedRepository.save(huesped);
     }
 
-    public void delete(Integer id){
+    public Huesped update(Huesped huesped) {
+        return huespedRepository.save(huesped);
+    }
+
+    public void delete(Integer id) {
         Huesped huesped = findById(id).get();
         huesped.setEstado(2);
         huesped.setFechaUltModificacion(LocalDateTime.now());
         huespedRepository.save(huesped);
     }
 
-    public boolean existsById(Integer id){
+    public boolean existsById(Integer id) {
         return huespedRepository.existsByHuespedId(id);
     }
 

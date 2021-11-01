@@ -37,14 +37,17 @@ public class Huesped {
     private LocalDateTime fechaUltModificacion ;
     private String observaciones ;
 
+    @OneToOne(mappedBy = "huesped")
+    private Documento documento;
+
     public Huesped(String nombre, String apellido, String telefono, String correo, String usuarioRegistro, String observaciones) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.correo = correo;
+        this.estado = 1;
         this.usuarioRegistro = usuarioRegistro;
         this.fecha_Registro = LocalDateTime.now();
         this.observaciones = observaciones;
-        this.estado = 1;
     }
 }
