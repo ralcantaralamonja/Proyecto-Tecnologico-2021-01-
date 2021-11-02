@@ -7,7 +7,7 @@ export class Cuarto {
     fecha_Registro: Date;
     usuarioUltModificacion: string;
     fechaUltModificacion: Date;
-    estado: number;
+    estado: any;
     tipo: string;
     aforo: number;
     banio: number;
@@ -15,7 +15,7 @@ export class Cuarto {
 
 
     constructor(numeros: string, tipoId: number, usuarioRegistro: string, fecha_Registro: Date, usuarioUltModificacion: string,
-        fechaUltModificacion: Date, estado: number, tipo: string, aforo:number, banio: number, precio:number) {
+        fechaUltModificacion: Date, estado: any, tipo: string, aforo:number, banio: number, precio:number) {
         this.numero = numeros;
         this.tipoId = tipoId;
         this.usuarioRegistro = usuarioRegistro;

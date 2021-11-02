@@ -5,16 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.isil.reservas.dto.HabitacionDto;
 import pe.isil.reservas.dto.Mensaje;
-import pe.isil.reservas.enums.TipoNombre;
-import pe.isil.reservas.model.TipoHabitacion;
 import pe.isil.reservas.model.Habitacion;
-import pe.isil.reservas.service.TipoHabitacionService;
+import pe.isil.reservas.model.TipoHabitacion;
 import pe.isil.reservas.service.HabitacionService;
+import pe.isil.reservas.service.TipoHabitacionService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/habitaciones")
@@ -62,6 +60,8 @@ public class HabitacionController {
             return new ResponseEntity(new Mensaje("no se encontro habitacion"), HttpStatus.NOT_FOUND);
         Habitacion habitacion = habitacionService.findById(id).get();
         habitacion.setNumero(habitacionDto.getNumero());
+        if (!habitacionDto.getFoto().equals("") || habitacionDto.getFoto() != null)
+            habitacion.setFoto(habitacionDto.getFoto());
         habitacion.setTipoId(habitacionDto.getTipoId());
         habitacion.setUsuarioUltModificacion(habitacionDto.getUsuarioUltModificacion());
         habitacion.setFechaUltModificacion(LocalDateTime.now());
@@ -81,6 +81,7 @@ public class HabitacionController {
         HabitacionDto dto = new HabitacionDto();
         dto.setHabitacionId(habitacion.getHabitacionId());
         dto.setNumero(habitacion.getNumero());
+        dto.setFoto(habitacion.getFoto());
         dto.setTipoId(habitacion.getTipoId());
         dto.setUsuarioRegistro(habitacion.getUsuarioRegistro());
         dto.setFecha_Registro(habitacion.getFecha_Registro());
@@ -88,7 +89,7 @@ public class HabitacionController {
         dto.setFechaUltModificacion(habitacion.getFechaUltModificacion());
         dto.setEstado(habitacion.getEstado());
 
-        if (tipoHabitacionService.existsById(habitacion.getTipoId())){
+        if (tipoHabitacionService.existsById(habitacion.getTipoId())) {
             TipoHabitacion tipoHabitacion = tipoHabitacionService.findById(habitacion.getTipoId()).get();
             dto.setTipo(tipoHabitacion.getNombre());
             dto.setAforo(tipoHabitacion.getAforo());
@@ -100,7 +101,7 @@ public class HabitacionController {
 
     //solo para crear!!
     private Habitacion toHabitacion(HabitacionDto habitacionDto) {
-        return new Habitacion(habitacionDto.getNumero(), habitacionDto.getTipoId(),
+        return new Habitacion(habitacionDto.getNumero(), habitacionDto.getFoto(), habitacionDto.getTipoId(),
                 habitacionDto.getUsuarioRegistro(), habitacionDto.getEstado());
     }
 }

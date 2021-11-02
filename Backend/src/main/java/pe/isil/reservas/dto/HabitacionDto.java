@@ -17,6 +17,7 @@ public class HabitacionDto {
 
     private Integer habitacionId;
     private String numero ;
+    private String foto;
     private int tipoId;
     @NotNull
     private String usuarioRegistro;

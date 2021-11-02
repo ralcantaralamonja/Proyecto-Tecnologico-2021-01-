@@ -22,6 +22,8 @@ public class Habitacion {
     private Integer habitacionId;
     @Column(name = "Numero")
     private String numero ;
+    @Column(name = "Foto")
+    private String foto ;
     @Column(name = "Id_Tipo")
     private int tipoId;
     @NotNull
@@ -42,8 +44,9 @@ public class Habitacion {
     private TipoHabitacion tipoHabitacion;
 
     //para crear
-    public Habitacion(String numero, int tipoId, String usuarioRegistro, int estado) {
+    public Habitacion(String numero, String foto, int tipoId, String usuarioRegistro, int estado) {
         this.numero = numero;
+        this.foto = foto;
         this.tipoId = tipoId;
         this.usuarioRegistro = usuarioRegistro;
         this.fecha_Registro = LocalDateTime.now();

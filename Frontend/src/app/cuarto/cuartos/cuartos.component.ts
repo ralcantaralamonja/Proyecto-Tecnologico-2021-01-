@@ -44,11 +44,28 @@ export class CuartosComponent implements OnInit {
     this.cuartoService.lista().subscribe(
       data => {
         this.cuarto = data;
+        this.cuarto.forEach(
+          c => c.estado = this.validarEstado(c.estado)
+        )    
       },
       err => {
         console.log(err);
       }
     );
+  }
+
+  validarEstado(estado: number): string {
+    switch (estado) {
+      case 1:
+        return "Disponible";
+        break;
+      case 2:
+        return "Ocupado";
+        break;
+      default:
+        return "Mantenimiento";
+        break;
+    }
   }
 
 }
