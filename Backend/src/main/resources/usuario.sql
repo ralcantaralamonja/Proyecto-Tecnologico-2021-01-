@@ -1,0 +1,3 @@
+CREATE USER 'siacca'@'%' identified by '4522895';
+GRANT ALL PRIVILEGES ON BLONDYS.* TO 'siacca'@'%';
+FLUSH PRIVILEGES;

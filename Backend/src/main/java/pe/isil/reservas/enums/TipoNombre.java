@@ -1,0 +1,8 @@
+package pe.isil.reservas.enums;
+
+import lombok.ToString;
+
+@ToString
+public enum TipoNombre {
+    DNI, PASAPORTE, CARNET_EXTRANJERIA
+}

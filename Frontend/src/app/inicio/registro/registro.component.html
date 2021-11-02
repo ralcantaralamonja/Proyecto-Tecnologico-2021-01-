@@ -1,0 +1,65 @@
+
+  <!--<div class="text-center" *ngIf="isLogged; else loggedOut">
+    <h2>Ya has iniciado sesión</h2>
+  </div>-->
+  <!--<ng-template #loggedOut>-->
+    <app-navbar></app-navbar>
+
+    <body id="RegistroBody">
+      <div class="login-box">
+        <img src="assets/imagenes/casa.jpg" class="avatar" alt="Avatar Image">
+        <h1>Blondy's House</h1>
+
+
+        <form #f="ngForm" (ngSubmit)="onRegister()" novalidate>
+
+          <!-- USERNAME INPUT -->
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" name="nombre" id="nombres" class="form-control" placeholder="Enter username"
+              [(ngModel)]="nombres" required="" pattern="[a-zA-Z]+">
+          </div>
+          <!-- PASSWORD INPUT -->
+          <div class="form-group">
+            <label for="apellidos">Apellido</label>
+            <input type="text" name="apellidos" id="apellidos" class="form-control" placeholder="Enter Apellido"
+              [(ngModel)]="apellidos" required="" pattern="[a-zA-Z]+">
+          </div>
+
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" class="form-control" placeholder="Enter Username "
+              [(ngModel)]="username" required="" pattern="[a-zA-Z]+">
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password"
+              [(ngModel)]="password" required="" maxlength="8" pattern="[^a-zA-Z0-9]*+">
+          </div>
+
+          <div class="form-group">
+            <label for="correo">Correo</label>
+            <input type="email" name="correo" id="correo" class="form-control" placeholder="Enter Correo"
+              [(ngModel)]="correo" required="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+          </div>
+
+          <div class="form-group">
+            <label for="rol">Rol</label>
+            <input type="rol" name="rol" id="rol" class="form-control" placeholder="Enter rol"
+              [(ngModel)]="rol" required="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$+">
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-outline-success btn-block" [disabled]="!f.valid">
+              <i class="fas fa-sign-in-alt"></i> Crear Cuenta</button>
+          </div>
+
+          <a routerLink="/login">Ya tengo una cuenta</a><br>
+          <div id="Error" class="alert alert-danger mt-3"> </div>
+
+        </form>
+
+      </div>
+    </body>
+  <!--</ng-template>-->
