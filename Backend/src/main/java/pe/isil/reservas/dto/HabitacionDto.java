@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 public class HabitacionDto {
+
     private Integer habitacionId;
     private String numero ;
     private int tipoId;
@@ -29,4 +30,5 @@ public class HabitacionDto {
     private int aforo;
     private int banio;
     private double precio;
+
 }

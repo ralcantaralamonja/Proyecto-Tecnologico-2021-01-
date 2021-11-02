@@ -26,7 +26,6 @@
     font-family: "Open Sans";
     
   }
-  /* First border-left-width setting is a fallback */
   .card-custom-img::after {
     position: absolute;
     content: '';

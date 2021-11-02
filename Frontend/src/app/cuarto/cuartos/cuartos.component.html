@@ -22,63 +22,15 @@
 
 
 
-      <div class="col-md-6 col-lg-4 pb-3" >
+      <div class="col-md-6 col-lg-4 pb-3" *ngFor="let cuartos of cuarto">
         <div class="card card-custom bg-white border-white border-0">
           <div class="card-custom-img" ></div>
           
-          <div class="card-body" style="overflow-y: auto">
-            <h4 class="card-title"></h4>
-            <p class="card-text"></p>
-            <p class="card-text"></p>
-          </div>
-          
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4 pb-3" >
-        <div class="card card-custom bg-white border-white border-0">
-          <div class="card-custom-img" ></div>
-          
-          <div class="card-body" style="overflow-y: auto">
-            <h4 class="card-title"></h4>
-            <p class="card-text"></p>
-            <p class="card-text"></p>
-          </div>
-          
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4 pb-3" >
-        <div class="card card-custom bg-white border-white border-0">
-          <div class="card-custom-img" ></div>
-          
-          <div class="card-body" style="overflow-y: auto">
-            <h4 class="card-title"></h4>
-            <p class="card-text"></p>
-            <p class="card-text"></p>
-          </div>
-          
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4 pb-3" >
-        <div class="card card-custom bg-white border-white border-0">
-          <div class="card-custom-img" ></div>
-          
-          <div class="card-body" style="overflow-y: auto">
-            <h4 class="card-title"></h4>
-            <p class="card-text"></p>
-            <p class="card-text"></p>
-          </div>
-          
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4 pb-3" >
-        <div class="card card-custom bg-white border-white border-0">
-          <div class="card-custom-img" ></div>
-          
-          <div class="card-body" style="overflow-y: auto">
-            <h4 class="card-title"></h4>
-            <p class="card-text"></p>
-            <p class="card-text"></p>
+          <div class="card-body" style="overflow-y: auto" >
+            <h3 class="card-title">Id de la habitacion: {{cuartos.habitacionId}} </h3>
+            <h5 class="card-text"> Estado: {{cuartos.estado}}</h5>
+            <p class="card-text"> Tipo: {{cuartos.tipo}}</p>
+            <button class="btn btn-outline-warning"><i class="far fa-edit"></i> Editar</button>
           </div>
           
         </div>
@@ -86,6 +38,18 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+      
     </div>
   </div>
 
