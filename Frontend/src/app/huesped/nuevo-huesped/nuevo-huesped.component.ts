@@ -7,6 +7,10 @@ import { Persona, ResponseDni } from 'src/app/entity/responseDni';
 import { HuespedService } from 'src/app/service/huesped.service';
 import { TokenService } from 'src/app/service/token.service';
 
+declare const validate_text: any;
+declare const select_area: any;
+
+
 @Component({
   selector: 'app-nuevo-huesped',
   templateUrl: './nuevo-huesped.component.html',
@@ -34,6 +38,14 @@ export class NuevoHuespedComponent implements OnInit {
     private router: Router,
     private tokenService: TokenService
   ) { }
+
+
+  onClick(){
+    validate_text();
+    select_area();
+
+  }
+
 
   ngOnInit(): void {
   }
