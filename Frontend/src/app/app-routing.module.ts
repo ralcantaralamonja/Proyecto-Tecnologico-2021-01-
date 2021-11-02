@@ -16,6 +16,8 @@ import { AdminGuardService  as adminGuard } from './guards/admin-guard.service';
 import { ListaUsuarioComponent } from './usuario/lista-usuario/lista-usuario.component';
 import { NuevoUsuarioComponent } from './usuario/nuevo-usuario/nuevo-usuario.component';
 
+import { CuartosComponent } from './cuarto/cuartos/cuartos.component';
+
 const routes: Routes = [
 
   {path: '', component: HomeComponent},
@@ -35,6 +37,8 @@ const routes: Routes = [
 
   {path: 'nuevo-usuario', component:NuevoUsuarioComponent,canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
 
+
+  {path: 'cuartos', component: CuartosComponent},
 
 ];
 

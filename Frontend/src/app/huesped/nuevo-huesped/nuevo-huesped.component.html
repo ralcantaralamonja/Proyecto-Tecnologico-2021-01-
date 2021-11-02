@@ -1,5 +1,7 @@
 <app-navbar></app-navbar>
 
+
+
 <body>
     <div class="container">
         <div class="row mt-5">
@@ -38,12 +40,12 @@
                     </div>
                     <div class="form-group">
                         <label for="observaciones">Observaciones</label>
-                        <input type="text" class="form-control" id="observaciones" name="observaciones"
-                            [(ngModel)]="observaciones" maxlength="400" required>
+                        <input type="text" class="form-control" id="observaciones" name="observaciones" onClick="select_area()"
+                            [(ngModel)]="observaciones" maxlength="400" required >
                     </div>
 
                     <div id="btn">
-                        <button class="btn btn-success" [disabled]="!f.valid">
+                        <button class="btn btn-success" [disabled]="!f.valid" onClick="validate_text();">
                             <i class="fas fa-plus-circle"></i> Crear</button>
                         <button class="btn btn-primary" routerLink="/lista-huesped">
                             <i class="fas fa-arrow-alt-circle-left"></i> Volver</button>
@@ -53,4 +55,6 @@
             </div>
         </div>
     </div>
+
+    
 </body>
