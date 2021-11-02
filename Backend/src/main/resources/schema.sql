@@ -1,234 +1,234 @@
-CREATE DATABASE BLONDYS;
-USE BLONDYS;
+create database BLONDYS;
+use BLONDYS;
 
-CREATE TABLE PRODUCTO
+create table producto
 (
-    Id_Producto              INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    Nombre                   VARCHAR(30)        NOT NULL,
-    Precio_Venta             DOUBLE             NOT NULL,
-    foto                     LONGTEXT,
-    Id_Categoria             INT                NOT NULL,
-    Id_Uni_Med               INT                NOT NULL,
-    Id_Marca                 INT                NOT NULL,
-    Estado                   INT                NOT NULL, -- 1 -> vigente | 2 -> descontinuado
-    Usuario_Registro         VARCHAR(30)        NOT NULL,
-    Fecha_Registro           DATETIME           NOT NULL,
-    Usuario_Ult_Modificacion VARCHAR(30),
-    Fecha_Ult_Modificacion   DATETIME
+    id_producto              int auto_increment not null primary key,
+    nombre                   varchar(30)        not null,
+    precio_venta             double             not null,
+    foto                     longtext,
+    id_categoria             int                not null,
+    id_uni_med               int                not null,
+    id_marca                 int                not null,
+    estado                   int                not null, -- 1 -> vigente | 2 -> descontinuado
+    usuario_registro         varchar(30)        not null,
+    fecha_registro           datetime           not null,
+    usuario_ult_modificacion varchar(30),
+    fecha_ult_modificacion   datetime
 );
 
-CREATE TABLE MARCA
+create table marca
 (
-    Id_Marca INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    Nombre   VARCHAR(50)        NOT NULL,
-    Logo     LONGTEXT,
-    Estado   INT                NOT NULL
+    id_marca int auto_increment not null primary key,
+    nombre   varchar(50)        not null,
+    logo     longtext,
+    estado   int                not null
 );-- 1 -> vigente | 2 -> descontinuado
 
-CREATE TABLE HUESPED
+create table huesped
 (
-    Id_Huesped               INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    Nombre                   VARCHAR(30),
-    Apellido                 VARCHAR(30),
-    Telefono                 VARCHAR(9),
-    Correo                   VARCHAR(150),
-    Estado                   INT                NOT NULL, -- 1 -> activo | 2 -> inactivo
-    Usuario_Registro         VARCHAR(30)        NOT NULL,
-    Fecha_Registro           DATETIME           NOT NULL,
-    Usuario_Ult_Modificacion VARCHAR(30),
-    Fecha_Ult_Modificacion   DATETIME,
-    Observaciones            VARCHAR(400)
+    id_huesped               int auto_increment not null primary key,
+    nombre                   varchar(30),
+    apellido                 varchar(30),
+    telefono                 varchar(9),
+    correo                   varchar(150),
+    estado                   int                not null, -- 1 -> activo | 2 -> inactivo
+    usuario_registro         varchar(30)        not null,
+    fecha_registro           datetime           not null,
+    usuario_ult_modificacion varchar(30),
+    fecha_ult_modificacion   datetime,
+    observaciones            varchar(400)
 );
 
-CREATE TABLE DOCUMENTO
+create table documento
 (
-    Id_Documento     INT AUTO_INCREMENT PRIMARY KEY,
-    Id_Tipo          INT         NOT NULL,
-    Numero_Documento VARCHAR(12) NOT NULL,
-    Id_Huesped       INT         NOT NULL
+    id_documento     int auto_increment primary key,
+    id_tipo          int         not null,
+    numero_documento varchar(12) not null,
+    id_huesped       int         not null
 );
 
-CREATE TABLE TIPO_DOCUMENTO
+create table tipo_documento
 (
-    Id_Tipo INT AUTO_INCREMENT PRIMARY KEY,
-    Nombre  VARCHAR(21) NOT NULL
+    id_tipo int auto_increment primary key,
+    nombre  varchar(21) not null
 );
 
-CREATE TABLE DETALLE_VENTA
+create table detalle_venta
 (
-    Id_Producto INT      NOT NULL,
-    Id_Venta    INT      NOT NULL,
-    Descuento   DOUBLE,
-    Fecha       DATETIME NOT NULL,
-    Estado      INT      NOT NULL, -- 1 -> Pendiente | 2 -> Pagada | 3 -> Anulada
-    PRIMARY KEY (Id_Producto, Id_Venta)
+    id_producto int      not null,
+    id_venta    int      not null,
+    descuento   double,
+    fecha       datetime not null,
+    estado      int      not null, -- 1 -> pendiente | 2 -> pagada | 3 -> anulada
+    primary key (id_producto, id_venta)
 );
 
-CREATE TABLE PERDIDA
+create table perdida
 (
-    Id_Perdida               INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    Precio_Compra            DOUBLE             NOT NULL,
-    Cantidad                 INT                NOT NULL,
-    Fecha                    DATETIME           NOT NULL,
-    Id_Producto              INT                NOT NULL,
-    Usuario_Registro         VARCHAR(30)        NOT NULL,
-    Fecha_Registro           DATETIME           NOT NULL,
-    Usuario_Ult_Modificacion VARCHAR(30),
-    Fecha_Ult_Modificacion   DATETIME
+    id_perdida               int auto_increment not null primary key,
+    precio_compra            double             not null,
+    cantidad                 int                not null,
+    fecha                    datetime           not null,
+    id_producto              int                not null,
+    usuario_registro         varchar(30)        not null,
+    fecha_registro           datetime           not null,
+    usuario_ult_modificacion varchar(30),
+    fecha_ult_modificacion   datetime
 );
 
-CREATE TABLE USUARIO
-( -- Tabla para el login
-    Id_Usuario     INT AUTO_INCREMENT PRIMARY KEY,
-    Nombres        VARCHAR(30),
-    Apellidos      VARCHAR(50),
--- Telefono VARCHAR(9),
--- Foto VARCHAR(400),
-    Username       VARCHAR(30)  NOT NULL UNIQUE,
-    Password       VARCHAR(300) NOT NULL,
-    Correo         VARCHAR(255),
-    Fecha_Creacion DATETIME     NOT NULL,
-    Estado         INT          NOT NULL
-); -- 1 -> Activo | 2 - Inactivo | 3 - Eliminado
+create table usuario
+( -- tabla para el login
+    id_usuario     int auto_increment primary key,
+    nombres        varchar(30),
+    apellidos      varchar(50),
+-- telefono varchar(9),
+-- foto varchar(400),
+    username       varchar(30)  not null unique,
+    password       varchar(300) not null,
+    correo         varchar(255),
+    fecha_creacion datetime     not null,
+    estado         int          not null
+); -- 1 -> activo | 2 - inactivo | 3 - eliminado
 
-CREATE TABLE ROL
+create table rol
 (
-    Id_Rol INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    Nombre VARCHAR(30)        NOT NULL
+    id_rol int auto_increment not null primary key,
+    nombre varchar(30)        not null
 );
 
-CREATE TABLE VENTA
+create table venta
 (
-    Id_Venta                 INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    Descuento                DOUBLE             NOT NULL,
-    Fecha                    DATETIME           NOT NULL,
-    Id_Huesped               INT                NOT NULL,
-    Usuario_Registro         VARCHAR(30)        NOT NULL,
-    Fecha_Registro           DATETIME           NOT NULL,
-    Usuario_Ult_Modificacion VARCHAR(30),
-    Fecha_Ult_Modificacion   DATETIME
+    id_venta                 int auto_increment not null primary key,
+    descuento                double             not null,
+    fecha                    datetime           not null,
+    id_huesped               int                not null,
+    usuario_registro         varchar(30)        not null,
+    fecha_registro           datetime           not null,
+    usuario_ult_modificacion varchar(30),
+    fecha_ult_modificacion   datetime
 );
 
-CREATE TABLE COMPRA
+create table compra
 (
-    Id_Compra                INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    Fecha                    DATETIME           NOT NULL,
-    Usuario_Registro         VARCHAR(30)        NOT NULL,
-    Fecha_Registro           DATETIME           NOT NULL,
-    Usuario_Ult_Modificacion VARCHAR(30),
-    Fecha_Ult_Modificacion   DATETIME
+    id_compra                int auto_increment not null primary key,
+    fecha                    datetime           not null,
+    usuario_registro         varchar(30)        not null,
+    fecha_registro           datetime           not null,
+    usuario_ult_modificacion varchar(30),
+    fecha_ult_modificacion   datetime
 );
 
-CREATE TABLE DETALLE_COMPRA
+create table detalle_compra
 (
-    Id_Producto INT    NOT NULL,
-    Id_Compra   INT    NOT NULL,
-    Precio      DOUBLE NOT NULL,
-    Cantidad    INT    NOT NULL,
-    Descuento   DOUBLE NOT NULL,
-    PRIMARY KEY (Id_Producto, Id_Compra)
+    id_producto int    not null,
+    id_compra   int    not null,
+    precio      double not null,
+    cantidad    int    not null,
+    descuento   double not null,
+    primary key (id_producto, id_compra)
 );
 
-CREATE TABLE UNIDAD_MEDIDA
+create table unidad_medida
 (
-    Id_Uni_Med INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    Nombre     VARCHAR(100)       NOT NULL
+    id_uni_med int auto_increment not null primary key,
+    nombre     varchar(100)       not null
 );
 
-CREATE TABLE CATEGORIA
+create table categoria
 (
-    Id_Categoria INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    Nombre       VARCHAR(150)       NOT NULL
+    id_categoria int auto_increment not null primary key,
+    nombre       varchar(150)       not null
 );
 
-CREATE TABLE HABITACION
+create table habitacion
 (
-    Id_Hab                   INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    Numero                   VARCHAR(4)         NOT NULL,
-    Id_Tipo                  INT                NOT NULL,
-    Usuario_Registro         VARCHAR(30)        NOT NULL,
-    Fecha_Registro           DATETIME           NOT NULL,
-    Usuario_Ult_Modificacion VARCHAR(30),
-    Fecha_Ult_Modificacion   DATETIME,
-    Estado                   INT                NOT NULL
+    id_hab                   int auto_increment not null primary key,
+    numero                   varchar(4)         not null,
+    id_tipo                  int                not null,
+    usuario_registro         varchar(30)        not null,
+    fecha_registro           datetime           not null,
+    usuario_ult_modificacion varchar(30),
+    fecha_ult_modificacion   datetime,
+    estado                   int                not null
 ); -- 1 -> disponible | 2 -> ocupada | 3 -> mantenimiento
 
-CREATE TABLE RESERVA
+create table reserva
 (
-    Id_Reserva               INT         NOT NULL,
-    Fec_Ingreso              DATETIME    NOT NULL,
-    Fec_Salida               DATETIME    NOT NULL,
-    Id_Huesped               INT         NOT NULL,
-    Id_Hab                   INT         NOT NULL,
-    Usuario_Registro         VARCHAR(30) NOT NULL,
-    Fecha_Registro           DATETIME    NOT NULL,
-    Usuario_Ult_Modificacion VARCHAR(30),
-    Fecha_Ult_Modificacion   DATETIME,
-    PRIMARY KEY (Id_Reserva, Id_Huesped)
+    id_reserva               int         not null,
+    fec_ingreso              datetime    not null,
+    fec_salida               datetime    not null,
+    id_huesped               int         not null,
+    id_hab                   int         not null,
+    usuario_registro         varchar(30) not null,
+    fecha_registro           datetime    not null,
+    usuario_ult_modificacion varchar(30),
+    fecha_ult_modificacion   datetime,
+    primary key (id_reserva, id_huesped)
 );
 
-CREATE TABLE ROL_USUARIO
+create table rol_usuario
 (
-    Id_Usuario INT NOT NULL,
-    Id_Rol     INT NOT NULL,
-    PRIMARY KEY (Id_Usuario, Id_Rol)
+    id_usuario int not null,
+    id_rol     int not null,
+    primary key (id_usuario, id_rol)
 );
 
-CREATE TABLE TIPO_HABITACION
+create table tipo_habitacion
 (
-    Id_Tipo INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    Nombre  VARCHAR(50)        NOT NULL,
-    Precio  DOUBLE             NOT NULL
+    id_tipo int auto_increment not null primary key,
+    nombre  varchar(50)        not null,
+    precio  double             not null
 );
 
 
-ALTER TABLE PRODUCTO
-    ADD CONSTRAINT PRODUCTO_Id_Categoria_CATEGORIA_Id_Categoria FOREIGN KEY (Id_Categoria) REFERENCES CATEGORIA (Id_Categoria);
-ALTER TABLE PRODUCTO
-    ADD CONSTRAINT PRODUCTO_Id_Uni_Med_UNIDAD_MEDIDA_Id_Uni_Med FOREIGN KEY (Id_Uni_Med) REFERENCES UNIDAD_MEDIDA (Id_Uni_Med);
-ALTER TABLE PRODUCTO
-    ADD CONSTRAINT PRODUCTO_Id_Marca_MARCA_Id_Marca FOREIGN KEY (Id_Marca) REFERENCES MARCA (Id_Marca);
-ALTER TABLE DETALLE_VENTA
-    ADD CONSTRAINT DETALLE_VENTA_Id_Producto_PRODUCTO_Id_Producto FOREIGN KEY (Id_Producto) REFERENCES PRODUCTO (Id_Producto);
-ALTER TABLE DETALLE_VENTA
-    ADD CONSTRAINT DETALLE_VENTA_Id_Venta_VENTA_Id_Venta FOREIGN KEY (Id_Venta) REFERENCES VENTA (Id_Venta);
-ALTER TABLE PERDIDA
-    ADD CONSTRAINT PERDIDA_Id_Producto_PRODUCTO_Id_Producto FOREIGN KEY (Id_Producto) REFERENCES PRODUCTO (Id_Producto);
-ALTER TABLE VENTA
-    ADD CONSTRAINT VENTA_Id_Huesped_HUESPED_Id_Huesped FOREIGN KEY (Id_Huesped) REFERENCES HUESPED (Id_Huesped);
-ALTER TABLE DETALLE_COMPRA
-    ADD CONSTRAINT DETALLE_COMPRA_Id_Producto_PRODUCTO_Id_Producto FOREIGN KEY (Id_Producto) REFERENCES PRODUCTO (Id_Producto);
-ALTER TABLE DETALLE_COMPRA
-    ADD CONSTRAINT DETALLE_COMPRA_Id_Compra_COMPRA_Id_Compra FOREIGN KEY (Id_Compra) REFERENCES COMPRA (Id_Compra);
-ALTER TABLE HABITACION
-    ADD CONSTRAINT HABITACION_Id_Tipo_TIPO_HABITACION_Id_Tipo FOREIGN KEY (Id_Tipo) REFERENCES TIPO_HABITACION (Id_Tipo);
-ALTER TABLE RESERVA
-    ADD CONSTRAINT RESERVA_Id_Huesped_HUESPED_Id_Huesped FOREIGN KEY (Id_Huesped) REFERENCES HUESPED (Id_Huesped);
-ALTER TABLE RESERVA
-    ADD CONSTRAINT RESERVA_Id_Hab_HABITACION_Id_Hab FOREIGN KEY (Id_Hab) REFERENCES HABITACION (Id_Hab);
-ALTER TABLE ROL_USUARIO
-    ADD CONSTRAINT ROL_USUARIO_Id_Usuario_USUARIO_Id_Usuario FOREIGN KEY (Id_Usuario) REFERENCES USUARIO (Id_Usuario);
-ALTER TABLE ROL_USUARIO
-    ADD CONSTRAINT ROL_USUARIO_Id_Rol_ROL_Id_Rol FOREIGN KEY (Id_Rol) REFERENCES ROL (Id_Rol);
-ALTER TABLE DOCUMENTO
-    ADD CONSTRAINT DOCUMENTO_USUARIO FOREIGN KEY (Id_Huesped) REFERENCES HUESPED (Id_Huesped);
-ALTER TABLE DOCUMENTO
-    ADD CONSTRAINT DOCUMENTO_TIPO FOREIGN KEY (Id_Tipo) REFERENCES TIPO_DOCUMENTO (Id_Tipo);
+alter table producto
+    add constraint producto_id_categoria_categoria_id_categoria foreign key (id_categoria) references categoria (id_categoria);
+alter table producto
+    add constraint producto_id_uni_med_unidad_medida_id_uni_med foreign key (id_uni_med) references unidad_medida (id_uni_med);
+alter table producto
+    add constraint producto_id_marca_marca_id_marca foreign key (id_marca) references marca (id_marca);
+alter table detalle_venta
+    add constraint detalle_venta_id_producto_producto_id_producto foreign key (id_producto) references producto (id_producto);
+alter table detalle_venta
+    add constraint detalle_venta_id_venta_venta_id_venta foreign key (id_venta) references venta (id_venta);
+alter table perdida
+    add constraint perdida_id_producto_producto_id_producto foreign key (id_producto) references producto (id_producto);
+alter table venta
+    add constraint venta_id_huesped_huesped_id_huesped foreign key (id_huesped) references huesped (id_huesped);
+alter table detalle_compra
+    add constraint detalle_compra_id_producto_producto_id_producto foreign key (id_producto) references producto (id_producto);
+alter table detalle_compra
+    add constraint detalle_compra_id_compra_compra_id_compra foreign key (id_compra) references compra (id_compra);
+alter table habitacion
+    add constraint habitacion_id_tipo_tipo_habitacion_id_tipo foreign key (id_tipo) references tipo_habitacion (id_tipo);
+alter table reserva
+    add constraint reserva_id_huesped_huesped_id_huesped foreign key (id_huesped) references huesped (id_huesped);
+alter table reserva
+    add constraint reserva_id_hab_habitacion_id_hab foreign key (id_hab) references habitacion (id_hab);
+alter table rol_usuario
+    add constraint rol_usuario_id_usuario_usuario_id_usuario foreign key (id_usuario) references usuario (id_usuario);
+alter table rol_usuario
+    add constraint rol_usuario_id_rol_rol_id_rol foreign key (id_rol) references rol (id_rol);
+alter table documento
+    add constraint documento_usuario foreign key (id_huesped) references huesped (id_huesped);
+alter table documento
+    add constraint documento_tipo foreign key (id_tipo) references tipo_documento (id_tipo);
 
-INSERT INTO ROL
-VALUES (1, 'ADMIN'),
+insert into rol
+values (1, 'ADMIN'),
        (2, 'MANAGER'),
        (3, 'USER');
 
-INSERT INTO USUARIO (Id_Usuario, Username, Password, Estado, Fecha_Creacion)
-VALUES (1, 'admin', '$2a$10$Uv3FW83F97Y5sc3iUziZ4Ov72SkPiwg12g5GsBqBjQ2IZjWcQB44K', 1, sysdate());
+insert into usuario (id_usuario, username, password, estado, fecha_creacion)
+values (1, 'admin', '$2a$10$Uv3FW83F97Y5sc3iUziZ4Ov72SkPiwg12g5GsBqBjQ2IZjWcQB44K', 1, sysdate());
 
-INSERT INTO ROL_USUARIO (Id_Usuario, Id_Rol)
-VALUES (1, 1),
+insert into rol_usuario (id_usuario, id_rol)
+values (1, 1),
        (1, 2),
        (1, 3);
 
-INSERT INTO TIPO_DOCUMENTO (Nombre)
-VALUES ('DNI'),
+insert into tipo_documento (nombre)
+values ('DNI'),
        ('PASAPORTE'),
        ('CARNET DE EXTRANJERIA')
