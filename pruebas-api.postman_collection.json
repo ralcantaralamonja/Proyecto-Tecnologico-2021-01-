@@ -469,6 +469,148 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "habitaciones",
+			"item": [
+				{
+					"name": "listar habitaciones",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNTgxMzkwMiwiZXhwIjoxNjM1ODQ5OTAyfQ.A_c7ZBkNs9QSaa4_empfV0ccDvxnadqTURAXXJ_rJ35a7uqzj5BFZWyObxYTbFJve5ccQtBblNkewj8yCYAV9Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/habitaciones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"habitaciones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar habitacion",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNTgxMzkwMiwiZXhwIjoxNjM1ODQ5OTAyfQ.A_c7ZBkNs9QSaa4_empfV0ccDvxnadqTURAXXJ_rJ35a7uqzj5BFZWyObxYTbFJve5ccQtBblNkewj8yCYAV9Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/habitaciones/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"habitaciones",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNTgyMDk3MSwiZXhwIjoxNjM1ODU2OTcxfQ.pf_wfYju_jI6pe99-Dmg7bmWsWDkHSSfuElMfbu4kCLF-eJkz9DK2nFx4Hkg7GG6rUdSDJptueNVkseW_0fxvA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"tipoId\": 1,\r\n        \"usuarioUltModificacion\": \"admin\",\r\n        \"estado\": 3,\r\n        \"tipo\": \"Ashland\",\r\n        \"aforo\": 4,\r\n        \"banio\": 1,\r\n        \"precio\": 80.0\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/habitaciones/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"habitaciones",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "dni",
+			"item": [
+				{
+					"name": "dni",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNTgyMDk3MSwiZXhwIjoxNjM1ODU2OTcxfQ.pf_wfYju_jI6pe99-Dmg7bmWsWDkHSSfuElMfbu4kCLF-eJkz9DK2nFx4Hkg7GG6rUdSDJptueNVkseW_0fxvA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/dni/71323503",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"dni",
+								"71323503"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
