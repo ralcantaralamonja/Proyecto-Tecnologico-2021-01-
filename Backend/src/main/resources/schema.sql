@@ -1,7 +1,5 @@
-CREATE
-DATABASE BLONDYS;
-USE
-BLONDYS;
+CREATE DATABASE BLONDYS;
+USE BLONDYS;
 
 CREATE TABLE producto
 (
@@ -246,8 +244,8 @@ VALUES ('Ashland', 4, 1, 80.0),
        ('Dolly', 1, 2, 15.0);
 
 INSERT INTO habitacion (Id_Tipo, Foto, Usuario_Registro, Fecha_Registro, Estado)
-VALUES (1, 'img/h1.jpg', 'admin', sysdate(), 1),
-       (2, 'img/h2.jpg', 'admin', sysdate(), 1),
-       (3, 'img/h3.jpg', 'admin', sysdate(), 1),
-       (4, 'img/h4.jpg', 'admin', sysdate(), 1),
-       (5, 'img/h5.jpg', 'admin', sysdate(), 1);
+VALUES (1, 'assets/imagenes/h1.jpg', 'admin', sysdate(), 1),
+       (2, 'assets/imagenes/h2.jpg', 'admin', sysdate(), 1),
+       (3, 'assets/imagenes/h3.jpg', 'admin', sysdate(), 1),
+       (4, 'assets/imagenes/h4.jpg', 'admin', sysdate(), 1),
+       (5, 'assets/imagenes/h5.jpg', 'admin', sysdate(), 1);
