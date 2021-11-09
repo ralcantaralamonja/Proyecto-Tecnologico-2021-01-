@@ -16,13 +16,15 @@ import { AdminGuardService  as adminGuard } from './guards/admin-guard.service';
 import { ListaUsuarioComponent } from './usuario/lista-usuario/lista-usuario.component';
 import { NuevoUsuarioComponent } from './usuario/nuevo-usuario/nuevo-usuario.component';
 
+
 import { CuartosComponent } from './cuarto/cuartos/cuartos.component';
+import { CuartosEditarComponent } from './cuarto/cuartos-editar/cuartos-editar.component';
 
 const routes: Routes = [
 
   {path: '', component: HomeComponent},
   {path: 'registro', component: RegistroComponent,canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
-  {path: 'inicio', component:InicioComponent,canActivate: [inicioGuard], data: {expectRol:['ADMIN', 'USER']}},
+  {path: 'inicio', component:InicioComponent,/*canActivate: [inicioGuard], data: {expectRol:['ADMIN', 'USER']}*/},
   {path: 'usuario', component:ListaUsuarioComponent,canActivate: [inicioGuard], data: {expectRol:['ADMIN', 'USER']}},
 
   {path: 'login', component:LoginComponent},
@@ -39,6 +41,7 @@ const routes: Routes = [
 
 
   {path: 'cuartos', component: CuartosComponent},
+  {path: 'editarcuarto/:habitacionId', component: CuartosEditarComponent},
 
 ];
 

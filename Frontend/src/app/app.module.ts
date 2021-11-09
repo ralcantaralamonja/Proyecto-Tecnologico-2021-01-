@@ -24,6 +24,9 @@ import { DetalleUsuarioComponent } from './usuario/detalle-usuario/detalle-usuar
 import { EditarUsuarioComponent } from './usuario/editar-usuario/editar-usuario.component';
 import { ListaUsuarioComponent } from './usuario/lista-usuario/lista-usuario.component';
 import { CuartosComponent } from './cuarto/cuartos/cuartos.component';
+import { NgxCaptchaModule } from 'ngx-captcha';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CuartosEditarComponent } from './cuarto/cuartos-editar/cuartos-editar.component';
 
 
 @NgModule({
@@ -43,13 +46,17 @@ import { CuartosComponent } from './cuarto/cuartos/cuartos.component';
     DetalleUsuarioComponent,
     EditarUsuarioComponent,
     ListaUsuarioComponent,
-    CuartosComponent
+    CuartosComponent,
+    CuartosEditarComponent,
+   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
+    NgxCaptchaModule,
     ToastrModule.forRoot(
       {
         timeOut: 3000, positionClass:'toast-top-center',
