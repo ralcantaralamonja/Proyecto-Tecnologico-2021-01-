@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -42,6 +43,9 @@ public class Habitacion {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "Id_Tipo", insertable = false, updatable = false)
     private TipoHabitacion tipoHabitacion;
+
+    @OneToMany(mappedBy = "habitacion")
+    private List<Reserva> reserva;
 
     //para crear
     public Habitacion(String numero, String foto, int tipoId, String usuarioRegistro, int estado) {

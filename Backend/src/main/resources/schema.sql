@@ -156,7 +156,7 @@ CREATE TABLE habitacion
 
 CREATE TABLE reserva
 (
-    Id_Reserva               INT         NOT NULL,
+    Id_Reserva               INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     Fec_Ingreso              DATETIME    NOT NULL,
     Fec_Salida               DATETIME    NOT NULL,
     Id_Huesped               INT         NOT NULL,
@@ -165,7 +165,7 @@ CREATE TABLE reserva
     Fecha_Registro           DATETIME    NOT NULL,
     Usuario_Ult_Modificacion VARCHAR(30),
     Fecha_Ult_Modificacion   DATETIME,
-    PRIMARY KEY (Id_Reserva, Id_Huesped)
+    Estado                   INT         NOT NULL -- 0 -> pendiente | 1 -> activa | 2 -> finalizada | 3 -> cancelada
 );
 
 CREATE TABLE rol_usuario
@@ -249,3 +249,56 @@ VALUES (1, 'assets/imagenes/h1.jpg', 'admin', sysdate(), 1),
        (3, 'assets/imagenes/h3.jpg', 'admin', sysdate(), 1),
        (4, 'assets/imagenes/h4.jpg', 'admin', sysdate(), 1),
        (5, 'assets/imagenes/h5.jpg', 'admin', sysdate(), 1);
+
+-- VISTAS
+CREATE VIEW vw_habitacionesDisponibles
+AS
+SELECT h.*
+FROM habitacion h
+         INNER JOIN reserva r ON h.Id_Hab = r.Id_Hab
+WHERE r.Estado > 2
+GROUP BY h.Id_Hab;
+
+CREATE VIEW vw_huespedesSinReserva
+AS
+SELECT h.*
+FROM huesped h
+         INNER JOIN reserva r ON h.Id_Huesped=r.Id_Huesped
+WHERE r.Estado > 2 AND h.Estado=1
+GROUP BY h.Id_Huesped;
+
+--SP
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usp_CrearReserva`(IN vfec_ing DATETIME,
+                                  IN vfec_sal DATETIME,
+                                  IN vid_huesped INT,
+                                  IN vid_hab INT,
+                                  IN vusu_reg VARCHAR(30))
+BEGIN
+UPDATE habitacion SET Estado=2 WHERE Id_Hab=vid_hab;
+INSERT INTO reserva (Fec_Ingreso, Fec_Salida, Id_Huesped, Id_Hab, Usuario_Registro, Fecha_Registro, Estado)
+VALUES (vfec_ing, vfec_sal, vid_huesped, vid_hab, vusu_reg, SYSDATE(), 1);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usp_FinalizarReserva`(
+    IN vid_res INT,
+    IN vusu_ult_mod VARCHAR(30)
+BEGIN
+UPDATE habitacion SET Estado=3 WHERE Id_Hab=(SELECT Id_Hab FROM reserva WHERE Id_Reserva=vid_res);
+UPDATE reserva SET Usuario_Ult_Modificacion=vusu_ult_mod, Fec_Ult_Modificacion=SYSDATE(), Estado=2
+WHERE Id_Reserva=vid_res;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usp_CancelarReserva`(
+    IN vid_res INT,
+    IN vusu_ult_mod VARCHAR(30)
+BEGIN
+UPDATE habitacion SET Estado=1 WHERE Id_Hab=(SELECT Id_Hab FROM reserva WHERE Id_Reserva=vid_res);
+UPDATE reserva SET Usuario_Ult_Modificacion=vusu_ult_mod, Fec_Ult_Modificacion=SYSDATE(), Estado=3
+WHERE Id_Reserva=vid_res;
+END$$
+DELIMITER ;
