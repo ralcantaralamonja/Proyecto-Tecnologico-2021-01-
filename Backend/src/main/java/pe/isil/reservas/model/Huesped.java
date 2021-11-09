@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -45,6 +46,9 @@ public class Huesped {
 
     @OneToOne(mappedBy = "huesped")
     private Documento documento;
+
+    @OneToMany(mappedBy = "huesped")
+    private List<Reserva> reserva;
 
     public Huesped(String nombre, String apellido, String telefono, String correo, String usuarioRegistro, String observaciones) {
         this.nombre = nombre;

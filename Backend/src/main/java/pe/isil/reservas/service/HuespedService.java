@@ -23,6 +23,10 @@ public class HuespedService implements CrudService<Huesped, Integer> {
         return huespedRepository.findAllByEstadoEquals(1);
     }
 
+    public List<Huesped> listarHuespedesSinReserva() {
+        return huespedRepository.listarHuespedesSinReserva();
+    }
+
     public Optional<Huesped> findById(Integer id) {
         return huespedRepository.findById(id);
     }

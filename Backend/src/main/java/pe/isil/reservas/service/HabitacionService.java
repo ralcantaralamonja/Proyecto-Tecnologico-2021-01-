@@ -23,6 +23,10 @@ public class HabitacionService implements CrudService<Habitacion, Integer> {
         return habitacionRepository.findAll();
     }
 
+    public List<Habitacion> listarDisponibles() {
+        return habitacionRepository.listarDisponibles();
+    }
+
     public Optional<Habitacion> findById(Integer id) {
         return habitacionRepository.findById(id);
     }

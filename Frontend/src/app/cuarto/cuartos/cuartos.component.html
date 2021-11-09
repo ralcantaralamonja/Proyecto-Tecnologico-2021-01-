@@ -14,16 +14,13 @@
 
 <app-navbar></app-navbar>
 
-
 <body>
 
   <div class="container">
     <div class="row pt-5 m-auto">
       <div class="col-md-6 col-lg-4 pb-3" *ngFor="let cuartos of cuarto">
         <div class="card card-custom bg-white border-white border-0">
-          <div class="card-custom-img">
-            <img src="{{cuartos.foto}}" class="card-img-top" alt="...">
-        </div>
+          <div class="card-custom-img" style="background-image: url({{cuartos.foto}});"></div>
             <div class="card-body" style="overflow-y: auto">
               <h3 class="card-title">Id de la habitacion: {{cuartos.habitacionId}} </h3>
               <h5 class="card-text"> Estado: {{cuartos.estado}}</h5>
@@ -32,21 +29,6 @@
             </div>
           </div>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
   </div>
 
