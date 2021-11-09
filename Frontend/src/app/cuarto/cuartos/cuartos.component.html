@@ -16,7 +16,7 @@
 <app-navbar></app-navbar>
 
 <body>
-  <div class="container">
+  <div class="container" >
     <div class="row pt-5 m-auto">
       <div class="col-md-6 col-lg-4 pb-3" *ngFor="let cuartos of cuarto">
         <div class="card card-custom bg-white border-white border-0">
@@ -25,10 +25,13 @@
               <h3 class="card-title">Id de la habitacion: {{cuartos.habitacionId}} </h3>
               <h5 class="card-text"> Estado: {{cuartos.estado}}</h5>
               <p class="card-text"> Tipo: {{cuartos.tipo}}</p>
-              <button  routerLink = "/editarcuarto/{{cuartos.habitacionId}}" type="button" class="btn btn-warning"><i class="far fa-edit"></i> Editar</button>
+              <button style='margin-right:16px'  routerLink = "/editarcuarto/{{cuartos.habitacionId}}" type="button" class="btn btn-warning"><i class="far fa-edit"></i> Editar</button>
+             
+              <button *ngIf="cuarto.estado == 1" style='margin-right:16px' type="button" class="btn btn-warning"><i class="far fa-edit"></i> Reservas</button>
+
+              <button *ngIf="cuarto.estado == 3" style='margin-right:16px' type="button" class="btn btn-warning"><i class="far fa-edit"></i>Cambiar estado</button>
             </div>
           </div>
-<<<<<<< HEAD
       </div> 
     </div>
   </div>  
@@ -36,11 +39,6 @@
 
 
 
-=======
-      </div>
-    </div>
-  </div>
->>>>>>> e80ece8e626bd298e654164db3b3095235a75d78
 
 
 </html>
