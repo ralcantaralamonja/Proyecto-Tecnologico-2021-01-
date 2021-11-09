@@ -19,17 +19,17 @@ export class CuartosService {
     return this.httpClient.get<Cuarto[]>(this.cuartoURL);
   }
 
-  //public detalle(id: number): Observable<Cuarto> {
-   // return this.httpClient.get<Cuarto>(this.cuartoURL + `/${id}`);
-  //}
+  public detalle(id: number): Observable<Cuarto> {
+    return this.httpClient.get<Cuarto>(this.cuartoURL + `/${id}`);
+  }
 
- // public save(huesped: NuevoHuesped): Observable<any> {
-   // return this.httpClient.post<any>(this.huespedURL, huesped);
-  //}
+  public save(cuarto: Cuarto): Observable<any> {
+    return this.httpClient.post<any>(this.cuartoURL, cuarto);
+  }
 
-  //public update(id: number, cuarto: Cuarto): Observable<any> {
-   // return this.httpClient.put<any>(this.huespedURL + `/${id}`, huesped);
- // }
+  public update(id: number, cuarto: Cuarto): Observable<any> {
+   return this.httpClient.put<any>(this.cuartoURL + `/${id}`, cuarto);
+  }
 
   //public delete(id: number): Observable<any> {
    // return this.httpClient.delete<any>(this.huespedURL + `/${id}`);

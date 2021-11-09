@@ -27,7 +27,7 @@ export class EditarHuespedComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const id = this.actiavedRouter.snapshot.params.huespedId;
+    const id = this.actiavedRouter.snapshot.params.id;
     this.huespedService.detalle(id).subscribe(
       data => {
         this.huesped = data;

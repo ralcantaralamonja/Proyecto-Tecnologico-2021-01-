@@ -22,4 +22,8 @@ export class AuthService {
   public login(loginUsuario: LoginUsuario): Observable<JwtDto>{
     return this.httpClient.post<JwtDto>(this.authURL + 'login', loginUsuario);    
   }
+
+  public bloquear(loginUsuario: LoginUsuario): Observable<any> {
+    return this.httpClient.put<any>(this.authURL + `users/bloqueo`, loginUsuario);
+  }
 }

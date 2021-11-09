@@ -3,7 +3,6 @@
     min-height: 450px;
     box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
     border-radius: 5em/7em;
-  
   }
   
   .card-custom-img {
@@ -20,6 +19,9 @@
     
   }
   
+  .card-body{
+    background: linear-gradient(168deg, #ffffff 25%, #202a81 80%);  }
+
   .container {
     font-size: 14px;
     color: #666666;
@@ -59,6 +61,10 @@
   body{
     background: url(src/assets/imagenes/fondoCuartos.jpg) no-repeat center top; 
     background-size: cover;
-
+    
+  }
+  .btn{
+    border-radius: 20%;
+    box-shadow: grey;
   }
   

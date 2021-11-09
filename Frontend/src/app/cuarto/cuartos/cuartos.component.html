@@ -12,10 +12,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 
+
 <app-navbar></app-navbar>
 
 <body>
-
   <div class="container">
     <div class="row pt-5 m-auto">
       <div class="col-md-6 col-lg-4 pb-3" *ngFor="let cuartos of cuarto">
@@ -25,13 +25,22 @@
               <h3 class="card-title">Id de la habitacion: {{cuartos.habitacionId}} </h3>
               <h5 class="card-text"> Estado: {{cuartos.estado}}</h5>
               <p class="card-text"> Tipo: {{cuartos.tipo}}</p>
-              <button class="btn btn-outline-warning"><i class="far fa-edit"></i> Editar</button>
+              <button  routerLink = "/editarcuarto/{{cuartos.habitacionId}}" type="button" class="btn btn-warning"><i class="far fa-edit"></i> Editar</button>
             </div>
           </div>
+<<<<<<< HEAD
+      </div> 
+    </div>
+  </div>  
+</body>
+
+
+
+=======
       </div>
     </div>
   </div>
+>>>>>>> e80ece8e626bd298e654164db3b3095235a75d78
 
-</body>
 
 </html>
