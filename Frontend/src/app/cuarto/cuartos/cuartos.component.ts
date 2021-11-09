@@ -18,6 +18,7 @@ export class CuartosComponent implements OnInit {
   isUser = false;
   isAdmin = true;
   errMsj: string;
+  
 
   constructor(
 
@@ -26,7 +27,7 @@ export class CuartosComponent implements OnInit {
     private tokenService: TokenService
 
 
-  ) { }
+  ) {}
 
   ngOnInit(): void {
 
