@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 
     @Procedure("usp_CrearReserva")
-    void crearReserva(LocalDateTime fecIngreso, LocalDateTime fecSalida, Integer huespedId, Integer habitacionId, String usuarioRegistro);
+    void crearReserva(LocalDateTime fecSalida, Integer huespedId, Integer habitacionId, String usuarioRegistro);
     @Procedure("usp_FinalizarReserva")
     void finalizarReserva(Integer id, String usuarioUltMod);
     @Procedure("usp_CancelarReserva")

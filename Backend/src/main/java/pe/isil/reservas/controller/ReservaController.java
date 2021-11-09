@@ -49,7 +49,7 @@ public class ReservaController {
         return new ResponseEntity(new Mensaje("Reserva registrada con exito"), HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/final/{id}")
     public ResponseEntity<?> finalizarReserva(@PathVariable("id") Integer id, @RequestBody LoginUsuario loginUsuario) {
         if (!reservaService.existsById(id))
             return new ResponseEntity(new Mensaje("No se encontro la reserva"), HttpStatus.NOT_FOUND);
@@ -57,12 +57,12 @@ public class ReservaController {
         return new ResponseEntity(new Mensaje("Reserva terminada"), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/cancelar/{id}")
     public ResponseEntity<?> cancelarReserva(@PathVariable("id") Integer id, @RequestBody LoginUsuario loginUsuario) {
         if (!reservaService.existsById(id))
             return new ResponseEntity(new Mensaje("no se encontro reserva"), HttpStatus.NOT_FOUND);
         reservaService.cancelarReserva(id, loginUsuario);
-        return new ResponseEntity(new Mensaje("Reserva actualizado"), HttpStatus.OK);
+        return new ResponseEntity(new Mensaje("Reserva cancelada"), HttpStatus.OK);
     }
 
     private ReservaDto toDto(Reserva reserva) {

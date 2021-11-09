@@ -82,7 +82,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNDU0MjY1OCwiZXhwIjoxNjM0NTc4NjU4fQ._lLX2lXAVXmDRopUZpE_jDYBKfFsWYmehsfYtOD_p_b30bMi2YSogr3tBpP_R5lVrj4owoq2_MooEZfQxXSoYg",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNjQzNzk1NywiZXhwIjoxNjM2NDczOTU3fQ.mzk49kpIwlcOY7HQkM9sUwDlRbypZKY0xOJAXlfQHjVz8angGryg86mJyC16U0ZXDGop1okbjI1zes6T5lDxKg",
 									"type": "string"
 								}
 							]
@@ -121,7 +121,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNDU0MjY1OCwiZXhwIjoxNjM0NTc4NjU4fQ._lLX2lXAVXmDRopUZpE_jDYBKfFsWYmehsfYtOD_p_b30bMi2YSogr3tBpP_R5lVrj4owoq2_MooEZfQxXSoYg",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNjQ0MjkwMSwiZXhwIjoxNjM2NDc4OTAxfQ.ktqGgnyPlNs3lZcvTHJGV1wSl6Q2Rmp30bq89083bTIIl7WZIcuFevm56EQzhY4UIG0dOzDx3SYNTibmfQW7Jw",
 									"type": "string"
 								}
 							]
@@ -605,6 +605,162 @@
 								"api",
 								"dni",
 								"71323503"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reservas",
+			"item": [
+				{
+					"name": "listar reservas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNjQ0MjkwMSwiZXhwIjoxNjM2NDc4OTAxfQ.ktqGgnyPlNs3lZcvTHJGV1wSl6Q2Rmp30bq89083bTIIl7WZIcuFevm56EQzhY4UIG0dOzDx3SYNTibmfQW7Jw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/reservas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reservas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear reserva",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNjQ0MjkwMSwiZXhwIjoxNjM2NDc4OTAxfQ.ktqGgnyPlNs3lZcvTHJGV1wSl6Q2Rmp30bq89083bTIIl7WZIcuFevm56EQzhY4UIG0dOzDx3SYNTibmfQW7Jw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fecSalida\": \"2021-12-03 10:15\",\r\n    \"huespedId\": 1,\r\n    \"habitacionId\": 1,\r\n    \"usuarioRegistro\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/reservas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reservas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "finalizar reserva",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNjQ0MjkwMSwiZXhwIjoxNjM2NDc4OTAxfQ.ktqGgnyPlNs3lZcvTHJGV1wSl6Q2Rmp30bq89083bTIIl7WZIcuFevm56EQzhY4UIG0dOzDx3SYNTibmfQW7Jw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/reservas/final/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reservas",
+								"final",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancelar reserva",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYzNjQ0MjkwMSwiZXhwIjoxNjM2NDc4OTAxfQ.ktqGgnyPlNs3lZcvTHJGV1wSl6Q2Rmp30bq89083bTIIl7WZIcuFevm56EQzhY4UIG0dOzDx3SYNTibmfQW7Jw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/reservas/cancelar/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"reservas",
+								"cancelar",
+								"2"
 							]
 						}
 					},

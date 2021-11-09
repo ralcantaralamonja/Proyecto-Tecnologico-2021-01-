@@ -58,7 +58,7 @@ public class ReservaService implements CrudService<Reserva, Integer> {
     }
 
     public void crearReserva(Reserva reserva){
-        reservaRepository.crearReserva(reserva.getFecIngreso(), reserva.getFecSalida(),
+        reservaRepository.crearReserva(reserva.getFecSalida(),
                 reserva.getHuespedId(), reserva.getHabitacionId(), reserva.getUsuarioRegistro());
     }
     public void finalizarReserva(Integer id, LoginUsuario loginUsuario) {

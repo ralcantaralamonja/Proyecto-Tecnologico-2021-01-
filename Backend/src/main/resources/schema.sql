@@ -269,36 +269,35 @@ GROUP BY h.Id_Huesped;
 
 --SP
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `usp_CrearReserva`(IN vfec_ing DATETIME,
-                                  IN vfec_sal DATETIME,
+CREATE PROCEDURE usp_CrearReserva(IN vfec_sal DATETIME,
                                   IN vid_huesped INT,
                                   IN vid_hab INT,
                                   IN vusu_reg VARCHAR(30))
 BEGIN
 UPDATE habitacion SET Estado=2 WHERE Id_Hab=vid_hab;
 INSERT INTO reserva (Fec_Ingreso, Fec_Salida, Id_Huesped, Id_Hab, Usuario_Registro, Fecha_Registro, Estado)
-VALUES (vfec_ing, vfec_sal, vid_huesped, vid_hab, vusu_reg, SYSDATE(), 1);
+VALUES (SYSDATE(), vfec_sal, vid_huesped, vid_hab, vusu_reg, SYSDATE(), 1);
 END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `usp_FinalizarReserva`(
+CREATE PROCEDURE usp_FinalizarReserva(
     IN vid_res INT,
-    IN vusu_ult_mod VARCHAR(30)
+    IN vusu_ult_mod VARCHAR(30))
 BEGIN
 UPDATE habitacion SET Estado=3 WHERE Id_Hab=(SELECT Id_Hab FROM reserva WHERE Id_Reserva=vid_res);
-UPDATE reserva SET Usuario_Ult_Modificacion=vusu_ult_mod, Fec_Ult_Modificacion=SYSDATE(), Estado=2
+UPDATE reserva SET Usuario_Ult_Modificacion=vusu_ult_mod, Fecha_Ult_Modificacion=SYSDATE(), Estado=2
 WHERE Id_Reserva=vid_res;
 END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `usp_CancelarReserva`(
+CREATE PROCEDURE usp_CancelarReserva(
     IN vid_res INT,
-    IN vusu_ult_mod VARCHAR(30)
+    IN vusu_ult_mod VARCHAR(30))
 BEGIN
 UPDATE habitacion SET Estado=1 WHERE Id_Hab=(SELECT Id_Hab FROM reserva WHERE Id_Reserva=vid_res);
-UPDATE reserva SET Usuario_Ult_Modificacion=vusu_ult_mod, Fec_Ult_Modificacion=SYSDATE(), Estado=3
+UPDATE reserva SET Usuario_Ult_Modificacion=vusu_ult_mod, Fecha_Ult_Modificacion=SYSDATE(), Estado=3
 WHERE Id_Reserva=vid_res;
 END$$
 DELIMITER ;
