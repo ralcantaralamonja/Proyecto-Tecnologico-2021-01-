@@ -1,5 +1,6 @@
 package pe.isil.reservas.controller;
 
+import com.sun.istack.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,11 +31,14 @@ public class HabitacionController {
     @GetMapping
     public ResponseEntity<List<HabitacionDto>> habitacionesList() {
         List<Habitacion> habitaciones = habitacionService.findAll();
-        List<HabitacionDto> dtoList = new ArrayList<>();
-        for (Habitacion habitacion : habitaciones) {
-            HabitacionDto dto = toDto(habitacion);
-            dtoList.add(dto);
-        }
+        List<HabitacionDto> dtoList = getHabitacionDtos(habitaciones);
+        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/disponibles")
+    public ResponseEntity<List<HabitacionDto>> habitacionesDisponiblesList() {
+        List<Habitacion> habitaciones = habitacionService.listarDisponibles();
+        List<HabitacionDto> dtoList = getHabitacionDtos(habitaciones);
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
@@ -75,6 +79,16 @@ public class HabitacionController {
             return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
         habitacionService.delete(id);
         return new ResponseEntity(new Mensaje("Habitacion eliminada"), HttpStatus.OK);
+    }
+
+    @NotNull
+    private List<HabitacionDto> getHabitacionDtos(List<Habitacion> habitaciones) {
+        List<HabitacionDto> dtoList = new ArrayList<>();
+        for (Habitacion habitacion : habitaciones) {
+            HabitacionDto dto = toDto(habitacion);
+            dtoList.add(dto);
+        }
+        return dtoList;
     }
 
     private HabitacionDto toDto(Habitacion habitacion) {

@@ -253,19 +253,15 @@ VALUES (1, 'assets/imagenes/h1.jpg', 'admin', sysdate(), 1),
 -- VISTAS
 CREATE VIEW vw_habitacionesDisponibles
 AS
-SELECT h.*
-FROM habitacion h
-         INNER JOIN reserva r ON h.Id_Hab = r.Id_Hab
-WHERE r.Estado > 2
-GROUP BY h.Id_Hab;
+SELECT *
+FROM habitacion
+WHERE Estado=1;
 
-CREATE VIEW vw_huespedesSinReserva
+CREATE VIEW vw_huespedesConReserva
 AS
 SELECT h.*
 FROM huesped h
          INNER JOIN reserva r ON h.Id_Huesped=r.Id_Huesped
-WHERE r.Estado > 2 AND h.Estado=1
-GROUP BY h.Id_Huesped;
 
 --SP
 DELIMITER $$

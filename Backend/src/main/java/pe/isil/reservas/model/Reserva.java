@@ -32,7 +32,6 @@ public class Reserva {
     @NotNull
     @Column(name = "Usuario_Registro")
     private String usuarioRegistro;
-    @NotNull
     @Column(name = "Fecha_Registro")
     private LocalDateTime fecha_Registro;
     @Column(name = "Usuario_Ult_Modificacion")
