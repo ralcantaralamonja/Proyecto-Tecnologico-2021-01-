@@ -6,6 +6,7 @@ import pe.isil.reservas.model.Huesped;
 import pe.isil.reservas.repository.HuespedRepository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +25,16 @@ public class HuespedService implements CrudService<Huesped, Integer> {
     }
 
     public List<Huesped> listarHuespedesSinReserva() {
-        return huespedRepository.listarHuespedesSinReserva();
+        List<Huesped> sinReserva = new ArrayList<>();
+        List<Huesped> conReserva = huespedRepository.listarHuespedesConReserva();
+        for (Huesped huesped : huespedRepository.findAll()) {
+            for (int i = 0; i <conReserva.size(); i++) {
+                if (huesped == conReserva.get(i))
+                    continue;
+                sinReserva.add(huesped);
+            }
+        }
+        return sinReserva;
     }
 
     public Optional<Huesped> findById(Integer id) {
