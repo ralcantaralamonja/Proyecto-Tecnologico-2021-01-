@@ -1,5 +1,6 @@
 package pe.isil.reservas.controller;
 
+import com.sun.istack.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,11 +35,14 @@ public class HuespedController {
     @GetMapping
     public ResponseEntity<List<HuespedDto>> huespedesList() {
         List<Huesped> huespedes = huespedService.findAll();
-        List<HuespedDto> dtoList = new ArrayList<>();
-        for (Huesped huesped : huespedes) {
-            HuespedDto dto = toDto(huesped);
-            dtoList.add(dto);
-        }
+        List<HuespedDto> dtoList = getHuespedDtos(huespedes);
+        return new ResponseEntity<List<HuespedDto>>(dtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/sin-reserva")
+    public ResponseEntity<List<HuespedDto>> huespedesSinReservaList() {
+        List<Huesped> huespedes = huespedService.listarHuespedesSinReserva();
+        List<HuespedDto> dtoList = getHuespedDtos(huespedes);
         return new ResponseEntity<List<HuespedDto>>(dtoList, HttpStatus.OK);
     }
 
@@ -176,6 +180,16 @@ public class HuespedController {
         h.setObservaciones(huesped.getObservaciones());
         h.setDocumento(huesped.getDocumento());
         return h;
+    }
+
+    @NotNull
+    private List<HuespedDto> getHuespedDtos(List<Huesped> huespedes) {
+        List<HuespedDto> dtoList = new ArrayList<>();
+        for (Huesped huesped : huespedes) {
+            HuespedDto dto = toDto(huesped);
+            dtoList.add(dto);
+        }
+        return dtoList;
     }
 
     private String enumToString(TipoNombre tipoNombre){
