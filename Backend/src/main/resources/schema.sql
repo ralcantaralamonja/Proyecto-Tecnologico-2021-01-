@@ -262,6 +262,7 @@ AS
 SELECT h.*
 FROM huesped h
          INNER JOIN reserva r ON h.Id_Huesped=r.Id_Huesped
+    WHERE r.Estado = 1;
 
 --SP
 DELIMITER $$
