@@ -27,6 +27,8 @@ import { CuartosComponent } from './cuarto/cuartos/cuartos.component';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CuartosEditarComponent } from './cuarto/cuartos-editar/cuartos-editar.component';
+import { ReservasComponent } from './reserva/reservas/reservas.component';
+import { ReservasAgregarComponent } from './reserva/reservas-agregar/reservas-agregar.component';
 
 
 @NgModule({
@@ -48,6 +50,8 @@ import { CuartosEditarComponent } from './cuarto/cuartos-editar/cuartos-editar.c
     ListaUsuarioComponent,
     CuartosComponent,
     CuartosEditarComponent,
+    ReservasComponent,
+    ReservasAgregarComponent,
    
   ],
   imports: [
