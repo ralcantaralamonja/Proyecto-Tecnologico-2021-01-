@@ -27,9 +27,7 @@
               <p class="card-text"> Tipo: {{cuartos.tipo}}</p>
               <button style='margin-right:16px'  routerLink = "/editarcuarto/{{cuartos.habitacionId}}" type="button" class="btn btn-warning"><i class="far fa-edit"></i> Editar</button>
              
-              <button *ngIf="cuarto.estado == 1" style='margin-right:16px' type="button" class="btn btn-warning"><i class="far fa-edit"></i> Reservas</button>
-
-              <button *ngIf="cuarto.estado == 3" style='margin-right:16px' type="button" class="btn btn-warning"><i class="far fa-edit"></i>Cambiar estado</button>
+    
             </div>
           </div>
       </div> 
@@ -37,7 +35,13 @@
   </div>  
 </body>
 
+<!--*ngIf="cuarto.estado == 1"
 
+          <button  style='margin-right:16px' type="button" class="btn btn-warning"><i class="far fa-edit"></i> Reservas</button>
+
+              <button style='margin-right:16px' type="button" class="btn btn-warning"><i class="far fa-edit"></i>Cambiar estado</button>
+
+-->
 
 
 

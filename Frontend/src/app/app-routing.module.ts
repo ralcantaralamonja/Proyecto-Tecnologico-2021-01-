@@ -20,6 +20,9 @@ import { NuevoUsuarioComponent } from './usuario/nuevo-usuario/nuevo-usuario.com
 import { CuartosComponent } from './cuarto/cuartos/cuartos.component';
 import { CuartosEditarComponent } from './cuarto/cuartos-editar/cuartos-editar.component';
 
+import { ReservasComponent } from './reserva/reservas/reservas.component';
+import { ReservasAgregarComponent } from './reserva/reservas-agregar/reservas-agregar.component';
+
 const routes: Routes = [
 
   {path: '', component: HomeComponent},
@@ -42,6 +45,10 @@ const routes: Routes = [
 
   {path: 'cuartos', component: CuartosComponent},
   {path: 'editarcuarto/:habitacionId', component: CuartosEditarComponent},
+
+  {path: 'reservas', component:ReservasComponent},
+  {path: 'reservasagregar', component:ReservasAgregarComponent},
+
 
 ];
 
