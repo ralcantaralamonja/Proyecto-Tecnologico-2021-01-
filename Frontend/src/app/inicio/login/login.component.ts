@@ -18,12 +18,12 @@ export class LoginComponent implements OnInit {
 
   isLogged = false;
   isLoginFail = false;
-  loginUsuario: LoginUsuario; 
+  loginUsuario: LoginUsuario;
   nombreUsuario: string;
   password: string;
   roles: string[] = [];
   errMsj: string;
-  intentos: any = 0;
+  intentos: number = 3;
 
   constructor(
     private tokenService: TokenService,
@@ -31,10 +31,10 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private formBuilder: FormBuilder
-  ) {this.siteKey = '6Lc_7h0dAAAAAAMXXoQqgeeD7uPkwAanOno7Tm68' }
+  ) { this.siteKey = '6Lc_7h0dAAAAAAMXXoQqgeeD7uPkwAanOno7Tm68' }
 
   ngOnInit(): void {
-    if(this.tokenService.getToken()){
+    if (this.tokenService.getToken()) {
       this.isLogged = true;
       this.isLoginFail = false;
       this.roles = this.tokenService.getAuthorities();
@@ -49,19 +49,19 @@ export class LoginComponent implements OnInit {
     this.toastr.success("I'm a toast!", "Success!");
   }
 
-  onLogin(): void{
+  onLogin(): void {
     this.loginUsuario = new LoginUsuario(this.nombreUsuario, this.password);
-    
+
     this.authService.login(this.loginUsuario).subscribe(
-      data =>{
-        this.isLogged=true;
-        this.isLoginFail=false;
+      data => {
+        this.isLogged = true;
+        this.isLoginFail = false;
 
         this.tokenService.setToken(data.token);
         this.tokenService.setUserName(data.username);
         this.tokenService.setAuthorities(data.authorities);
         this.siteKey = '6Lc_7h0dAAAAAAMXXoQqgeeD7uPkwAanOno7Tm68';
-        
+
         this.roles = data.authorities;
         this.router.navigate(['/inicio']);
       },
@@ -69,78 +69,33 @@ export class LoginComponent implements OnInit {
         this.isLogged = false;
         this.isLoginFail = true;
         this.errMsj = err.error.mensaje;
-        this.toastr.error(this.errMsj, 'Fail');
 
-        this.authService.bloquear(this.loginUsuario).subscribe(
-          data =>{
-         
-     
-            this.tokenService.setToken(data.token);
-            this.tokenService.setUserName(data.username);
-            this.tokenService.setAuthorities(data.authorities);
-           
-            this.roles = data.authorities;
-        
-          },
-          err => {
-            this.isLogged = false;
-            this.isLoginFail = true;
-            this.errMsj = err.error.mensaje;
-            this.toastr.error(this.errMsj, 'Fail');
-     
-            this.intentos = 0;
-     
-            while (true) {
-              this.intentos = this.intentos +1;
-             if(this.intentos === 3){
-              console.log("error -> " + err.error.mensaje);
-              break;
-             }
-             
-            }
-     
-            console.log("error -> " + err.error.mensaje);
+        if (this.errMsj === 'Clave incorrecta') {
+          if (this.intentos > 0) {
+            this.intentos--;
+            this.toastr.error(this.errMsj + ', te quedan ' + this.intentos + ' intentos', 'Fail');
+          } else {
+            this.authService.bloquear(this.loginUsuario).subscribe(
+              data => {
+                this.tokenService.setToken(data.token);
+                this.tokenService.setUserName(data.username);
+                this.tokenService.setAuthorities(data.authorities);
+                this.toastr.error(data.mensaje, 'Fail');
+                this.roles = data.authorities;
+              },
+              err => {
+                this.isLogged = false;
+                this.isLoginFail = true;
+                this.errMsj = err.error.mensaje;
+                console.log("error -> " + err.error.mensaje);
+              }
+            )
           }
-       )
-
+        } else {
+          this.toastr.error(this.errMsj, 'Fail');
+        }
         console.log("error -> " + err.error.mensaje);
       }
     )
-  
-    
   }
-
-  // bloquear(){
-  //   this.authService.bloquear(this.loginUsuario).subscribe(
-  //     data =>{
-      
-  
-  //       this.tokenService.setToken(data.token);
-  //       this.tokenService.setUserName(data.username);
-  //       this.tokenService.setAuthorities(data.authorities);
-        
-  //       this.roles = data.authorities;
-     
-  //     },
-  //     err => {
-  //       this.isLogged = false;
-  //       this.isLoginFail = true;
-  //       this.errMsj = err.error.mensaje;
-  //       this.toastr.error(this.errMsj, 'Fail');
-  
-  //       this.intentos = 0;
-  
-  //       while (true) {
-  //         this.intentos = this.intentos +1;
-  //        if(this.intentos === 3){
-  //         console.log("error -> " + err.error.mensaje);
-  //         break;
-  //        }
-          
-  //       }
-  
-  //       console.log("error -> " + err.error.mensaje);
-  //     }
-  //   )
-  // }
 }

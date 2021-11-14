@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Huesped } from '../entity/huesped';
 import { NuevoHuesped } from '../entity/nuevoHuesped';
 import { map } from 'rxjs/operators'
-import { Persona, ResponseDni } from '../entity/responseDni';
+import { Persona} from '../entity/persona';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ import { Persona, ResponseDni } from '../entity/responseDni';
 export class HuespedService {
 
   huespedURL = 'http://127.0.0.1:8080/api/huespedes';
-  apiReniec = 'https://apiperu.dev/api/dni/';
+  apiReniec = 'http://127.0.0.1:8080/api/dni/';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -36,11 +36,7 @@ export class HuespedService {
     return this.httpClient.delete<any>(this.huespedURL + `/${id}`);
   }
 
-  public consultarDni(dni: string): Observable<any> {       
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer 2ad4c7f85cc0c5b02da0b2084d7953401bd4c0ce2342e3e9451de55b7e540af8'
-    })
-    return this.httpClient.get<ResponseDni>(this.apiReniec + `${dni}`,{headers});
+  public consultarDni(dni: string): Observable<any> {
+    return this.httpClient.get<Persona>(this.apiReniec + `${dni}`);
   }
 }

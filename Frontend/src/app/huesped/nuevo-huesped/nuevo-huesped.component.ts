@@ -3,13 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NuevoHuesped } from 'src/app/entity/nuevoHuesped';
-import { Persona, ResponseDni } from 'src/app/entity/responseDni';
+import { Persona } from 'src/app/entity/persona';
 import { HuespedService } from 'src/app/service/huesped.service';
 import { TokenService } from 'src/app/service/token.service';
 
 declare const validate_text: any;
 declare const select_area: any;
-
 
 @Component({
   selector: 'app-nuevo-huesped',
@@ -26,9 +25,8 @@ export class NuevoHuespedComponent implements OnInit {
   observaciones = '';
   tipoDocumento = 'DNI';
   numeroDocumento = '';
-  
+
   nombre_completo = '';
-  responseDni: ResponseDni;
   persona: Persona;
 
   constructor(
@@ -39,13 +37,13 @@ export class NuevoHuespedComponent implements OnInit {
     private tokenService: TokenService
   ) { }
 
-
-  onClick(){
-    validate_text();
-    select_area();
-
+  onClick(boton: string) {
+    if (boton === "crear") {
+      this.crearHuesped()
+    } else {
+      this.consultarDni(boton)
+    }
   }
-
 
   ngOnInit(): void {
   }
@@ -70,8 +68,7 @@ export class NuevoHuespedComponent implements OnInit {
   consultarDni(dni: string) {
     this.huespedService.consultarDni(dni).subscribe(
       data => {
-        this.responseDni = data;
-        this.persona = this.responseDni.data;
+        this.persona = data;
         this.nombre = this.persona.nombres;
         this.apellido = this.persona.apellido_paterno + ' ' + this.persona.apellido_materno;
       },

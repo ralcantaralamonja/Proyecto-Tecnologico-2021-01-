@@ -15,7 +15,7 @@
                                 maxlength="8" required>
                         </div>
                         <div class="col">
-                            <button class="btn btn-primary" (click)="consultarDni(numeroDocumento)">Consultar</button>
+                            <button class="btn btn-primary" (click)="onClick(numeroDocumento)" type="button">Consultar</button>
                         </div>
                     </div>
                     <div class="form-group">
@@ -45,7 +45,7 @@
                     </div>
 
                     <div id="btn">
-                        <button class="btn btn-success" [disabled]="!f.valid" onClick="validate_text();">
+                        <button class="btn btn-success" [disabled]="!f.valid" type="submit" (click)="onClick('crear')">
                             <i class="fas fa-plus-circle"></i> Crear</button>
                         <button class="btn btn-primary" routerLink="/lista-huesped">
                             <i class="fas fa-arrow-alt-circle-left"></i> Volver</button>
