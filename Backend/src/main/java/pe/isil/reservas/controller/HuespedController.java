@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pe.isil.reservas.dto.HuespedDto;
 import pe.isil.reservas.dto.Mensaje;
 import pe.isil.reservas.enums.TipoNombre;
-import pe.isil.reservas.model.Documento;
 import pe.isil.reservas.model.Huesped;
-import pe.isil.reservas.service.DocumentoService;
 import pe.isil.reservas.service.HuespedService;
 
 import java.time.LocalDateTime;
@@ -21,15 +19,10 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class HuespedController {
 
-    //METODOS CON PERMISOS DE ADMIN
-    //@PreAuthorize("hasRole('ADMIN')")
-
     private final HuespedService huespedService;
-    private final DocumentoService documentoService;
 
-    public HuespedController(HuespedService huespedService, DocumentoService documentoService) {
+    public HuespedController(HuespedService huespedService) {
         this.huespedService = huespedService;
-        this.documentoService = documentoService;
     }
 
     @GetMapping
@@ -61,17 +54,10 @@ public class HuespedController {
             return new ResponseEntity(new Mensaje("el nombre es obligatorio"), HttpStatus.BAD_REQUEST);
         if (huespedDto.getApellido().isBlank())
             return new ResponseEntity(new Mensaje("el apellido es obligatorio"), HttpStatus.BAD_REQUEST);
-        int idTipoDoc = getIdTipo(huespedDto);
-        Huesped huespedDB = huespedService.create(toHuesped(huespedDto));
-        Documento documento = new Documento(huespedDto.getNumeroDocumento(), idTipoDoc, huespedDB.getHuespedId());
-        Documento docDB = documentoService.create(documento);
-        huespedDB.setDocumento(docDB);
-        huespedService.create(huespedDB);
+        huespedService.create(toHuesped(huespedDto));
         return new ResponseEntity(new Mensaje("registro exitoso"), HttpStatus.CREATED);
     }
 
-    //TODO
-    // ************ para proximos avances manejarlo con stored procedures ************
     @PutMapping("/{id}")
     public ResponseEntity<?> updateHuesped(@PathVariable("id") Integer id, @RequestBody HuespedDto huespedDto) {
         if (!huespedService.existsById(id))
@@ -81,30 +67,12 @@ public class HuespedController {
         if (huespedDto.getApellido().isBlank())
             return new ResponseEntity(new Mensaje("el apellido es obligatorio"), HttpStatus.BAD_REQUEST);
 
-        Huesped huesped = huespedService.findById(id).get();
-        //asigna usuario que elimina y se desactiva
-        huesped.setUsuarioUltModificacion(huespedDto.getUsuarioUltModificacion());
-        huesped.setFechaUltModificacion(LocalDateTime.now());
-        huesped.setEstado(2);
-        huesped.setObservaciones("REGISTRO EDITADO");
-        huespedService.update(huesped);
-        //se clona el registro
-        Huesped clonHuesped = clonarHuesped(huesped);
+        Huesped huesped = new Huesped(id, huespedDto.getNombre(), huespedDto.getApellido(), getIdTipo(huespedDto),
+                huespedDto.getNumeroDocumento(), huespedDto.getTelefono(), huespedDto.getCorreo(),
+                huespedDto.getUsuarioUltModificacion(), huespedDto.getObservaciones());
+        Huesped huesped1 = huespedService.update(huesped);
+        System.out.println(huesped1);
 
-        clonHuesped.setNombre(huespedDto.getNombre());
-        clonHuesped.setApellido(huespedDto.getApellido());
-        clonHuesped.setTelefono(huespedDto.getTelefono());
-        clonHuesped.setCorreo(huespedDto.getCorreo());
-        clonHuesped.setObservaciones(huespedDto.getObservaciones());
-        Huesped huespedUpdated = huespedService.create(clonHuesped);
-
-        if (documentoService.existsByHuespedId(id)){
-            Documento documento = documentoService.findByHuespedId(id);
-            documento.setNumeroDocumento(huespedDto.getNumeroDocumento());
-            documento.setTipoId(getIdTipo(huespedDto));
-            documento.setHuespedId(huespedUpdated.getHuespedId());
-            documentoService.update(documento);
-        }
         return new ResponseEntity(new Mensaje("Huesped actualizado"), HttpStatus.OK);
     }
 
@@ -117,13 +85,12 @@ public class HuespedController {
         if (!huespedService.existsById(id))
             return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
 
-        huespedService.delete(id);
+        huespedService.delete(id, " ");
 
         return new ResponseEntity(new Mensaje("Huesped eliminado"), HttpStatus.OK);
     }
 
     private HuespedDto toDto(Huesped huesped) {
-        Documento doc = documentoService.findByHuespedId(huesped.getHuespedId());
         HuespedDto dto = new HuespedDto();
         dto.setHuespedId(huesped.getHuespedId());
         dto.setNombre(huesped.getNombre());
@@ -131,21 +98,23 @@ public class HuespedController {
         dto.setTelefono(huesped.getTelefono());
         dto.setCorreo(huesped.getCorreo());
         dto.setUsuarioRegistro(huesped.getUsuarioRegistro());
-        dto.setFecha_Registro(huesped.getFecha_Registro());
+        dto.setFechaRegistro(huesped.getFecha_Registro());
         dto.setUsuarioUltModificacion(huesped.getUsuarioUltModificacion());
         dto.setFechaUltModificacion(huesped.getFechaUltModificacion());
         dto.setObservaciones(huesped.getObservaciones());
-        String s = enumToString(doc.getTipoDocumento().getNombre());
+        String s = enumToString(huesped.getTipoDocumento().getNombre());
         System.out.println("s = " + s);
         dto.setTipoDocumento(s);
-        dto.setNumeroDocumento(doc.getNumeroDocumento());
+        dto.setNumeroDocumento(huesped.getNumeroDocumento());
         dto.setEstado(huesped.getEstado());
         return dto;
     }
 
+    //solo para crear
     private Huesped toHuesped(HuespedDto huespedDto) {
-        return new Huesped(huespedDto.getNombre(), huespedDto.getApellido(), huespedDto.getTelefono(),
-                huespedDto.getCorreo(), huespedDto.getUsuarioRegistro(), huespedDto.getObservaciones());
+        return new Huesped(huespedDto.getNombre(), huespedDto.getApellido(), getIdTipo(huespedDto),
+                huespedDto.getNumeroDocumento(), huespedDto.getTelefono(), huespedDto.getCorreo(),
+                huespedDto.getUsuarioRegistro(), huespedDto.getObservaciones());
     }
 
     private int getIdTipo(HuespedDto huespedDto) {
@@ -166,7 +135,7 @@ public class HuespedController {
         return idTipo;
     }
 
-    private Huesped clonarHuesped(Huesped huesped){
+    private Huesped clonarHuesped(Huesped huesped) {
         Huesped h = new Huesped();
         h.setNombre(huesped.getNombre());
         h.setApellido(huesped.getApellido());
@@ -178,7 +147,8 @@ public class HuespedController {
         h.setUsuarioUltModificacion(huesped.getUsuarioUltModificacion());
         h.setFechaUltModificacion(LocalDateTime.now());
         h.setObservaciones(huesped.getObservaciones());
-        h.setDocumento(huesped.getDocumento());
+        h.setTipoDocumento(huesped.getTipoDocumento());
+        h.setNumeroDocumento(huesped.getNumeroDocumento());
         return h;
     }
 
@@ -192,14 +162,14 @@ public class HuespedController {
         return dtoList;
     }
 
-    private String enumToString(TipoNombre tipoNombre){
-        if (tipoNombre == TipoNombre.DNI){
+    private String enumToString(TipoNombre tipoNombre) {
+        if (tipoNombre == TipoNombre.DNI) {
             return "DNI";
-        }else if(tipoNombre==TipoNombre.PASAPORTE){
+        } else if (tipoNombre == TipoNombre.PASAPORTE) {
             return "PASAPORTE";
-        }else if (tipoNombre==TipoNombre.CARNET_EXTRANJERIA){
+        } else if (tipoNombre == TipoNombre.CARNET_EXTRANJERIA) {
             return "CARNET DE EXTRANJERIA";
-        }else {
+        } else {
             return null;
         }
     }

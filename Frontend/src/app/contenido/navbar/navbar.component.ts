@@ -10,9 +10,7 @@ export class NavbarComponent implements OnInit {
 
   isLogged = false;
   nombreUsuario = '';
-
-
-
+  
   constructor(private tokenService: TokenService) { }
 
   ngOnInit(): void {

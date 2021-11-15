@@ -1,23 +1,37 @@
 export class Huesped {
 
-    data: Data;
-}
+huespedId: number;
+nombre: string;
+apellido: string;
+telefono: string;
+correo: string;
+usuarioRegistro: string;
+fechaRegistro: Date;
+usuarioUltModificacion: string;
+fechaUltModificacion: Date;
+observaciones: string;
+tipoDocumento: string;
+numeroDocumento: string;
+estado: any;
 
-class Data {
-    numero?: number;
-    nombre_completo: string;
-    nombres: string;
-    apellido_paterno: string;
-    apellido_materno: string;
-    domicilio_direccion: string;
-
-    constructor( nombres_completos: string, nombre: string, apellidos_paterno: string, apellidos_materno: string,domicilios_direccion:string ){       
+    constructor(huespedId: number,nombre: string,apellido: string,telefono: string,correo: string,
+        usuarioRegistro: string,fechaRegistro: Date,usuarioUltModificacion: string,
+        fechaUltModificacion: Date,observaciones: string,tipoDocumento: string,numeroDocumento: string,
+        estado: any){
         
-        this.nombre_completo = nombres_completos;
-        this.nombres = nombre;
-        this.apellido_paterno = apellidos_paterno;
-        this.apellido_materno = apellidos_materno;
-        this.domicilio_direccion = domicilios_direccion;
+            this.huespedId = huespedId;
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.telefono = telefono;
+            this.correo = correo;
+            this.usuarioRegistro = usuarioRegistro;
+            this.fechaRegistro = fechaRegistro;
+            this.usuarioUltModificacion = usuarioUltModificacion;
+            this.fechaUltModificacion = fechaUltModificacion;
+            this.observaciones = observaciones;
+            this.tipoDocumento = tipoDocumento;
+            this.numeroDocumento = numeroDocumento;
+            this.estado = estado;
     }
 
 }

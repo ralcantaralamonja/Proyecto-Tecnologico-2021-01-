@@ -30,9 +30,11 @@ CREATE TABLE huesped
     Id_Huesped               INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     Nombre                   VARCHAR(30),
     Apellido                 VARCHAR(30),
+    Id_Tipo_Doc              INT         NOT NULL,
+    Numero_Documento         VARCHAR(12) NOT NULL,
     Telefono                 VARCHAR(9),
     Correo                   VARCHAR(150),
-    Estado                   INT         NOT NULL, -- 1 -> activo | 2 -> inactivo
+    Estado                   INT         NOT NULL, -- 1 -> activo | 2 -> inactivo | 3 -> auditoria
     Usuario_Registro         VARCHAR(30) NOT NULL,
     Fecha_Registro           DATETIME    NOT NULL,
     Usuario_Ult_Modificacion VARCHAR(30),
@@ -40,18 +42,10 @@ CREATE TABLE huesped
     Observaciones            VARCHAR(400)
 );
 
-CREATE TABLE documento
-(
-    Id_Documento     INT AUTO_INCREMENT PRIMARY KEY,
-    Id_Tipo          INT         NOT NULL,
-    Numero_Documento VARCHAR(12) NOT NULL,
-    Id_Huesped       INT         NOT NULL
-);
-
 CREATE TABLE tipo_documento
 (
-    Id_Tipo INT AUTO_INCREMENT PRIMARY KEY,
-    Nombre  VARCHAR(21) NOT NULL
+    Id_Tipo_Doc INT AUTO_INCREMENT PRIMARY KEY,
+    Nombre      VARCHAR(21) NOT NULL
 );
 
 CREATE TABLE detalle_venta
@@ -213,10 +207,8 @@ ALTER TABLE rol_usuario
     ADD CONSTRAINT ROL_USUARIO_Id_Usuario_USUARIO_Id_Usuario FOREIGN KEY (Id_Usuario) REFERENCES usuario (Id_Usuario);
 ALTER TABLE rol_usuario
     ADD CONSTRAINT ROL_USUARIO_Id_Rol_ROL_Id_Rol FOREIGN KEY (Id_Rol) REFERENCES rol (Id_Rol);
-ALTER TABLE documento
-    ADD CONSTRAINT DOCUMENTO_USUARIO FOREIGN KEY (Id_Huesped) REFERENCES huesped (Id_Huesped);
-ALTER TABLE documento
-    ADD CONSTRAINT DOCUMENTO_TIPO FOREIGN KEY (Id_Tipo) REFERENCES tipo_documento (Id_Tipo);
+ALTER TABLE huesped
+    ADD CONSTRAINT DOCUMENTO_TIPO FOREIGN KEY (Id_Tipo_Doc) REFERENCES tipo_documento (Id_Tipo_Doc);
 
 INSERT INTO rol
 VALUES (1, 'ADMIN'),
@@ -251,50 +243,141 @@ VALUES (1, 'assets/imagenes/h1.jpg', 'admin', sysdate(), 1),
        (5, 'assets/imagenes/h5.jpg', 'admin', sysdate(), 1);
 
 -- VISTAS
-CREATE VIEW vw_habitacionesDisponibles
+CREATE VIEW vw_habitaciones_disponibles
 AS
 SELECT *
 FROM habitacion
-WHERE Estado=1;
+WHERE Estado = 1;
 
-CREATE VIEW vw_huespedesConReserva
+CREATE VIEW vw_huespedes_con_reserva
 AS
 SELECT h.*
 FROM huesped h
-         INNER JOIN reserva r ON h.Id_Huesped=r.Id_Huesped
-    WHERE r.Estado = 1;
+         INNER JOIN reserva r ON h.Id_Huesped = r.Id_Huesped
+WHERE r.Estado = 1;
 
 --SP
-DELIMITER $$
-CREATE PROCEDURE usp_CrearReserva(IN vfec_sal DATETIME,
-                                  IN vid_huesped INT,
-                                  IN vid_hab INT,
-                                  IN vusu_reg VARCHAR(30))
+DELIMITER
+$$
+CREATE PROCEDURE usp_crear_reserva(IN vfec_sal DATETIME,
+                                   IN vid_huesped INT,
+                                   IN vid_hab INT,
+                                   IN vusu_reg VARCHAR (30))
 BEGIN
-UPDATE habitacion SET Estado=2 WHERE Id_Hab=vid_hab;
+UPDATE habitacion
+SET Estado=2
+WHERE Id_Hab = vid_hab;
 INSERT INTO reserva (Fec_Ingreso, Fec_Salida, Id_Huesped, Id_Hab, Usuario_Registro, Fecha_Registro, Estado)
 VALUES (SYSDATE(), vfec_sal, vid_huesped, vid_hab, vusu_reg, SYSDATE(), 1);
 END$$
 DELIMITER ;
 
-DELIMITER $$
-CREATE PROCEDURE usp_FinalizarReserva(
+DELIMITER
+$$
+CREATE PROCEDURE usp_finalizar_reserva(
     IN vid_res INT,
-    IN vusu_ult_mod VARCHAR(30))
+    IN vusu_ult_mod VARCHAR (30))
 BEGIN
-UPDATE habitacion SET Estado=3 WHERE Id_Hab=(SELECT Id_Hab FROM reserva WHERE Id_Reserva=vid_res);
-UPDATE reserva SET Usuario_Ult_Modificacion=vusu_ult_mod, Fecha_Ult_Modificacion=SYSDATE(), Estado=2
-WHERE Id_Reserva=vid_res;
+UPDATE habitacion
+SET Estado=3
+WHERE Id_Hab = (SELECT Id_Hab FROM reserva WHERE Id_Reserva = vid_res);
+UPDATE reserva
+SET Usuario_Ult_Modificacion=vusu_ult_mod,
+    Fecha_Ult_Modificacion=SYSDATE(),
+    Estado=2
+WHERE Id_Reserva = vid_res;
 END$$
 DELIMITER ;
 
-DELIMITER $$
-CREATE PROCEDURE usp_CancelarReserva(
+DELIMITER
+$$
+CREATE PROCEDURE usp_cancelar_reserva(
     IN vid_res INT,
-    IN vusu_ult_mod VARCHAR(30))
+    IN vusu_ult_mod VARCHAR (30))
 BEGIN
-UPDATE habitacion SET Estado=1 WHERE Id_Hab=(SELECT Id_Hab FROM reserva WHERE Id_Reserva=vid_res);
-UPDATE reserva SET Usuario_Ult_Modificacion=vusu_ult_mod, Fecha_Ult_Modificacion=SYSDATE(), Estado=3
-WHERE Id_Reserva=vid_res;
+UPDATE habitacion
+SET Estado=1
+WHERE Id_Hab = (SELECT Id_Hab FROM reserva WHERE Id_Reserva = vid_res);
+UPDATE reserva
+SET Usuario_Ult_Modificacion=vusu_ult_mod,
+    Fecha_Ult_Modificacion=SYSDATE(),
+    Estado=3
+WHERE Id_Reserva = vid_res;
+END$$
+DELIMITER ;
+
+DELIMITER
+$$
+CREATE PROCEDURE usp_editar_huesped(
+    IN vid_huesped INT,
+    IN vnomb VARCHAR (30),
+    IN vape VARCHAR (30),
+    IN vid_tipo_doc INT,
+    IN vnum_doc VARCHAR (12),
+    IN vtel VARCHAR (9),
+    IN vcorreo VARCHAR (150),
+    IN vusu_ult_mod VARCHAR (30),
+    IN vobs VARCHAR (400))
+BEGIN
+INSERT INTO huesped
+SELECT NULL,
+       Nombre,
+       Apellido,
+       Id_Tipo_Doc,
+       Numero_Documento,
+       Telefono,
+       Correo,
+       3,
+       Usuario_Registro,
+       Fecha_Registro,
+       vusu_ult_mod,
+       SYSDATE(),
+       'REGISTRO EDITADO'
+FROM huesped
+WHERE Id_Huesped = vid_huesped;
+UPDATE huesped
+SET Nombre=vnomb,
+    Apellido=vape,
+    Id_Tipo_Doc=vid_tipo_doc,
+    Numero_Documento=vnum_doc,
+    Telefono=vtel,
+    Correo=vcorreo,
+    Usuario_Ult_Modificacion=vusu_ult_mod,
+    Fecha_Ult_Modificacion=SYSDATE()
+WHERE Id_Huesped = vid_huesped;
+SELECT *
+FROM huesped
+WHERE Id_Huesped = vid_huesped;
+END$$
+DELIMITER ;
+
+DELIMITER
+$$
+CREATE PROCEDURE usp_eliminar_huesped(
+    IN vid_huesped INT,
+    IN vusu_ult_mod VARCHAR (30))
+BEGIN
+INSERT INTO huesped
+SELECT NULL,
+       Nombre,
+       Apellido,
+       Id_Tipo_Doc,
+       Numero_Documento,
+       Telefono,
+       Correo,
+       3,
+       Usuario_Registro,
+       Fecha_Registro,
+       vusu_ult_mod,
+       SYSDATE(),
+       'REGISTRO ELIMINADO'
+FROM huesped
+WHERE Id_Huesped = vid_huesped;
+UPDATE huesped
+SET Usuario_Ult_Modificacion=vusu_ult_mod,
+    Fecha_Ult_Modificacion=SYSDATE(),
+    Estado                  =2
+WHERE Id_Huesped = vid_huesped;
+END;
 END$$
 DELIMITER ;

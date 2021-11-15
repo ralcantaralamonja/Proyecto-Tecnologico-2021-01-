@@ -28,7 +28,7 @@ public class HuespedService implements CrudService<Huesped, Integer> {
         List<Huesped> sinReserva = new ArrayList<>();
         List<Huesped> conReserva = huespedRepository.listarHuespedesConReserva();
         for (Huesped huesped : huespedRepository.findAll()) {
-            for (int i = 0; i <conReserva.size(); i++) {
+            for (int i = 0; i < conReserva.size(); i++) {
                 if (huesped == conReserva.get(i))
                     continue;
                 sinReserva.add(huesped);
@@ -46,18 +46,19 @@ public class HuespedService implements CrudService<Huesped, Integer> {
     }
 
     public Huesped update(Huesped huesped) {
-        return huespedRepository.save(huesped);
+        huespedRepository.editarHuesped(huesped.getHuespedId(), huesped.getNombre(), huesped.getApellido(),
+                huesped.getTipoDocId(), huesped.getNumeroDocumento(), huesped.getTelefono(), huesped.getCorreo(),
+                huesped.getUsuarioUltModificacion(), huesped.getObservaciones());
+        return findById(huesped.getHuespedId()).get();
     }
 
-    public void delete(Integer id) {
-        Huesped huesped = findById(id).get();
-        huesped.setEstado(2);
-        huesped.setFechaUltModificacion(LocalDateTime.now());
-        huespedRepository.save(huesped);
+    public void delete(Integer id, String usuario) {
+        if (existsById(id)) {
+            huespedRepository.eliminarHuesped(id, usuario);
+        }
     }
 
     public boolean existsById(Integer id) {
         return huespedRepository.existsByHuespedId(id);
     }
-
 }

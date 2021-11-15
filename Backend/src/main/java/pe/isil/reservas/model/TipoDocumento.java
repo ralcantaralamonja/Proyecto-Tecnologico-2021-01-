@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class TipoDocumento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id_Tipo")
+    @Column(name = "Id_Tipo_Doc")
     private Integer tipoId;
 
     @NotNull

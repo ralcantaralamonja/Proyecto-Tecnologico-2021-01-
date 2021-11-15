@@ -9,9 +9,9 @@ import { NuevoHuespedComponent } from './huesped/nuevo-huesped/nuevo-huesped.com
 import { LoginComponent } from './inicio/login/login.component';
 import { RegistroComponent } from './inicio/registro/registro.component';
 
-import { HuespedGuardService as guard} from './guards/huesped-guard.service';
-import { InicioGuardService  as inicioGuard } from './guards/inicio-guard.service';
-import { AdminGuardService  as adminGuard } from './guards/admin-guard.service';
+import { HuespedGuardService as guard } from './guards/huesped-guard.service';
+import { InicioGuardService as inicioGuard } from './guards/inicio-guard.service';
+import { AdminGuardService as adminGuard } from './guards/admin-guard.service';
 
 import { ListaUsuarioComponent } from './usuario/lista-usuario/lista-usuario.component';
 import { NuevoUsuarioComponent } from './usuario/nuevo-usuario/nuevo-usuario.component';
@@ -25,35 +25,35 @@ import { ReservasAgregarComponent } from './reserva/reservas-agregar/reservas-ag
 
 const routes: Routes = [
 
-  {path: '', component: HomeComponent},
-  {path: 'registro', component: RegistroComponent,canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
-  {path: 'inicio', component:InicioComponent,/*canActivate: [inicioGuard], data: {expectRol:['ADMIN', 'USER']}*/},
-  {path: 'usuario', component:ListaUsuarioComponent,canActivate: [inicioGuard], data: {expectRol:['ADMIN', 'USER']}},
+  { path: '', component: HomeComponent },
+  { path: 'registro', component: RegistroComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'USER'] } },
+  { path: 'inicio', component: InicioComponent,/*canActivate: [inicioGuard], data: {expectRol:['ADMIN', 'USER']}*/ },
+  { path: 'usuario', component: ListaUsuarioComponent, canActivate: [inicioGuard], data: { expectRol: ['ADMIN', 'USER'] } },
 
-  {path: 'login', component:LoginComponent},
-  
-  {path: 'lista-huesped', component:ListaHuespedComponent,canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
-  {path: 'nuevo', component:NuevoHuespedComponent/*, canActivate: [adminGuard], data: {expectRol:['MANAGER', 'ADMIN']}*/},
-  {path: 'editar/:huespedId',component:EditarHuespedComponent, canActivate: [guard], data: {expectRol:['ADMIN', 'USER']} },
-  {path: 'lista-usuario', component:ListaUsuarioComponent, canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
+  { path: 'login', component: LoginComponent },
 
-  {path: 'detalle/:huespedId', component:DetalleHuespedComponent, canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
-  
+  { path: 'lista-huesped', component: ListaHuespedComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'MANAGER'] } },
+  { path: 'nuevo', component: NuevoHuespedComponent/*, canActivate: [adminGuard], data: {expectRol:['MANAGER', 'ADMIN']}*/ },
+  { path: 'editar/:huespedId', component: EditarHuespedComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'MANAGER', 'USER'] } },
+  { path: 'lista-usuario', component: ListaUsuarioComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'MANAGER'] } },
 
-  {path: 'nuevo-usuario', component:NuevoUsuarioComponent,canActivate: [guard], data: {expectRol:['ADMIN', 'USER']}},
+  { path: 'detalle/:huespedId', component: DetalleHuespedComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'MANAGER'] } },
 
 
-  {path: 'cuartos', component: CuartosComponent},
-  {path: 'editarcuarto/:habitacionId', component: CuartosEditarComponent},
+  { path: 'nuevo-usuario', component: NuevoUsuarioComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'MANAGER', 'USER'] } },
 
-  {path: 'reservas', component:ReservasComponent},
-  {path: 'reservasagregar', component:ReservasAgregarComponent},
+
+  { path: 'cuartos', component: CuartosComponent },
+  { path: 'editarcuarto/:habitacionId', component: CuartosEditarComponent },
+
+  { path: 'reservas', component: ReservasComponent },
+  { path: 'reservasagregar', component: ReservasAgregarComponent },
 
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

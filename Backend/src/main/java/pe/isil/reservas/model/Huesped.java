@@ -25,6 +25,11 @@ public class Huesped {
     private String nombre ;
     @Column(name = "Apellido")
     private String apellido;
+    @Column(name = "Id_Tipo_Doc")
+    private Integer tipoDocId;
+    @Column(name = "Numero_Documento")
+    private String numeroDocumento;
+
     @Column(name = "Telefono")
     private String telefono ;
     @Column(name = "Correo")
@@ -44,20 +49,37 @@ public class Huesped {
     @Column(name = "Observaciones")
     private String observaciones ;
 
-    @OneToOne(mappedBy = "huesped")
-    private Documento documento;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Id_Tipo_Doc", insertable = false, updatable = false)
+    private TipoDocumento tipoDocumento;
 
     @OneToMany(mappedBy = "huesped")
     private List<Reserva> reserva;
 
-    public Huesped(String nombre, String apellido, String telefono, String correo, String usuarioRegistro, String observaciones) {
+    //para crear
+    public Huesped(String nombre, String apellido, Integer tipoDocId, String numeroDocumento, String telefono, String correo, String usuarioRegistro, String observaciones) {
         this.nombre = nombre;
         this.apellido = apellido;
+        this.tipoDocId = tipoDocId;
+        this.numeroDocumento = numeroDocumento;
         this.telefono = telefono;
         this.correo = correo;
         this.estado = 1;
         this.usuarioRegistro = usuarioRegistro;
         this.fecha_Registro = LocalDateTime.now();
+        this.observaciones = observaciones;
+    }
+
+    //para actualizar
+    public Huesped(Integer huespedId, String nombre, String apellido, Integer tipoDocId, String numeroDocumento, String telefono, String correo, String usuarioUltModificacion, String observaciones) {
+        this.huespedId = huespedId;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.tipoDocId = tipoDocId;
+        this.numeroDocumento = numeroDocumento;
+        this.telefono = telefono;
+        this.correo = correo;
+        this.usuarioUltModificacion = usuarioUltModificacion;
         this.observaciones = observaciones;
     }
 }

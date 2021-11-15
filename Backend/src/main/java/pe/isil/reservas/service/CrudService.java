@@ -8,6 +8,5 @@ public interface CrudService <T, K>{
     Optional<T> findById(K k);
     T create(T t);
     T update(T t);
-    void delete(K k);
     boolean existsById(K k);
 }

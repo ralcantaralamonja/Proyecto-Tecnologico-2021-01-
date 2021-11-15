@@ -5,20 +5,20 @@ import { TokenService } from '../service/token.service';
 @Injectable({
   providedIn: 'root'
 })
-export class HuespedGuardService implements CanActivate{
-  
+export class HuespedGuardService implements CanActivate {
+
   realRole: string;
 
   constructor(
     private tokenService: TokenService,
     private router: Router
-
   ) { }
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {    
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const expectedRol = route.data.expectRol;
     const roles = this.tokenService.getAuthorities();
     this.realRole = 'USER';
-    roles.forEach(rol =>{
+    roles.forEach(rol => {
       if (rol === 'MANAGER') {
         this.realRole = 'MANAGER';
       }
@@ -27,8 +27,8 @@ export class HuespedGuardService implements CanActivate{
       }
     });
     console.log(this.tokenService.getToken());
-    
-    if (!this.tokenService.getToken()  || expectedRol.indexOf(this.realRole) === -1) {
+
+    if (!this.tokenService.getToken() || expectedRol.indexOf(this.realRole) === -1) {
       this.router.navigate(['inicio']);
       return false;
     }

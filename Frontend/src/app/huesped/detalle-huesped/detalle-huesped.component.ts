@@ -23,11 +23,11 @@ export class DetalleHuespedComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     const id = this.activatedRoute.snapshot.params.huespedId;
     this.huespedService.detalle(id).subscribe(
       data =>{
         this.huesped = data;
+        this.huesped.estado = this.validarEstado(this.huesped.estado);
       },
       err => {
         this.toastr.error(err.error.mensaje, 'Fail',{
@@ -41,5 +41,20 @@ export class DetalleHuespedComponent implements OnInit {
   volver(): void{
     this.router.navigate(['/lista-huesped'])
   }
+
+  validarEstado(estado: number): string {
+    switch (estado) {
+      case 1:
+        return "Activo";
+        break;
+      case 2:
+        return "Inactivo";
+        break;
+      default:
+        return "No definido";
+        break;
+    }
+  }
+
 
 }

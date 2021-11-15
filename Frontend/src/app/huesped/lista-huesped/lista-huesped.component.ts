@@ -14,13 +14,12 @@ export class ListaHuespedComponent implements OnInit {
   isLoginFail = false;
   huesped: Huesped[] = [];
   roles: string[];
-  isUser = false;
-  isAdmin = true;
+  permiso = false;
   errMsj: string;
 
-//Añadir mas validaciones como isAdmin, isUser, isManager 
+  //Añadir mas validaciones como isAdmin, isUser, isManager 
 
-  constructor( 
+  constructor(
 
     private huespedService: HuespedService,
     private toastr: ToastrService,
@@ -33,8 +32,8 @@ export class ListaHuespedComponent implements OnInit {
     this.cargarHuespedes();
     this.roles = this.tokenService.getAuthorities();
     this.roles.forEach(rol => {
-      if (rol === 'ADMIN') {
-        this.isAdmin = false;
+      if (rol === 'MANAGER') {
+        this.permiso = true;
       }
     });
 
@@ -60,25 +59,11 @@ export class ListaHuespedComponent implements OnInit {
         this.cargarHuespedes();
       },
       err => {
-        //this.toastr.error(err.error.mensaje, 'Fail', {
-         //timeOut: 3000, positionClass: 'toast-top-center',
-        //});
-
-        
         this.isLogged = false;
         this.isLoginFail = true;
         this.errMsj = err.error.mensaje;
         console.log("error -> " + err.error.mensaje);
-
       }
     );
   }
-
-
-
-
-
-
-
-
 }

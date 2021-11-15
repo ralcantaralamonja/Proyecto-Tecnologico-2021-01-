@@ -24,7 +24,7 @@ public class HuespedDto {
     private String correo;
     @NotBlank
     private String usuarioRegistro;
-    private LocalDateTime fecha_Registro ;
+    private LocalDateTime fechaRegistro ;
     private String usuarioUltModificacion;
     private LocalDateTime fechaUltModificacion ;
     private String observaciones ;

@@ -1,56 +1,68 @@
 <app-navbar></app-navbar>
+
 <body>
-<div class="container" *ngIf="huesped">
-    <div class="row mt-5">
-        <div class="col-md-4 mx-auto">
-            <form (ngSubmit)="onUpdate()" novalidate #f="ngForm">
+    <div class="container" *ngIf="huesped">
+        <div class="row mt-5">
+            <div class="col-md-4 mx-auto">
+                <form (ngSubmit)="onUpdate()" novalidate #f="ngForm">
 
+                    <div class="form-group col">
+                        <label for="huespedId">ID</label>
+                        <input type="text" class="form-control" id="huespedId" name="huespedId"
+                            [(ngModel)]="huesped.huespedId" maxlength="8" required disabled>
+                    </div>
 
-               
-                
-                <div class="form-group">
-                    <label for="data.nombre_completo">Nombres Completo</label>
-                    <input type="text" class="form-control" id="data.nombre_completo" name="data.nombre_completo"
-                    [(ngModel)]="huesped.data.nombre_completo" maxlength="30" required>
-                </div>
-                <div></div>
-                <div class="form-group">
-                    <label for="data.nombres">Nombres</label>
-                    <input type="text" class="form-control" id="data.nombres" name="data.nombres"
-                    [(ngModel)]="huesped.data.nombres" maxlength="9" required>
-                </div>
-                <div class="form-group">
-                    <label for="data.apellido_paterno">Apellido Paterno</label>
-                    <input type="text" class="form-control" id="data.apellido_paterno" name="data.apellido_paterno"
-                    [(ngModel)]="huesped.data.apellido_paterno" maxlength="150" required>
-                </div>
-                <div class="form-group">
-                    <label for="data.apellido_materno">Apellido Materno</label>
-                    <input type="text" class="form-control" id="data.apellido_materno" name="ata.apellido_materno"
-                    [(ngModel)]="huesped.data.apellido_materno" maxlength="400" required>
-                </div>           
-                <div class="form-group">
-                    <label for="data.domicilio_direccion">Direccion</label>
-                    <input type="text" class="form-control" id="data.domicilio_direccion" name="data.domicilio_direccion"
-                    [(ngModel)]="huesped.data.domicilio_direccion" maxlength="300" required>
-                </div> 
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="numero">DNI</label>
+                            <input type="text" class="form-control" id="numero" name="numero"
+                                [(ngModel)]="huesped.numeroDocumento" maxlength="8" required>
+                        </div>
 
+                        <div class="col">
+                            <button class="btn btn-primary" (click)="clickButtonForm(huesped.numeroDocumento)"
+                                type="button">Consultar</button>
+                        </div>
+                    </div>
 
+                    <div class="form-group">
+                        <label for="nombres">Nombres</label>
+                        <input type="text" class="form-control" id="nombres" name="nombres" [(ngModel)]="huesped.nombre"
+                            maxlength="30" required>
+                    </div>
 
+                    <div class="form-group">
+                        <label for="apellido_paterno">Apellidos</label>
+                        <input type="text" class="form-control" id="apellido_paterno" name="apellido_paterno"
+                            [(ngModel)]="huesped.apellido" maxlength="30" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefono">Telefono</label>
+                        <input type="tel" class="form-control" id="telefono" name="telefono" [(ngModel)]="huesped.telefono"
+                            maxlength="9" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="correo">Correo</label>
+                        <input type="email" class="form-control" id="correo" name="correo" [(ngModel)]="huesped.correo"
+                            maxlength="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="observaciones">Observaciones</label>
+                        <input type="text" class="form-control" id="observaciones" name="observaciones"
+                            onClick="select_area()" [(ngModel)]="huesped.observaciones" maxlength="400" required>
+                    </div>
 
-                
-                <div id="btn"> 
-                       <button class="btn btn-success " [disabled]="!f.valid">
-                    <i class="fas fa-pencil-alt"></i> Actualizar</button>
-                
-                <button class="btn btn-primary " routerLink="/lista-huesped">
-                    <i class="fas fa-arrow-alt-circle-left"></i> Volver</button>
-                </div>
-            
-            </form>
+                    <div id="btn">
+                        <button class="btn btn-success " [disabled]="!f.valid" type="submit" 
+                        (click)="clickButtonForm('editar')">
+                            <i class="fas fa-pencil-alt"></i> Actualizar</button>
+
+                        <button class="btn btn-primary " routerLink="/lista-huesped">
+                            <i class="fas fa-arrow-alt-circle-left"></i> Volver</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-
-
 </body>
