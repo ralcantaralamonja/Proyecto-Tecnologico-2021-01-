@@ -26,29 +26,26 @@ import { ReservasAgregarComponent } from './reserva/reservas-agregar/reservas-ag
 const routes: Routes = [
 
   { path: '', component: HomeComponent },
-  { path: 'registro', component: RegistroComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'USER'] } },
+  { path: 'registro', component: RegistroComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'MANAGER'] } },
   { path: 'inicio', component: InicioComponent,/*canActivate: [inicioGuard], data: {expectRol:['ADMIN', 'USER']}*/ },
   { path: 'usuario', component: ListaUsuarioComponent, canActivate: [inicioGuard], data: { expectRol: ['ADMIN', 'USER'] } },
 
   { path: 'login', component: LoginComponent },
 
-  { path: 'lista-huesped', component: ListaHuespedComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'MANAGER'] } },
+  { path: 'lista-huesped', component: ListaHuespedComponent, canActivate: [guard], data: { expectRol: ['MANAGER', 'USER'] } },
   { path: 'nuevo', component: NuevoHuespedComponent/*, canActivate: [adminGuard], data: {expectRol:['MANAGER', 'ADMIN']}*/ },
-  { path: 'editar/:huespedId', component: EditarHuespedComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'MANAGER', 'USER'] } },
+  { path: 'editar/:huespedId', component: EditarHuespedComponent, canActivate: [guard], data: { expectRol: ['MANAGER'] } },
   { path: 'lista-usuario', component: ListaUsuarioComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'MANAGER'] } },
 
   { path: 'detalle/:huespedId', component: DetalleHuespedComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'MANAGER'] } },
 
-
   { path: 'nuevo-usuario', component: NuevoUsuarioComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'MANAGER', 'USER'] } },
-
 
   { path: 'cuartos', component: CuartosComponent },
   { path: 'editarcuarto/:habitacionId', component: CuartosEditarComponent },
 
   { path: 'reservas', component: ReservasComponent },
   { path: 'reservasagregar', component: ReservasAgregarComponent },
-
 
 ];
 

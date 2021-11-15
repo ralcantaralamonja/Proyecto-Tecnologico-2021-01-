@@ -343,7 +343,7 @@ SET Nombre=vnomb,
     Telefono=vtel,
     Correo=vcorreo,
     Usuario_Ult_Modificacion=vusu_ult_mod,
-    Fecha_Ult_Modificacion=SYSDATE()
+    Fecha_Ult_Modificacion=SYSDATE(), Observaciones=vobs
 WHERE Id_Huesped = vid_huesped;
 SELECT *
 FROM huesped

@@ -16,7 +16,7 @@ export class ListaUsuarioComponent implements OnInit {
   usuario: Usuario;
   usuarios: Usuario[] = [];
   roles: string[];
-  isAdmin = false;
+  permiso = false;
   loginUsuario: LoginUsuario;
 
   constructor(
@@ -29,8 +29,8 @@ export class ListaUsuarioComponent implements OnInit {
     this.cargarUsuarios();
     this.roles = this.tokenService.getAuthorities();
     this.roles.forEach(rol => {
-      if (rol === 'ADMIN') {
-        this.isAdmin = true;
+      if (rol === 'MANAGER') {
+        this.permiso = true;
       }
       this.loginUsuario.username = this.tokenService.getUserName();
       this.loginUsuario.password = 'ricardoinfiel';

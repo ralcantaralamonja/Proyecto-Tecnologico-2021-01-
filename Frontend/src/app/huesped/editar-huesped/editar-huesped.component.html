@@ -9,7 +9,7 @@
                     <div class="form-group col">
                         <label for="huespedId">ID</label>
                         <input type="text" class="form-control" id="huespedId" name="huespedId"
-                            [(ngModel)]="huesped.huespedId" maxlength="8" required disabled>
+                             maxlength="8" required disabled>
                     </div>
 
                     <div class="row">
@@ -54,7 +54,7 @@
                     </div>
 
                     <div id="btn">
-                        <button class="btn btn-success " [disabled]="!f.valid" type="submit" 
+                        <button class="btn btn-success " [disabled]="!f.valid" type="button" 
                         (click)="clickButtonForm('editar')">
                             <i class="fas fa-pencil-alt"></i> Actualizar</button>
 

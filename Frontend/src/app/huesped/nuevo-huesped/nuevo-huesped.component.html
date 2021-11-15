@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row mt-5">
             <div class="col-md-4 mx-auto">
-                <form (ngSubmit)="crearHuesped()" novalidate #f="ngForm">
+                <form novalidate #f="ngForm">
 
                     <div class="row">
                         <div class="form-group col">
@@ -46,7 +46,7 @@
                     </div>
 
                     <div id="btn">
-                        <button class="btn btn-success" [disabled]="!f.valid" type="submit" (click)="onClick('crear')">
+                        <button class="btn btn-success" [disabled]="!f.valid" type="button" (click)="onClick('crear')">
                             <i class="fas fa-plus-circle"></i> Crear</button>
                         <button class="btn btn-primary" routerLink="/lista-huesped">
                             <i class="fas fa-arrow-alt-circle-left"></i> Volver</button>

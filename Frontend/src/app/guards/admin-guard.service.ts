@@ -9,9 +9,7 @@ import { TokenService } from '../service/token.service';
 export class AdminGuardService implements CanActivate{
 
   realRole: string;
-
-
-
+  
   constructor(
 
     private tokenService: TokenService,
@@ -21,13 +19,13 @@ export class AdminGuardService implements CanActivate{
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const expectedRol = route.data.expectRol;
     const roles = this.tokenService.getAuthorities();
-    this.realRole = 'ADMIN';
+    this.realRole = 'USER';
     roles.forEach(rol =>{
       if (rol === 'MANAGER') {
         this.realRole = 'MANAGER';
       }
-      if (rol === 'USER') {
-        this.realRole = 'USER';
+      if (rol === 'ADMIN') {
+        this.realRole = 'ADMIN';
       }
     });
     console.log(this.tokenService.getToken());
