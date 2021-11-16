@@ -15,7 +15,7 @@
       <select class="custom-select form-control controls" [(ngModel)]="huesped" id="huesped" name="huesped">
         <option [ngValue]="null" [disabled]="true" [selected]="true">Seleccionar huesped</option>
         <option *ngFor="let item of huespedes" [value]="item.huespedId">
-          {{item.nombre}}
+          {{item.nombre}} {{item.apellido}}
         </option>
       </select>
     </div>
@@ -28,7 +28,7 @@
     <input class="controls" type="date" id="end" name="trip-end" value="2018-07-22" min="2018-01-01" max="2999-12-31">
 
     <div class="form-group">
-      <label for="habitacion">Habitacion</label>
+      <label for="habitacion">Habitaciones Disponibles</label>
       <select class="custom-select form-control controls" [(ngModel)]="habitacion" id="habitacion" name="habitacion" required>
         <option [ngValue]="null" [disabled]="true" [selected]="true">Seleccionar habitacion</option>
         <option *ngFor="let item of habitaciones" [value]="item.habitacionId">
