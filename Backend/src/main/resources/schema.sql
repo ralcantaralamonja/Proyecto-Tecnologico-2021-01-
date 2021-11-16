@@ -215,13 +215,18 @@ VALUES (1, 'ADMIN'),
        (2, 'MANAGER'),
        (3, 'USER');
 
-INSERT INTO usuario (Id_Usuario, Username, Password, Estado, Fecha_Creacion)
-VALUES (1, 'admin', '$2a$10$Uv3FW83F97Y5sc3iUziZ4Ov72SkPiwg12g5GsBqBjQ2IZjWcQB44K', 1, sysdate());
+INSERT INTO usuario (Id_Usuario, Username, Password, Estado, Fecha_Creacion) VALUES
+(1, 'admin', '$2a$10$Uv3FW83F97Y5sc3iUziZ4Ov72SkPiwg12g5GsBqBjQ2IZjWcQB44K', 1, sysdate()),
+(2, 'manager', '$2a$10$vnPyOfddys1lidxX5mwm/uk0VjE219q5vkDJmZ5h8c2Zaxj9uRfJO', 1, sysdate()),
+(3, 'user', '$2a$10$vnPyOfddys1lidxX5mwm/uk0VjE219q5vkDJmZ5h8c2Zaxj9uRfJO', 1, sysdate());
 
 INSERT INTO rol_usuario (Id_Usuario, Id_Rol)
 VALUES (1, 1),
        (1, 2),
-       (1, 3);
+       (1, 3),
+       (2, 2),
+       (2, 3),
+       (3, 3);
 
 INSERT INTO tipo_documento (Nombre)
 VALUES ('DNI'),

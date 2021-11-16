@@ -42,6 +42,15 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
     }
 
+    public void activate(Integer id) {
+        usuarioRepository.findById(id).ifPresent(
+                u -> {
+                    u.setEstado(1);
+                    usuarioRepository.save(u);
+                }
+        );
+    }
+
     public void delete(Integer id) {
         usuarioRepository.findById(id).ifPresent(
                 u -> {

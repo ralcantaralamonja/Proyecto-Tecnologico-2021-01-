@@ -17,7 +17,7 @@ export class ListaUsuarioComponent implements OnInit {
   usuarios: Usuario[] = [];
   roles: string[];
   permiso = false;
-  loginUsuario: LoginUsuario;
+  usuarioLogeado: string;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -32,18 +32,19 @@ export class ListaUsuarioComponent implements OnInit {
       if (rol === 'MANAGER') {
         this.permiso = true;
       }
-      this.loginUsuario.username = this.tokenService.getUserName();
-      this.loginUsuario.password = 'ricardoinfiel';
-      console.log(this.loginUsuario.username);
-      console.log(this.tokenService.getUserName());
+      this.usuarioLogeado = this.tokenService.getUserName();
+      console.log('oninit '+this.usuarioLogeado);
     });
-
   }
 
   cargarUsuarios(): void {
     this.usuarioService.lista().subscribe(
       data => {
         this.usuarios = data;
+        this.usuarios.forEach(
+          u => u.estado = this.validarEstado(u.estado)
+        )
+        console.log(this.usuarios);        
       },
       err => {
         console.log(err);
@@ -51,9 +52,12 @@ export class ListaUsuarioComponent implements OnInit {
     );
   }
 
-  borrar(id: string) {
-    console.log(this.loginUsuario.username);
-    this.usuarioService.eliminar(id, this.loginUsuario).subscribe(
+  borrar(username: string) {
+    console.log('borrador '+username);
+    console.log('borrado '+this.usuarioLogeado);
+    const user = new LoginUsuario(this.usuarioLogeado, '');
+
+    this.usuarioService.eliminar(username, user).subscribe(
       data => {
         this.toastr.success('Usuario ha sido Eliminado correctamente', 'OK', {
           timeOut: 3000, positionClass: 'toast-top-center'
@@ -68,7 +72,39 @@ export class ListaUsuarioComponent implements OnInit {
     );
   }
 
-  activar(username:string){
+  activar(username: string) {
+    const user = new LoginUsuario(this.usuarioLogeado, '');
 
+    this.usuarioService.activar(username, user).subscribe(
+      data => {
+        this.toastr.success('Usuario activado correctamente', 'OK', {
+          timeOut: 3000, positionClass: 'toast-top-center'
+        });
+        this.cargarUsuarios();
+      },
+      err => {
+        this.toastr.error(err.error.mensaje, 'Fail', {
+          timeOut: 3000, positionClass: 'toast-top-center',
+        });
+      }
+    );
   }
+
+  validarEstado(estado): string {
+    switch (estado) {
+      case 1:
+        return "Activo";
+        break;
+      case 2:
+        return "Inactivo";
+        break;
+      case 3:
+        return "Eliminado";
+        break;
+      default:
+        return "Desconocido";
+        break;
+    }
+  }
+
 }

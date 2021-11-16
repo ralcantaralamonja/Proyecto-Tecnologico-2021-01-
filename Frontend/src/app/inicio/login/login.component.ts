@@ -73,7 +73,11 @@ export class LoginComponent implements OnInit {
         if (this.errMsj === 'Clave incorrecta') {
           if (this.intentos > 0) {
             this.intentos--;
-            this.toastr.error(this.errMsj + ', te quedan ' + this.intentos + ' intentos', 'Fail');
+            if (this.intentos == 0) {
+              this.toastr.error(this.errMsj + 'Tu cuenta ha sido bloqueada', 'Fail');
+            } else {
+              this.toastr.error(this.errMsj + ', te quedan ' + this.intentos + ' intentos', 'Fail');
+            }
           } else {
             this.authService.bloquear(this.loginUsuario).subscribe(
               data => {

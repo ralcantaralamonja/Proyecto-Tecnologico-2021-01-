@@ -23,8 +23,12 @@ export class UsuarioService {
     return this.httpClient.put<any>(this.usuarioURL + `users/bloqueo`, loginUsuario);
   }
 
-  public eliminar(id: string, loginUsuario: LoginUsuario): Observable<any> {
-    return this.httpClient.put<any>(this.usuarioURL + `users/delete/` + `${id}`, loginUsuario);
+  public activar(username: string, loginUsuario: LoginUsuario): Observable<any> {
+    return this.httpClient.put<any>(this.usuarioURL + `users/activate/` + `${username}`, loginUsuario);
+  }
+
+  public eliminar(username: string, loginUsuario: LoginUsuario): Observable<any> {
+    return this.httpClient.put<any>(this.usuarioURL + `users/delete/` + `${username}`, loginUsuario);
   }
 
   public nuevoUsuario(username: string, nuevoUsuario: NuevoUsuario): Observable<any> {
@@ -34,4 +38,5 @@ export class UsuarioService {
   public nuevoManager(username: string, nuevoUsuario: NuevoUsuario): Observable<any> {
     return this.httpClient.post<any>(this.usuarioURL + 'users/registro-manager/' + `${username}`, nuevoUsuario);
   }
+
 }

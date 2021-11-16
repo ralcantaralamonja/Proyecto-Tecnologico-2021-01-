@@ -14,6 +14,7 @@ import pe.isil.reservas.dto.Mensaje;
 import pe.isil.security.dto.JwtDto;
 import pe.isil.security.dto.LoginUsuario;
 import pe.isil.security.dto.NuevoUsuario;
+import pe.isil.security.dto.UsuarioDto;
 import pe.isil.security.enums.RolNombre;
 import pe.isil.security.jwt.JwtProvider;
 import pe.isil.security.model.entity.Rol;
@@ -81,7 +82,7 @@ public class AuthController {
     @PostMapping("/users/registro-user/{username}")
     public ResponseEntity<?> registerUser(@Valid @RequestBody NuevoUsuario nuevoUsuario, @PathVariable String username, BindingResult bindingResult) {
         UserDetails details = userDetailsService.loadUserByUsername(username);
-        if (details != null ){
+        if (details != null) {
             if (details.getAuthorities().stream()
                     .anyMatch(a -> a.getAuthority().equals("MANAGER"))) {
                 return register(nuevoUsuario, bindingResult, "USER");
@@ -93,7 +94,7 @@ public class AuthController {
     @PostMapping("/users/registro-manager/{username}")
     public ResponseEntity<?> registerManager(@Valid @RequestBody NuevoUsuario nuevoUsuario, @PathVariable String username, BindingResult bindingResult) {
         UserDetails details = userDetailsService.loadUserByUsername(username);
-        if (details != null ){
+        if (details != null) {
             if (details.getAuthorities().stream()
                     .anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
                 return register(nuevoUsuario, bindingResult, "MANAGER");
@@ -122,10 +123,14 @@ public class AuthController {
         return new ResponseEntity(new Mensaje("Se registro correctamente"), HttpStatus.CREATED);
     }
 
-    @PutMapping("/users/delete/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable("id") Integer id, @RequestBody LoginUsuario usuario) {
+    @PutMapping("/users/delete/{username}")
+    public ResponseEntity<?> deleteUser(@PathVariable("username") String username, @RequestBody LoginUsuario usuario) {
         UserDetails details = userDetailsService.loadUserByUsername(usuario.getUsername());
-        if (details != null ){
+        if (usuarioService.getByUsername(username).get()==null){
+            return new ResponseEntity<>(new Mensaje("No se encontro usuario"), HttpStatus.NOT_FOUND);
+        }
+        Integer id = usuarioService.getByUsername(username).get().getUsuarioId();
+        if (details != null) {
             if (details.getAuthorities().stream()
                     .anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
                 return delete(id, new Rol(1, RolNombre.ADMIN));
@@ -137,16 +142,23 @@ public class AuthController {
         return new ResponseEntity<>(new Mensaje("No autorizado"), HttpStatus.UNAUTHORIZED);
     }
 
-    public ResponseEntity<?> delete(Integer id, Rol rolUserActual) {
-        if (!usuarioService.existsById(id))
-            return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
-
-        Usuario usuario = usuarioService.getById(id).get();
-        if (usuario.getRoles().stream().anyMatch(rol -> rol.getRolNombre().equals(rolUserActual.getRolNombre()))) {
-            return new ResponseEntity(new Mensaje("No tiene permiso para realizar esta operacion"), HttpStatus.UNAUTHORIZED);
+    @PutMapping("/users/activate/{username}")
+    public ResponseEntity<?> activateUser(@PathVariable("username") String username, @RequestBody LoginUsuario usuario) {
+        UserDetails details = userDetailsService.loadUserByUsername(usuario.getUsername());
+        if (usuarioService.getByUsername(username).get()==null){
+            return new ResponseEntity<>(new Mensaje("No se encontro usuario"), HttpStatus.NOT_FOUND);
         }
-        usuarioService.delete(id);
-        return new ResponseEntity(new Mensaje("Usuario eliminado"), HttpStatus.OK);
+        Integer id = usuarioService.getByUsername(username).get().getUsuarioId();
+        if (details != null) {
+            if (details.getAuthorities().stream()
+                    .anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
+                return activate(id, new Rol(1, RolNombre.ADMIN));
+            } else if (details.getAuthorities().stream()
+                    .anyMatch(a -> a.getAuthority().equals("MANAGER"))) {
+                return activate(id, new Rol(2, RolNombre.MANAGER));
+            }
+        }
+        return new ResponseEntity<>(new Mensaje("No autorizado"), HttpStatus.UNAUTHORIZED);
     }
 
     @PutMapping("/users/bloqueo")
@@ -163,8 +175,60 @@ public class AuthController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<Usuario>> usuariosList() {
+    public ResponseEntity<List<UsuarioDto>> usuariosList() {
         List<Usuario> usuarios = usuarioService.findAll();
-        return new ResponseEntity<List<Usuario>>(usuarios, HttpStatus.OK);
+        List<UsuarioDto> dtoList = new ArrayList<>();
+        for (Usuario usuario : usuarios) {
+            UsuarioDto dto = new UsuarioDto();
+            dto.setUsuarioId(usuario.getUsuarioId());
+            dto.setNombres(usuario.getNombres());
+            dto.setApellidos(usuario.getApellidos());
+            dto.setUsername(usuario.getUsername());
+            dto.setFechaCreacion(usuario.getFechaCreacion());
+            dto.setCorreo(usuario.getCorreo());
+            dto.setEstado(usuario.getEstado());
+            Set<Rol> roles = usuario.getRoles();
+            List<Rol> rolList = new ArrayList<>(roles);
+            switch (rolList.size()){
+                case 3:
+                    dto.setRol("ADMIN");
+                    break;
+                case 2:
+                    dto.setRol("MANAGER");
+                    break;
+                case 1:
+                    dto.setRol("USER");
+                    break;
+                default:
+                    dto.setRol("INDEFINIDO");
+            }
+            dtoList.add(dto);
+        }
+        return new ResponseEntity<List<UsuarioDto>>(dtoList, HttpStatus.OK);
     }
+
+    public ResponseEntity<?> activate(Integer id, Rol rolUserActual) {
+        if (!usuarioService.existsById(id))
+            return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
+
+        Usuario usuario = usuarioService.getById(id).get();
+        if (usuario.getRoles().stream().anyMatch(rol -> rol.getRolNombre().equals(rolUserActual.getRolNombre()))) {
+            return new ResponseEntity(new Mensaje("No tiene permiso para realizar esta operacion"), HttpStatus.UNAUTHORIZED);
+        }
+        usuarioService.activate(id);
+        return new ResponseEntity(new Mensaje("Usuario eliminado"), HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> delete(Integer id, Rol rolUserActual) {
+        if (!usuarioService.existsById(id))
+            return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
+
+        Usuario usuario = usuarioService.getById(id).get();
+        if (usuario.getRoles().stream().anyMatch(rol -> rol.getRolNombre().equals(rolUserActual.getRolNombre()))) {
+            return new ResponseEntity(new Mensaje("No tiene permiso para realizar esta operacion"), HttpStatus.UNAUTHORIZED);
+        }
+        usuarioService.delete(id);
+        return new ResponseEntity(new Mensaje("Usuario eliminado"), HttpStatus.OK);
+    }
+
 }
