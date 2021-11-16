@@ -20,6 +20,10 @@ export class HuespedService {
     return this.httpClient.get<Huesped[]>(this.huespedURL);
   }
 
+  public listarDisponibles(): Observable<Huesped[]> {
+    return this.httpClient.get<Huesped[]>(this.huespedURL + `/sin-reserva`);
+  }
+
   public detalle(id: number): Observable<Huesped> {
     return this.httpClient.get<Huesped>(this.huespedURL + `/${id}`);
   }

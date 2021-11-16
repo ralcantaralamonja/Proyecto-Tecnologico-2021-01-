@@ -18,6 +18,10 @@ export class CuartosService {
   public lista(): Observable<Cuarto[]> {
     return this.httpClient.get<Cuarto[]>(this.cuartoURL);
   }
+  
+  public listarDisponibles(): Observable<Cuarto[]> {
+    return this.httpClient.get<Cuarto[]>(this.cuartoURL+'/disponibles');
+  }
 
   public detalle(id: number): Observable<Cuarto> {
     return this.httpClient.get<Cuarto>(this.cuartoURL + `/${id}`);

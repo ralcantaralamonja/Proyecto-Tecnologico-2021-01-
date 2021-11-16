@@ -34,6 +34,7 @@ public class HuespedService implements CrudService<Huesped, Integer> {
                 sinReserva.add(huesped);
             }
         }
+        System.out.println("sinReserva = " + conReserva);
         return sinReserva;
     }
 

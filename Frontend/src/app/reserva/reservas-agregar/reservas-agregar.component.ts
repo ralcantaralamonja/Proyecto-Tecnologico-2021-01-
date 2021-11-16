@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Cuarto } from 'src/app/entity/habitacion';
+import { Huesped } from 'src/app/entity/huesped';
 import { Reserva } from 'src/app/entity/reserva';
+import { CuartosService } from 'src/app/service/cuartos.service';
+import { HuespedService } from 'src/app/service/huesped.service';
 import { ReservaService } from 'src/app/service/reserva.service';
 
 @Component({
@@ -17,16 +21,24 @@ export class ReservasAgregarComponent implements OnInit {
   habitacionId: '';
   usuarioRegistro: '';
 
+  habitacion: Cuarto;
+  habitaciones: Cuarto[] = [];
+
+  huesped: Huesped;
+  huespedes: Huesped[] = [];
 
   constructor(
-
     private reservaService: ReservaService,
-   /* private toastr: ToastrServicece,*/
+    private cuartoService: CuartosService,
+    private huespedService: HuespedService,
+    private toastr: ToastrService,
     private router: Router
 
   ) { }
 
   ngOnInit(): void {
+    this.cargarHuespedes();
+    this.cargarHabitaciones();
   }
 
   /*onCreate(): void {
@@ -46,5 +58,30 @@ export class ReservasAgregarComponent implements OnInit {
       }
     );
   }*/
+
+  cargarHabitaciones(){
+    this.cuartoService.listarDisponibles().subscribe(
+      data => {
+        this.habitaciones = data;
+      },
+      err => {
+        console.log(err);
+      }
+    )
+  }
+
+  //TODO
+  // cambiar por metodo listarDisponibles() !!
+  cargarHuespedes(){
+    this.huespedService.lista().subscribe(
+      data => {
+        this.huespedes = data;
+        console.log(this.huespedes);        
+      },
+      err => {
+        console.log(err);
+      }
+    )
+  }
 
 }
