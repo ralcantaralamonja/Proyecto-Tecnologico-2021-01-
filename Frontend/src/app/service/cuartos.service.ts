@@ -32,8 +32,12 @@ export class CuartosService {
   }
 
   public update(id: number, cuarto: Cuarto): Observable<any> {
-   return this.httpClient.put<any>(this.cuartoURL + `/${id}`, cuarto);
-  }
+    return this.httpClient.put<any>(this.cuartoURL + `/${id}`, cuarto);
+   }
+
+   public setDisponible(id: number): Observable<any> {
+    return this.httpClient.put<any>(this.cuartoURL + `/mantenimiento/${id}`, null);
+   }
 
   //public delete(id: number): Observable<any> {
    // return this.httpClient.delete<any>(this.huespedURL + `/${id}`);

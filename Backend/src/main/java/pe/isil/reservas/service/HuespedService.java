@@ -25,14 +25,15 @@ public class HuespedService implements CrudService<Huesped, Integer> {
     }
 
     public List<Huesped> listarHuespedesSinReserva() {
+        List<Huesped> all = huespedRepository.findAll();
         List<Huesped> sinReserva = new ArrayList<>();
         List<Huesped> conReserva = huespedRepository.listarHuespedesConReserva();
-        for (Huesped huesped : huespedRepository.findAll()) {
-            for (int i = 0; i < conReserva.size(); i++) {
-                if (huesped == conReserva.get(i))
-                    continue;
-                sinReserva.add(huesped);
+        for (Huesped huesped : all) {
+            for (Huesped hConReserva : conReserva) {
+                if (huesped == hConReserva)
+                    break;
             }
+            sinReserva.add(huesped);
         }
         System.out.println("sinReserva = " + conReserva);
         return sinReserva;

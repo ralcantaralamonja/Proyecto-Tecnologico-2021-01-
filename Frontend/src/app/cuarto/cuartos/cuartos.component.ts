@@ -18,16 +18,15 @@ export class CuartosComponent implements OnInit {
   isUser = false;
   isAdmin = true;
   errMsj: string;
-  
+  clases = [
+    'btn', 'btn btn-success', 'btn btn-danger', 'btn btn-warning'
+  ]
 
   constructor(
-
     private cuartoService: CuartosService,
     private toastr: ToastrService,
     private tokenService: TokenService
-
-
-  ) {}
+  ) { }
 
   ngOnInit(): void {
 
@@ -38,7 +37,6 @@ export class CuartosComponent implements OnInit {
         this.isAdmin = false;
       }
     });
-
   }
 
   cargarCuartos(): void {
@@ -46,14 +44,37 @@ export class CuartosComponent implements OnInit {
       data => {
         this.cuarto = data;
         this.cuarto.forEach(
-          c => c.estado = this.validarEstado(c.estado)
-        )    
+          c => {
+            c.color = c.estado;
+            c.estado = this.validarEstado(c.estado);
+            c.banio = this.validarBanio(c.banio);
+          }
+        )
       },
       err => {
         console.log(err);
       }
     );
   }
+
+  setDisponible(id: number, estado:string) {
+    if (estado != 'Disponible') {
+      this.cuartoService.setDisponible(id).subscribe(
+        data => {
+          this.toastr.success(data.mensaje, 'OK', {
+            timeOut: 3000, positionClass: 'toast-top-center'
+          });
+          this.cargarCuartos();
+        },
+        err => {
+          this.toastr.error(err.error.mensaje, 'Fail', {
+            timeOut: 3000, positionClass: 'toast-top-center',
+          });
+        }
+      )
+    }
+  }
+
 
   validarEstado(estado: number): string {
     switch (estado) {
@@ -63,8 +84,25 @@ export class CuartosComponent implements OnInit {
       case 2:
         return "Ocupado";
         break;
-      default:
+      case 3:
         return "Mantenimiento";
+        break;
+      default:
+        return "Quien sabe";
+        break;
+    }
+  }
+
+  validarBanio(estado: number): string {
+    switch (estado) {
+      case 1:
+        return "Con baño";
+        break;
+      case 2:
+        return "Baño compartido";
+        break;
+      default:
+        return "Vaya a alquilar al chifa";
         break;
     }
   }

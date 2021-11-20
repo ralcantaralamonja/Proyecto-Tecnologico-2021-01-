@@ -1,21 +1,19 @@
 export class Reserva {
 
     reservaId?: number;
-   // fecIngreso: Date;
+    fecIngreso: Date;
     fecSalida: Date;
     huespedId: number;
     habitacionId: number;
     usuarioRegistro: String;
-    //fecha_Registro: Date;
-    //usuarioUltModificacion: String;
-    //fechaUltModificacion: Date;
-    //estado: any;
-    
+    fechaRegistro: Date;
+    usuarioUltModificacion: String;
+    fechaUltModificacion: Date;
+    estado: any;
 
-
-    constructor(fecSalida: Date, huespedId:number, habitacionId:number, usuarioRegistro: string) {
+    constructor(fecIngreso: Date, fecSalida: Date, huespedId:number, habitacionId:number, usuarioRegistro: string) {
        
-      //  this.fecIngreso = fecIngreso;
+        this.fecIngreso = fecIngreso;
         this.fecSalida = fecSalida;
         this.huespedId = huespedId;
         this.habitacionId = habitacionId;
@@ -24,8 +22,6 @@ export class Reserva {
         //this.usuarioUltModificacion = usuarioUltModificacion;
         //this.fechaUltModificacion = fechaUltModificacion;
         //this.estado = estado;
-      
-
     }
 }
 

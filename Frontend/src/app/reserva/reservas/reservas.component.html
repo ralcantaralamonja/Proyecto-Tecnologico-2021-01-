@@ -12,9 +12,6 @@
 </head>
 <body>
 
-
-
-
 <div class="container">
     <h3 id="Texto">Listado de Reservas</h3>
   
@@ -25,27 +22,24 @@
             <table class="table">
                 <thead class="thead-dark">
                 <tr >
-                    <th scope="col" >ID de la reserva</th>
+                    <th scope="col" >ID</th>
+                    <th scope="col">Fecha de ingreso</th>
                     <th scope="col">Fecha de salida</th>
-                    <th scope="col">Id del huesped</th>
-                    <th scope="col">Id de la habitacion </th>
-                    <th scope="col">Usuario Registro</th>
+                    <th scope="col">Fecha de reserva</th>
+                    <th scope="col">Estado</th>
                     <th colspan="3"></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr >
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td> </td>
-                   
-                   
+                <tr *ngFor="let res of reservas">
+                    <td>{{res.reservaId}}</td>
+                    <td>{{res.fecIngreso}}</td>
+                    <td>{{res.fecSalida}}</td>
+                    <td>{{res.fechaRegistro}}</td>
+                    <td>{{res.estado}} </td>                   
 
-                    <td><button class="btn btn-outline-primary" ><i class="far fa-eye"></i> Ver Reserva</button></td>
-                    <td ><button class="btn btn-outline-warning" ><i class="far fa-edit"></i> Editar Reserva</button></td>
-                    <td ><button class="btn btn-outline-danger"  ><i class="far fa-trash-alt"></i> Eliminar</button></td>
+                    <td><button class="btn btn-outline-primary" ><i class="far fa-eye"></i> Ver</button></td>
+                    <td ><button class="btn btn-outline-warning" ><i class="far fa-edit"></i> Editar</button></td>
                    <!--/{{huespedes.huespedId}}-->
                    
                 </tr>

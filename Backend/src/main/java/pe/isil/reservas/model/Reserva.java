@@ -39,7 +39,7 @@ public class Reserva {
     @Column(name = "Fecha_Ult_Modificacion")
     private LocalDateTime fechaUltModificacion;
     @Column(name = "Estado")
-    private int estado; // 1 -> activa | 2 -> finalizada | 3 -> cancelada
+    private int estado; // 0 -> pendiente | 1 -> activa | 2 -> finalizada | 3 -> cancelada
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "Id_Huesped", insertable = false, updatable = false)

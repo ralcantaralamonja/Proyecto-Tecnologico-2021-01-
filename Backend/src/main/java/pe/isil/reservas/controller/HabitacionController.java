@@ -7,13 +7,16 @@ import org.springframework.web.bind.annotation.*;
 import pe.isil.reservas.dto.HabitacionDto;
 import pe.isil.reservas.dto.Mensaje;
 import pe.isil.reservas.model.Habitacion;
+import pe.isil.reservas.model.Reserva;
 import pe.isil.reservas.model.TipoHabitacion;
 import pe.isil.reservas.service.HabitacionService;
+import pe.isil.reservas.service.ReservaService;
 import pe.isil.reservas.service.TipoHabitacionService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/habitaciones")
@@ -22,14 +25,29 @@ public class HabitacionController {
 
     private final HabitacionService habitacionService;
     private final TipoHabitacionService tipoHabitacionService;
+    private final ReservaService reservaService;
 
-    public HabitacionController(HabitacionService habitacionService, TipoHabitacionService tipoHabitacionService) {
+    public HabitacionController(HabitacionService habitacionService, TipoHabitacionService tipoHabitacionService, ReservaService reservaService) {
         this.habitacionService = habitacionService;
         this.tipoHabitacionService = tipoHabitacionService;
+        this.reservaService = reservaService;
     }
 
     @GetMapping
     public ResponseEntity<List<HabitacionDto>> habitacionesList() {
+        List<Reserva> reservas = reservaService.listarPendientes();
+        for (Reserva r : reservas) {
+            if (!r.getFecIngreso().isAfter(LocalDateTime.now()) && r.getFecSalida().isAfter(LocalDateTime.now())) {
+                r.setEstado(1);
+                habitacionService.findById(r.getHabitacionId()).ifPresent(
+                        habitacion -> {
+                            habitacion.setEstado(2);
+                            habitacionService.update(habitacion);
+                        }
+                );
+            }
+        }
+
         List<Habitacion> habitaciones = habitacionService.findAll();
         List<HabitacionDto> dtoList = getHabitacionDtos(habitaciones);
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
@@ -72,6 +90,18 @@ public class HabitacionController {
         habitacion.setEstado(habitacionDto.getEstado());
         habitacionService.update(habitacion);
         return new ResponseEntity(new Mensaje("Habitacion actualizado"), HttpStatus.OK);
+    }
+
+    @PutMapping("/mantenimiento/{id}")
+    public ResponseEntity<?> activarHabitacion(@PathVariable("id") Integer id) {
+        if (!habitacionService.existsById(id))
+            return new ResponseEntity(new Mensaje("No se encontro habitacion"), HttpStatus.NOT_FOUND);
+        Habitacion habitacion = habitacionService.findById(id).get();
+        if (habitacion.getEstado() == 2)
+            return new ResponseEntity(new Mensaje("La habitacion aun se encuentra ocupada"), HttpStatus.FORBIDDEN);
+        habitacion.setEstado(1);
+        habitacionService.update(habitacion);
+        return new ResponseEntity(new Mensaje("La habitacion se encuentra nuevamente disponible"), HttpStatus.OK);
     }
 
     public ResponseEntity<?> deleteHabitacion(@PathVariable("id") Integer id) {

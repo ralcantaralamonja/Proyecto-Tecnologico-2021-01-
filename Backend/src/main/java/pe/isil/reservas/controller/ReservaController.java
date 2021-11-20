@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import pe.isil.reservas.dto.Mensaje;
 import pe.isil.reservas.dto.ReservaDto;
 import pe.isil.reservas.model.Reserva;
+import pe.isil.reservas.service.HabitacionService;
+import pe.isil.reservas.service.HuespedService;
 import pe.isil.reservas.service.ReservaService;
 import pe.isil.security.dto.LoginUsuario;
 
@@ -18,9 +20,13 @@ import java.util.List;
 public class ReservaController {
 
     private final ReservaService reservaService;
+    private final HuespedService huespedService;
+    private final HabitacionService habitacionService;
 
-    public ReservaController(ReservaService reservaService) {
+    public ReservaController(ReservaService reservaService, HuespedService huespedService, HabitacionService habitacionService) {
         this.reservaService = reservaService;
+        this.huespedService = huespedService;
+        this.habitacionService = habitacionService;
     }
 
     @GetMapping
@@ -45,6 +51,10 @@ public class ReservaController {
 
     @PostMapping
     public ResponseEntity<?> createReserva(@RequestBody ReservaDto reservaDto) {
+        if (!huespedService.existsById(reservaDto.getHuespedId()))
+            return new ResponseEntity(new Mensaje("Huesped no registrado"), HttpStatus.NOT_FOUND);
+        if (!habitacionService.existsById(reservaDto.getHabitacionId()))
+            return new ResponseEntity(new Mensaje("Habitacion no registrada"), HttpStatus.NOT_FOUND);
         reservaService.crearReserva(toReserva(reservaDto));
         return new ResponseEntity(new Mensaje("Reserva registrada con exito"), HttpStatus.CREATED);
     }
@@ -73,7 +83,7 @@ public class ReservaController {
         dto.setHuespedId(reserva.getHuespedId());
         dto.setHabitacionId(reserva.getHabitacionId());
         dto.setUsuarioRegistro(reserva.getUsuarioRegistro());
-        dto.setFecha_Registro(reserva.getFecha_Registro());
+        dto.setFechaRegistro(reserva.getFecha_Registro());
         dto.setUsuarioUltModificacion(reserva.getUsuarioUltModificacion());
         dto.setFechaUltModificacion(reserva.getFechaUltModificacion());
         dto.setEstado(reserva.getEstado());
@@ -84,7 +94,7 @@ public class ReservaController {
     private Reserva toReserva(ReservaDto reservaDto) {
         return new Reserva(reservaDto.getReservaId(), reservaDto.getFecIngreso(), reservaDto.getFecSalida(),
                 reservaDto.getHuespedId(), reservaDto.getHabitacionId(), reservaDto.getUsuarioRegistro(),
-                reservaDto.getFecha_Registro(), reservaDto.getUsuarioUltModificacion(),
+                reservaDto.getFechaRegistro(), reservaDto.getUsuarioUltModificacion(),
                 reservaDto.getFechaUltModificacion(), reservaDto.getEstado(), null, null);
     }
 }

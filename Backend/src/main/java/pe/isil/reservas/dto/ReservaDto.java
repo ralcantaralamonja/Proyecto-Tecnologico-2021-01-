@@ -19,6 +19,7 @@ import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 @Getter
 public class ReservaDto {
     private Integer reservaId;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime fecIngreso;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime fecSalida;
@@ -26,7 +27,7 @@ public class ReservaDto {
     private Integer habitacionId;
     @NotNull
     private String usuarioRegistro;
-    private LocalDateTime fecha_Registro;
+    private LocalDateTime fechaRegistro;
     private String usuarioUltModificacion;
     private LocalDateTime fechaUltModificacion;
     private int estado;

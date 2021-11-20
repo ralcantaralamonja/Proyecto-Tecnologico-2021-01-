@@ -70,8 +70,6 @@ export class ReservasAgregarComponent implements OnInit {
     )
   }
 
-  //TODO
-  // cambiar por metodo listarDisponibles() !!
   cargarHuespedes(){
     this.huespedService.listarDisponibles().subscribe(
       data => {

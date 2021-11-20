@@ -11,12 +11,13 @@ export class Cuarto {
     estado: any;
     tipo: string;
     aforo: number;
-    banio: number;
+    banio: any;
     precio: number;
 
+    color: number;
 
     constructor(numeros: string, foto: string, tipoId: number, usuarioRegistro: string, fecha_Registro: Date, usuarioUltModificacion: string,
-        fechaUltModificacion: Date, estado: any, tipo: string, aforo:number, banio: number, precio:number) {
+        fechaUltModificacion: Date, estado: any, tipo: string, aforo:number, banio: any, precio:number) {
         this.numero = numeros;
         this.foto=foto;
         this.tipoId = tipoId;

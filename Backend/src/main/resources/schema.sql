@@ -264,16 +264,23 @@ WHERE r.Estado = 1;
 --SP
 DELIMITER
 $$
-CREATE PROCEDURE usp_crear_reserva(IN vfec_sal DATETIME,
+CREATE PROCEDURE usp_crear_reserva(IN vfec_ing DATETIME,
+                                   IN vfec_sal DATETIME,
                                    IN vid_huesped INT,
                                    IN vid_hab INT,
                                    IN vusu_reg VARCHAR (30))
 BEGIN
-UPDATE habitacion
-SET Estado=2
-WHERE Id_Hab = vid_hab;
+    DECLARE vestado_res INT;
+    SET vestado_res = 0;
+	IF vfec_ing<=SYSDATE() AND vfec_sal>SYSDATE()
+    THEN
+        UPDATE habitacion
+        SET Estado=2
+        WHERE Id_Hab = vid_hab;
+        SET vestado_res = 1;
+    END IF;
 INSERT INTO reserva (Fec_Ingreso, Fec_Salida, Id_Huesped, Id_Hab, Usuario_Registro, Fecha_Registro, Estado)
-VALUES (SYSDATE(), vfec_sal, vid_huesped, vid_hab, vusu_reg, SYSDATE(), 1);
+VALUES (vfec_ing, vfec_sal, vid_huesped, vid_hab, vusu_reg, SYSDATE(), vestado_res);
 END$$
 DELIMITER ;
 
@@ -289,6 +296,7 @@ WHERE Id_Hab = (SELECT Id_Hab FROM reserva WHERE Id_Reserva = vid_res);
 UPDATE reserva
 SET Usuario_Ult_Modificacion=vusu_ult_mod,
     Fecha_Ult_Modificacion=SYSDATE(),
+    Fec_Salida = SYSDATE(),
     Estado=2
 WHERE Id_Reserva = vid_res;
 END$$
@@ -383,6 +391,16 @@ SET Usuario_Ult_Modificacion=vusu_ult_mod,
     Fecha_Ult_Modificacion=SYSDATE(),
     Estado                  =2
 WHERE Id_Huesped = vid_huesped;
-END;
 END$$
 DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE usp_habitaciones_reservadas()
+BEGIN
+SELECT h.*
+FROM reserva r
+         INNER JOIN habitacion h ON r.Id_Hab=h.Id_Hab
+         WHERE r.Estado < 2;
+END$$
+DELIMITER ;
+

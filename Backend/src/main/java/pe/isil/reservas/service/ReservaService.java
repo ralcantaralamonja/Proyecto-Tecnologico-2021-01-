@@ -2,11 +2,9 @@ package pe.isil.reservas.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pe.isil.reservas.dto.ReservaDto;
 import pe.isil.reservas.model.Reserva;
 import pe.isil.reservas.repository.ReservaRepository;
 import pe.isil.security.dto.LoginUsuario;
-import pe.isil.security.model.UsuarioPrincipal;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +22,10 @@ public class ReservaService implements CrudService<Reserva, Integer> {
     @Override
     public List<Reserva> findAll() {
         return reservaRepository.findAll();
+    }
+
+    public List<Reserva> listarPendientes() {
+        return reservaRepository.listarPendientes();
     }
 
     @Override
@@ -57,7 +59,7 @@ public class ReservaService implements CrudService<Reserva, Integer> {
     }
 
     public void crearReserva(Reserva reserva){
-        reservaRepository.crearReserva(reserva.getFecSalida(),
+        reservaRepository.crearReserva(reserva.getFecIngreso() ,reserva.getFecSalida(),
                 reserva.getHuespedId(), reserva.getHabitacionId(), reserva.getUsuarioRegistro());
     }
     public void finalizarReserva(Integer id, LoginUsuario loginUsuario) {

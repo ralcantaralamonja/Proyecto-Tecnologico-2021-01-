@@ -27,6 +27,10 @@ public class HabitacionService implements CrudService<Habitacion, Integer> {
         return habitacionRepository.listarDisponibles();
     }
 
+    public List<Habitacion> listarReservadass() {
+        return habitacionRepository.listarReservadas();
+    }
+
     public Optional<Habitacion> findById(Integer id) {
         return habitacionRepository.findById(id);
     }

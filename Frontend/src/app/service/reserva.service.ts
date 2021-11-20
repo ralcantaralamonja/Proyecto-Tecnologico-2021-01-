@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { LoginUsuario } from '../entity/login-usuario';
 import { Reserva } from '../entity/reserva';
 
 @Injectable({
@@ -8,24 +9,29 @@ import { Reserva } from '../entity/reserva';
 })
 export class ReservaService {
 
-  huespedURL = 'http://127.0.0.1:8080/api/reservas';
+  reservaURL = 'http://127.0.0.1:8080/api/reservas';
 
 
   constructor(private httpClient: HttpClient) { }
 
   public lista(): Observable<Reserva[]> {
-    return this.httpClient.get<Reserva[]>(this.huespedURL);
+    return this.httpClient.get<Reserva[]>(this.reservaURL);
   }
 
   public detalle(id: number): Observable<Reserva> {
-    return this.httpClient.get<Reserva>(this.huespedURL + `/${id}`);
+    return this.httpClient.get<Reserva>(this.reservaURL + `/${id}`);
   }
 
   public save(reserva: Reserva): Observable<any> {
-    return this.httpClient.post<any>(this.huespedURL, reserva);
+    return this.httpClient.post<any>(this.reservaURL, reserva);
   }
 
-  public update(id: number, reserva: Reserva): Observable<any> {
-   return this.httpClient.put<any>(this.huespedURL + `/${id}`, reserva);
+  public finalizarReserva(id: number, usuario:LoginUsuario): Observable<any> {
+    return this.httpClient.put<any>(this.reservaURL+`/final/${id}`, usuario);
   }
+
+  public cancelarReserva(id: number, usuario:LoginUsuario): Observable<any> {
+    return this.httpClient.put<any>(this.reservaURL+`/cancelar/${id}`, usuario);
+  }
+
 }

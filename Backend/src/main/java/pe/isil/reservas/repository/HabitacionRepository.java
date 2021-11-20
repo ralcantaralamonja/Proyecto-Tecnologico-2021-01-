@@ -2,6 +2,7 @@ package pe.isil.reservas.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.stereotype.Repository;
 import pe.isil.reservas.model.Habitacion;
 
@@ -18,4 +19,6 @@ public interface HabitacionRepository extends JpaRepository<Habitacion, Integer>
             nativeQuery = true)
     List<Habitacion> listarDisponibles();
 
+    @Procedure("usp_habitaciones_reservadas")
+    List<Habitacion> listarReservadas();
 }
