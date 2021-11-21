@@ -18,6 +18,7 @@ export class ListaUsuarioComponent implements OnInit {
   roles: string[];
   permiso = false;
   usuarioLogeado: string;
+  isAdmin = false;
 
   constructor(
     private usuarioService: UsuarioService,
@@ -26,35 +27,55 @@ export class ListaUsuarioComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.cargarUsuarios();
     this.roles = this.tokenService.getAuthorities();
     this.roles.forEach(rol => {
       if (rol === 'MANAGER') {
         this.permiso = true;
       }
+      if (rol === 'ADMIN') {
+        this.isAdmin = true;
+      }
       this.usuarioLogeado = this.tokenService.getUserName();
-      console.log('oninit '+this.usuarioLogeado);
+      console.log('oninit ' + this.usuarioLogeado);
+      console.log(this.roles);
+      
     });
+    this.cargarUsuarios();
   }
 
   cargarUsuarios(): void {
-    this.usuarioService.lista().subscribe(
-      data => {
-        this.usuarios = data;
-        this.usuarios.forEach(
-          u => u.estado = this.validarEstado(u.estado)
-        )
-        console.log(this.usuarios);        
-      },
-      err => {
-        console.log(err);
-      }
-    );
+    if (this.isAdmin) {
+      this.usuarioService.listaParaElAdmin().subscribe(
+        data => {
+          this.usuarios = data;
+          this.usuarios.forEach(
+            u => u.estado = this.validarEstado(u.estado)
+          )
+          console.log(this.usuarios);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    }else{
+      this.usuarioService.listaParaLaPlebe().subscribe(
+        data => {
+          this.usuarios = data;
+          this.usuarios.forEach(
+            u => u.estado = this.validarEstado(u.estado)
+          )
+          console.log(this.usuarios);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    }
   }
 
   borrar(username: string) {
-    console.log('borrador '+username);
-    console.log('borrado '+this.usuarioLogeado);
+    console.log('borrador ' + username);
+    console.log('borrado ' + this.usuarioLogeado);
     const user = new LoginUsuario(this.usuarioLogeado, '');
 
     this.usuarioService.eliminar(username, user).subscribe(

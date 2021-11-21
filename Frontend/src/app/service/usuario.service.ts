@@ -15,8 +15,12 @@ export class UsuarioService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public lista(): Observable<Usuario[]> {
+  public listaParaElAdmin(): Observable<Usuario[]> {
     return this.httpClient.get<Usuario[]>(this.usuarioURL + 'users');
+  }
+
+  public listaParaLaPlebe(): Observable<Usuario[]> {
+    return this.httpClient.get<Usuario[]>(this.usuarioURL + 'users/filter');
   }
 
   public bloquear(loginUsuario: LoginUsuario): Observable<any> {

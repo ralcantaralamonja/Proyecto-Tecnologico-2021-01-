@@ -7,7 +7,6 @@ import pe.isil.security.repository.UsuarioRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @Transactional
@@ -62,6 +61,10 @@ public class UsuarioService {
 
     public List<Usuario> findAll(){
         return usuarioRepository.findAll();
+    }
+
+    public List<Usuario> findAllWithFilter(){
+        return usuarioRepository.listarSinEliminados(3);
     }
 
 }

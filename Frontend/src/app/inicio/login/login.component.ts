@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   password: string;
   roles: string[] = [];
   errMsj: string;
-  intentos: number = 3;
+  intentos: number = 2;
 
   constructor(
     private tokenService: TokenService,
@@ -73,11 +73,7 @@ export class LoginComponent implements OnInit {
         if (this.errMsj === 'Clave incorrecta') {
           if (this.intentos > 0) {
             this.intentos--;
-            if (this.intentos == 0) {
-              this.toastr.error(this.errMsj + 'Tu cuenta ha sido bloqueada', 'Fail');
-            } else {
-              this.toastr.error(this.errMsj + ', te quedan ' + this.intentos + ' intentos', 'Fail');
-            }
+            this.toastr.error(this.errMsj + ', te quedan ' + (this.intentos + 1) + ' intentos', 'Fail');
           } else {
             this.authService.bloquear(this.loginUsuario).subscribe(
               data => {

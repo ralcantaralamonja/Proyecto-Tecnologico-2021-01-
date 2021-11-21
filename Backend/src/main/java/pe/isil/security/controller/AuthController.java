@@ -177,6 +177,18 @@ public class AuthController {
     @GetMapping("/users")
     public ResponseEntity<List<UsuarioDto>> usuariosList() {
         List<Usuario> usuarios = usuarioService.findAll();
+        List<UsuarioDto> dtoList = getUsuarioDtos(usuarios);
+        return new ResponseEntity<List<UsuarioDto>>(dtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/users/filter")
+    public ResponseEntity<List<UsuarioDto>> usuariosListFiltrados() {
+        List<Usuario> usuarios = usuarioService.findAllWithFilter();
+        List<UsuarioDto> dtoList = getUsuarioDtos(usuarios);
+        return new ResponseEntity<List<UsuarioDto>>(dtoList, HttpStatus.OK);
+    }
+
+    private List<UsuarioDto> getUsuarioDtos(List<Usuario> usuarios) {
         List<UsuarioDto> dtoList = new ArrayList<>();
         for (Usuario usuario : usuarios) {
             UsuarioDto dto = new UsuarioDto();
@@ -189,7 +201,7 @@ public class AuthController {
             dto.setEstado(usuario.getEstado());
             Set<Rol> roles = usuario.getRoles();
             List<Rol> rolList = new ArrayList<>(roles);
-            switch (rolList.size()){
+            switch (rolList.size()) {
                 case 3:
                     dto.setRol("ADMIN");
                     break;
@@ -204,7 +216,7 @@ public class AuthController {
             }
             dtoList.add(dto);
         }
-        return new ResponseEntity<List<UsuarioDto>>(dtoList, HttpStatus.OK);
+        return dtoList;
     }
 
     public ResponseEntity<?> activate(Integer id, Rol rolUserActual) {
