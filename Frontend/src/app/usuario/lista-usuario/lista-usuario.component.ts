@@ -35,10 +35,7 @@ export class ListaUsuarioComponent implements OnInit {
       if (rol === 'ADMIN') {
         this.isAdmin = true;
       }
-      this.usuarioLogeado = this.tokenService.getUserName();
-      console.log('oninit ' + this.usuarioLogeado);
-      console.log(this.roles);
-      
+      this.usuarioLogeado = this.tokenService.getUserName();      
     });
     this.cargarUsuarios();
   }
@@ -51,7 +48,6 @@ export class ListaUsuarioComponent implements OnInit {
           this.usuarios.forEach(
             u => u.estado = this.validarEstado(u.estado)
           )
-          console.log(this.usuarios);
         },
         err => {
           console.log(err);
@@ -64,7 +60,6 @@ export class ListaUsuarioComponent implements OnInit {
           this.usuarios.forEach(
             u => u.estado = this.validarEstado(u.estado)
           )
-          console.log(this.usuarios);
         },
         err => {
           console.log(err);
@@ -74,8 +69,6 @@ export class ListaUsuarioComponent implements OnInit {
   }
 
   borrar(username: string) {
-    console.log('borrador ' + username);
-    console.log('borrado ' + this.usuarioLogeado);
     const user = new LoginUsuario(this.usuarioLogeado, '');
 
     this.usuarioService.eliminar(username, user).subscribe(

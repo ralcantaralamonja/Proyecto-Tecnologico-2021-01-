@@ -404,3 +404,31 @@ FROM reserva r
 END$$
 DELIMITER ;
 
+DELIMITER $$
+CREATE PROCEDURE usp_consultar_huespedes_habitacion_entre_fechas(
+    IN vid_hab INT,
+    IN fec_ini DATETIME,
+    IN fec_fin DATETIME)
+BEGIN
+SELECT hu.Id_Huesped, hu.Nombre, hu.Apellido,
+       r.Id_Reserva, r.Id_Hab, r.Fecha_Registro AS Solicita, r.Fec_Ingreso AS Ingreso, r.Fec_Salida AS Salida, r.Estado AS Estado_Reserva
+FROM huesped hu
+         INNER JOIN reserva r ON hu.Id_Huesped=r.Id_Huesped
+         INNER JOIN habitacion ha ON r.Id_Hab=ha.Id_Hab
+WHERE r.Id_Hab=vid_hab AND r.Fec_Ingreso>=fec_ini AND r.Fec_Salida<=fec_fin;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE usp_consultar_reservas_habitacion_entre_fechas(
+    IN vid_hab INT,
+    IN fec_ini DATETIME,
+    IN fec_fin DATETIME)
+BEGIN
+SELECT r.*
+FROM huesped hu
+         INNER JOIN reserva r ON hu.Id_Huesped=r.Id_Huesped
+         INNER JOIN habitacion ha ON r.Id_Hab=ha.Id_Hab
+WHERE r.Id_Hab=vid_hab AND r.Fec_Ingreso BETWEEN fec_ini AND fec_fin;
+END$$
+DELIMITER ;

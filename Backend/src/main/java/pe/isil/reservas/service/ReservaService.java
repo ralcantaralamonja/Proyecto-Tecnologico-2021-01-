@@ -1,13 +1,17 @@
 package pe.isil.reservas.service;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pe.isil.consultas.dto.HabitacionConsultaDto;
 import pe.isil.reservas.model.Reserva;
 import pe.isil.reservas.repository.ReservaRepository;
 import pe.isil.security.dto.LoginUsuario;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @Service
 @Transactional
@@ -58,15 +62,20 @@ public class ReservaService implements CrudService<Reserva, Integer> {
         return reservaRepository.existsById(id);
     }
 
-    public void crearReserva(Reserva reserva){
-        reservaRepository.crearReserva(reserva.getFecIngreso() ,reserva.getFecSalida(),
+    public void crearReserva(Reserva reserva) {
+        reservaRepository.crearReserva(reserva.getFecIngreso(), reserva.getFecSalida(),
                 reserva.getHuespedId(), reserva.getHabitacionId(), reserva.getUsuarioRegistro());
     }
+
     public void finalizarReserva(Integer id, LoginUsuario loginUsuario) {
         reservaRepository.finalizarReserva(id, loginUsuario.getUsername());
     }
+
     public void cancelarReserva(Integer id, LoginUsuario loginUsuario) {
         reservaRepository.cancelarReserva(id, loginUsuario.getUsername());
     }
 
+    public List<Reserva> listarReservasPorHabitacionEntreFechas(HabitacionConsultaDto dto) {
+        return reservaRepository.listarReservasPorHabitacionEntreFechas(dto.getHabitacionId(), dto.getFechaIni(), dto.getFechaFin());
+    }
 }
