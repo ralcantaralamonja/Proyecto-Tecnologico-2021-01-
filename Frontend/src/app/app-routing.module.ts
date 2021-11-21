@@ -23,6 +23,8 @@ import { CuartosEditarComponent } from './cuarto/cuartos-editar/cuartos-editar.c
 import { ReservasComponent } from './reserva/reservas/reservas.component';
 import { ReservasAgregarComponent } from './reserva/reservas-agregar/reservas-agregar.component';
 
+import { ListadoReservasMvcComponent } from './mvcReservas/listado-reservas-mvc/listado-reservas-mvc.component';
+
 const routes: Routes = [
 
   { path: '', component: HomeComponent },
@@ -33,7 +35,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
 
   { path: 'lista-huesped', component: ListaHuespedComponent, canActivate: [guard], data: { expectRol: ['MANAGER', 'USER'] } },
-  { path: 'nuevo', component: NuevoHuespedComponent/*, canActivate: [adminGuard], data: {expectRol:['MANAGER', 'ADMIN']}*/ },
+  { path: 'nuevo', component: NuevoHuespedComponent, canActivate: [guard], data: { expectRol: ['MANAGER', 'USER'] }  },
   { path: 'editar/:huespedId', component: EditarHuespedComponent, canActivate: [guard], data: { expectRol: ['MANAGER'] } },
   { path: 'lista-usuario', component: ListaUsuarioComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'MANAGER'] } },
 
@@ -46,6 +48,8 @@ const routes: Routes = [
 
   { path: 'reservas', component: ReservasComponent },
   { path: 'reservasagregar', component: ReservasAgregarComponent },
+
+  {path: 'mvcreserva', component: ListadoReservasMvcComponent}
 
 ];
 
