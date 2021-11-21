@@ -29,6 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CuartosEditarComponent } from './cuarto/cuartos-editar/cuartos-editar.component';
 import { ReservasComponent } from './reserva/reservas/reservas.component';
 import { ReservasAgregarComponent } from './reserva/reservas-agregar/reservas-agregar.component';
+import { ListadoReservasMvcComponent } from './mvcReservas/listado-reservas-mvc/listado-reservas-mvc.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { ReservasAgregarComponent } from './reserva/reservas-agregar/reservas-ag
     CuartosEditarComponent,
     ReservasComponent,
     ReservasAgregarComponent,
+    ListadoReservasMvcComponent,
    
   ],
   imports: [
