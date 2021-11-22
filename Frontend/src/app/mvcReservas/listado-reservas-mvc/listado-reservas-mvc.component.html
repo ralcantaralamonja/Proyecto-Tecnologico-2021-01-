@@ -20,64 +20,69 @@
         <form #f="ngForm" (ngSubmit)="onRegister()" novalidate>
             <div>
                 <div>
-                    <div class="mt-3" >
+                    <div class="mt-3">
 
-                     <div class="outer">
-                         <div class="inner">
-                            <button class="btn btn-success"  id="habitacion">
-                                <i class="fas fa-plus-circle"></i> Habitacion</button>
+                        <div class="outer">
+                            <div class="inner">
+                                <button class="btn btn-success" id="habitacion">
+                                    <i class="fas fa-plus-circle"></i> Habitacion</button>
                                 <div class="inner">
-                                     <select class="custom-select form-control" [(ngModel)]="habitacion" id="habitacion" name="habitacion">
+                                    <select class="custom-select form-control" [(ngModel)]="habitacion" id="habitacion"
+                                        name="habitacion">
                                         <option *ngFor="let item of habitaciones">
                                             {{item}}
                                         </option>
-                                        </select></div>
-                                    </div>
+                                    </select>
+                                </div>
+                            </div>
 
-                                    <div class="inner">
+                            <div class="inner">
                                 <button class="btn btn-success" id="fecini">
-                                    <i class="fas fa-plus-circle" ></i> Fecha inicio</button>
-                                     <input class="controls" type="date" id="end" name="trip-end" value="2018-07-22" min="2018-01-01" max="2999-12-31">
+                                    <i class="fas fa-plus-circle"></i> Fecha inicio</button>
+                                <input class="controls" type="date" id="end" name="trip-end" value="2018-07-22"
+                                    min="2018-01-01" max="2999-12-31">
 
-                                    </div>
+                            </div>
 
-                                    <div class="inner">
-                                    <button class="btn btn-success" id="fecfin">
-                                        <i class="fas fa-plus-circle" ></i> Fecha Fin</button>
-                                        <input class="controls" type="date" id="end" name="trip-end" value="2018-07-22" min="2018-01-01" max="2999-12-31">
+                            <div class="inner">
+                                <button class="btn btn-success" id="fecfin">
+                                    <i class="fas fa-plus-circle"></i> Fecha Fin</button>
+                                <input class="controls" type="date" id="end" name="trip-end" value="2018-07-22"
+                                    min="2018-01-01" max="2999-12-31">
 
-                                    </div>
-                                    <div class="inner">
-                                        <button class="btn btn-success" id="consultar">
-                                            <i class="fas fa-plus-circle" ></i> Consultar</button>    
-                                        </div>
+                            </div>
+                            <div class="inner">
+                                <button class="btn btn-success" id="consultar">
+                                    <i class="fas fa-plus-circle"></i> Consultar</button>
+                            </div>
                         </div>
-                        
                     </div>
-
 
                     <table class="table">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">|</th>
-                                <th scope="col">|</th>
-                                <th scope="col">| </th>
-                                <th scope="col">|</th>
-                                <th scope="col">|</th>
-                                <th scope="col">|</th>
+                                <th scope="col">Id Huesped</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Fec de Reserva</th>
+                                <th scope="col">Fec Ingreso</th>
+                                <th scope="col">Fec Salida</th>
+                                <th scope="col">Estado de Reserva</th>
+                                <th scope="col">IdReserva</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr >
+                            <tr>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-
-                                
-                              
+                                <td></td>
+                                <td>
+                                    <button>Ver Detalles de Reserva(modal we)</button>
+                                </td>
 
                             </tr>
                         </tbody>

@@ -34,7 +34,8 @@
                     class="far fa-edit"></i> {{cuartos.estado}}</button>
               </div>
               <div class="col-md-6">
-                <button style='margin-right:13px' type="button" class="btn btn-primary"><i class="far fa-edit"></i>
+                <button style='margin-right:13px' type="button" class="btn btn-primary"
+                (click)="verDetalleReservaActiva(cuartos.habitacionId)"><i class="far fa-edit"></i>
                   Detalle</button>
               </div>
             </div>

@@ -7,37 +7,39 @@
 
 <body>
   <app-navbar></app-navbar>
-  <section class="form-register">
+  <form class="form-register" (ngSubmit)="onCreate()">
     <h4>Registrar Reserva</h4>
 
     <div class="form-group">
-      <label for="huesped">Huesped</label>
-      <select class="custom-select form-control controls" [(ngModel)]="huesped" id="huesped" name="huesped">
+      <label for="huespedId">Huesped</label>
+      <select class="custom-select form-control controls" [(ngModel)]="huespedId" id="huespedId" name="huespedId">
         <option [ngValue]="null" [disabled]="true" [selected]="true">Seleccionar huesped</option>
-        <option *ngFor="let item of huespedes" [value]="item.huespedId">
+        <option *ngFor="let item of huespedes" value="{{item.huespedId}}">
           {{item.nombre}} {{item.apellido}}
         </option>
       </select>
     </div>
 
     <label for="start"> Ingrese fecha de Entrada</label>
-    <input class="controls" type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01"
-      max="2999-12-31">
+    <input class="controls" type="datetime-local" id="start" 
+    name="trip-start" value="27-09-2021" min="2018-01-01"
+      max="2999-12-31" [(ngModel)]="fecIngreso">
 
     <label for="end"> Ingrese fecha de Salida</label>
-    <input class="controls" type="date" id="end" name="trip-end" value="2018-07-22" min="2018-01-01" max="2999-12-31">
+    <input class="controls" type="datetime-local" id="end" name="trip-end" 
+    value="2021-09-27" min="2018-01-01" max="2999-12-31" [(ngModel)]="fecSalida">
 
     <div class="form-group">
       <label for="habitacion">Habitaciones Disponibles</label>
-      <select class="custom-select form-control controls" [(ngModel)]="habitacion" id="habitacion" name="habitacion" required>
+      <select class="custom-select form-control controls" [(ngModel)]="habitacionId" id="habitacion" name="habitacion" required>
         <option [ngValue]="null" [disabled]="true" [selected]="true">Seleccionar habitacion</option>
-        <option *ngFor="let item of habitaciones" [value]="item.habitacionId">
+        <option *ngFor="let item of habitaciones" value="{{item.habitacionId}}">
           {{item.tipo}}
         </option>
       </select>
     </div>
 
     <input class="botons" type="submit" value="Registrar">
-  </section>
+  </form>
 
 </body>

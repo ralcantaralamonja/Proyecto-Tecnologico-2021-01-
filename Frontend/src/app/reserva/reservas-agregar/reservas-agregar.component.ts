@@ -7,6 +7,7 @@ import { Reserva } from 'src/app/entity/reserva';
 import { CuartosService } from 'src/app/service/cuartos.service';
 import { HuespedService } from 'src/app/service/huesped.service';
 import { ReservaService } from 'src/app/service/reserva.service';
+import { TokenService } from 'src/app/service/token.service';
 
 @Component({
   selector: 'app-reservas-agregar',
@@ -15,11 +16,11 @@ import { ReservaService } from 'src/app/service/reserva.service';
 })
 export class ReservasAgregarComponent implements OnInit {
 
-
-  fecSalida: '';
-  huespedId: '';
-  habitacionId: '';
-  usuarioRegistro: '';
+  fecIngreso:Date;
+  fecSalida:Date;
+  huespedId:number;
+  habitacionId:number;
+  usuarioRegistro= '';
 
   habitacion: Cuarto;
   habitaciones: Cuarto[] = [];
@@ -31,6 +32,7 @@ export class ReservasAgregarComponent implements OnInit {
     private reservaService: ReservaService,
     private cuartoService: CuartosService,
     private huespedService: HuespedService,
+    private tokenService: TokenService,
     private toastr: ToastrService,
     private router: Router
 
@@ -39,25 +41,28 @@ export class ReservasAgregarComponent implements OnInit {
   ngOnInit(): void {
     this.cargarHuespedes();
     this.cargarHabitaciones();
+    this.usuarioRegistro=this.tokenService.getUserName();
   }
 
-  /*onCreate(): void {
-    const reserva = new Reserva(this.nombre, this.precio);
-    this.reservaService.save(producto).subscribe(
+  onCreate(): void {
+    console.log("huespedId: "+this.huespedId);
+    console.log("habId: "+this.habitacionId);
+    
+    const reserva = new Reserva(this.fecIngreso, this.fecSalida, this.huespedId, this.habitacionId, this.usuarioRegistro);
+    this.reservaService.save(reserva).subscribe(
       data => {
-        this.toastr.success('Producto Creado', 'OK', {
+        this.toastr.success(data.mensaje, 'OK', {
           timeOut: 3000, positionClass: 'toast-top-center'
         });
-        this.router.navigate(['/lista']);
+        this.router.navigate(['/cuartos']);
       },
       err => {
         this.toastr.error(err.error.mensaje, 'Fail', {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
-        this.router.navigate(['/']);
       }
     );
-  }*/
+  }
 
   cargarHabitaciones(){
     this.cuartoService.listarDisponibles().subscribe(

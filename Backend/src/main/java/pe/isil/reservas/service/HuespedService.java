@@ -5,7 +5,6 @@ import org.springframework.transaction.annotation.Transactional;
 import pe.isil.reservas.model.Huesped;
 import pe.isil.reservas.repository.HuespedRepository;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,15 +24,19 @@ public class HuespedService implements CrudService<Huesped, Integer> {
     }
 
     public List<Huesped> listarHuespedesSinReserva() {
-        List<Huesped> all = huespedRepository.findAll();
+        List<Huesped> all = findAll();
         List<Huesped> sinReserva = new ArrayList<>();
-        List<Huesped> conReserva = huespedRepository.listarHuespedesConReserva();
+        List<Huesped> conReserva = huespedRepository.listarHuespedesConReservaActivaOPendiente();
         for (Huesped huesped : all) {
+            boolean flag = true;
             for (Huesped hConReserva : conReserva) {
-                if (huesped == hConReserva)
+                if (huesped == hConReserva){
+                    flag = false;
                     break;
+                }
             }
-            sinReserva.add(huesped);
+            if (flag)
+                sinReserva.add(huesped);
         }
         System.out.println("sinReserva = " + conReserva);
         return sinReserva;

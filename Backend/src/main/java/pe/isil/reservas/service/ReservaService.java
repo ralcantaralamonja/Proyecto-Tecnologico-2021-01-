@@ -78,4 +78,9 @@ public class ReservaService implements CrudService<Reserva, Integer> {
     public List<Reserva> listarReservasPorHabitacionEntreFechas(HabitacionConsultaDto dto) {
         return reservaRepository.listarReservasPorHabitacionEntreFechas(dto.getHabitacionId(), dto.getFechaIni(), dto.getFechaFin());
     }
+
+    public Reserva verDetalleReservaHabitacion(Integer habitacionId){
+        return reservaRepository.verDetalleReservaHabitacion(habitacionId);
+    }
+
 }

@@ -19,15 +19,20 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 
     @Procedure("usp_crear_reserva")
     void crearReserva(LocalDateTime fecIngreso, LocalDateTime fecSalida, Integer huespedId, Integer habitacionId, String usuarioRegistro);
+
     @Procedure("usp_finalizar_reserva")
     void finalizarReserva(Integer id, String usuarioUltMod);
+
     @Procedure("usp_cancelar_reserva")
     void cancelarReserva(Integer id, String usuarioUltMod);
+
     @Query(value = "SELECT * FROM reserva WHERE Estado = 0",
-    nativeQuery = true)
+            nativeQuery = true)
     List<Reserva> listarPendientes();
 
     @Query(value = "{call usp_consultar_reservas_habitacion_entre_fechas(:vid_hab, :fec_ini, :fec_fin)}", nativeQuery = true)
     List<Reserva> listarReservasPorHabitacionEntreFechas(@Param("vid_hab") Integer habitacionId, @Param("fec_ini") LocalDate fecIni, @Param("fec_fin") LocalDate fecFin);
 
+    @Query(value = "{call usp_ver_detalle_reserva_habitacion(:id_hab)}", nativeQuery = true)
+    Reserva verDetalleReservaHabitacion(@Param("id_hab") Integer habitacionId);
 }

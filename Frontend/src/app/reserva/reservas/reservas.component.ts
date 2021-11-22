@@ -42,6 +42,11 @@ export class ReservasComponent implements OnInit {
     );
   }
 
+  
+
+
+
+
   validarEstado(estado: number): string {
     switch (estado) {
       case 0:

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { HabitacionConsulta } from 'src/app/entity/habitacionConsulta';
+import { DetalleReservaService } from 'src/app/service/detalle-reserva.service';
 import { TokenService } from 'src/app/service/token.service';
 
 @Component({
@@ -15,12 +17,13 @@ export class ListadoReservasMvcComponent implements OnInit {
     "Ashland", "Nico" , "Bella" , "Guille" , "Dolly"
   ];
 
-
-
+  detalleReserva
+  
   constructor(
     private tokenService: TokenService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private detalleReservaService: DetalleReservaService
   ) { }
 
   ngOnInit(): void {
@@ -44,4 +47,18 @@ export class ListadoReservasMvcComponent implements OnInit {
   Dolly() {
    
   }
+
+  ListarhistoricoHuespedesPorHabitacion(idHab:number, fecIni:Date, fecFin:Date){
+    const habitacionConsulta = new HabitacionConsulta(idHab, fecIni, fecFin);
+
+    this.detalleReservaService.historicoHuespedesPorHabitacion(idHab, habitacionConsulta).subscribe(
+      data => {
+
+      },
+      err => {
+        
+      }
+    )
+  }
+  
 }

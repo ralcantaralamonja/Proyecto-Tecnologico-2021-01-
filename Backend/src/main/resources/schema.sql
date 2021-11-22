@@ -215,10 +215,10 @@ VALUES (1, 'ADMIN'),
        (2, 'MANAGER'),
        (3, 'USER');
 
-INSERT INTO usuario (Id_Usuario, Username, Password, Estado, Fecha_Creacion) VALUES
-(1, 'admin', '$2a$10$Uv3FW83F97Y5sc3iUziZ4Ov72SkPiwg12g5GsBqBjQ2IZjWcQB44K', 1, sysdate()),
-(2, 'manager', '$2a$10$vnPyOfddys1lidxX5mwm/uk0VjE219q5vkDJmZ5h8c2Zaxj9uRfJO', 1, sysdate()),
-(3, 'user', '$2a$10$vnPyOfddys1lidxX5mwm/uk0VjE219q5vkDJmZ5h8c2Zaxj9uRfJO', 1, sysdate());
+INSERT INTO usuario (Id_Usuario, Username, Password, Estado, Fecha_Creacion)
+VALUES (1, 'admin', '$2a$10$Uv3FW83F97Y5sc3iUziZ4Ov72SkPiwg12g5GsBqBjQ2IZjWcQB44K', 1, sysdate()),
+       (2, 'manager', '$2a$10$vnPyOfddys1lidxX5mwm/uk0VjE219q5vkDJmZ5h8c2Zaxj9uRfJO', 1, sysdate()),
+       (3, 'user', '$2a$10$vnPyOfddys1lidxX5mwm/uk0VjE219q5vkDJmZ5h8c2Zaxj9uRfJO', 1, sysdate());
 
 INSERT INTO rol_usuario (Id_Usuario, Id_Rol)
 VALUES (1, 1),
@@ -258,11 +258,12 @@ CREATE VIEW vw_huespedes_con_reserva
 AS
 SELECT h.*
 FROM huesped h
-         INNER JOIN reserva r ON h.Id_Huesped = r.Id_Huesped
-WHERE r.Estado = 1;
+         JOIN reserva r ON h.Id_Huesped = r.Id_Huesped
+WHERE r.Estado <= 1
+  AND h.Estado = 1;
 
 --SP
-DELIMITER
+        DELIMITER
 $$
 CREATE PROCEDURE usp_crear_reserva(IN vfec_ing DATETIME,
                                    IN vfec_sal DATETIME,
@@ -270,15 +271,19 @@ CREATE PROCEDURE usp_crear_reserva(IN vfec_ing DATETIME,
                                    IN vid_hab INT,
                                    IN vusu_reg VARCHAR (30))
 BEGIN
-    DECLARE vestado_res INT;
-    SET vestado_res = 0;
-	IF vfec_ing<=SYSDATE() AND vfec_sal>SYSDATE()
+    DECLARE
+vestado_res INT;
+    SET
+vestado_res = 0;
+	IF
+vfec_ing<=SYSDATE() AND vfec_sal>SYSDATE()
     THEN
-        UPDATE habitacion
-        SET Estado=2
-        WHERE Id_Hab = vid_hab;
-        SET vestado_res = 1;
-    END IF;
+UPDATE habitacion
+SET Estado=2
+WHERE Id_Hab = vid_hab;
+SET
+vestado_res = 1;
+END IF;
 INSERT INTO reserva (Fec_Ingreso, Fec_Salida, Id_Huesped, Id_Hab, Usuario_Registro, Fecha_Registro, Estado)
 VALUES (vfec_ing, vfec_sal, vid_huesped, vid_hab, vusu_reg, SYSDATE(), vestado_res);
 END$$
@@ -296,7 +301,7 @@ WHERE Id_Hab = (SELECT Id_Hab FROM reserva WHERE Id_Reserva = vid_res);
 UPDATE reserva
 SET Usuario_Ult_Modificacion=vusu_ult_mod,
     Fecha_Ult_Modificacion=SYSDATE(),
-    Fec_Salida = SYSDATE(),
+    Fec_Salida              = SYSDATE(),
     Estado=2
 WHERE Id_Reserva = vid_res;
 END$$
@@ -356,7 +361,8 @@ SET Nombre=vnomb,
     Telefono=vtel,
     Correo=vcorreo,
     Usuario_Ult_Modificacion=vusu_ult_mod,
-    Fecha_Ult_Modificacion=SYSDATE(), Observaciones=vobs
+    Fecha_Ult_Modificacion=SYSDATE(),
+    Observaciones=vobs
 WHERE Id_Huesped = vid_huesped;
 SELECT *
 FROM huesped
@@ -394,32 +400,44 @@ WHERE Id_Huesped = vid_huesped;
 END$$
 DELIMITER ;
 
-DELIMITER $$
+DELIMITER
+$$
 CREATE PROCEDURE usp_habitaciones_reservadas()
 BEGIN
 SELECT h.*
 FROM reserva r
-         INNER JOIN habitacion h ON r.Id_Hab=h.Id_Hab
-         WHERE r.Estado < 2;
+         INNER JOIN habitacion h ON r.Id_Hab = h.Id_Hab
+WHERE r.Estado < 2;
 END$$
 DELIMITER ;
 
-DELIMITER $$
+DELIMITER
+$$
 CREATE PROCEDURE usp_consultar_huespedes_habitacion_entre_fechas(
     IN vid_hab INT,
     IN fec_ini DATETIME,
     IN fec_fin DATETIME)
 BEGIN
-SELECT hu.Id_Huesped, hu.Nombre, hu.Apellido,
-       r.Id_Reserva, r.Id_Hab, r.Fecha_Registro AS Solicita, r.Fec_Ingreso AS Ingreso, r.Fec_Salida AS Salida, r.Estado AS Estado_Reserva
+SELECT hu.Id_Huesped,
+       hu.Nombre,
+       hu.Apellido,
+       r.Id_Reserva,
+       r.Id_Hab,
+       r.Fecha_Registro AS Solicita,
+       r.Fec_Ingreso    AS Ingreso,
+       r.Fec_Salida     AS Salida,
+       r.Estado         AS Estado_Reserva
 FROM huesped hu
-         INNER JOIN reserva r ON hu.Id_Huesped=r.Id_Huesped
-         INNER JOIN habitacion ha ON r.Id_Hab=ha.Id_Hab
-WHERE r.Id_Hab=vid_hab AND r.Fec_Ingreso>=fec_ini AND r.Fec_Salida<=fec_fin;
+         INNER JOIN reserva r ON hu.Id_Huesped = r.Id_Huesped
+         INNER JOIN habitacion ha ON r.Id_Hab = ha.Id_Hab
+WHERE r.Id_Hab = vid_hab
+  AND r.Fec_Ingreso >= fec_ini
+  AND r.Fec_Salida <= fec_fin;
 END$$
 DELIMITER ;
 
-DELIMITER $$
+DELIMITER
+$$
 CREATE PROCEDURE usp_consultar_reservas_habitacion_entre_fechas(
     IN vid_hab INT,
     IN fec_ini DATETIME,
@@ -427,8 +445,22 @@ CREATE PROCEDURE usp_consultar_reservas_habitacion_entre_fechas(
 BEGIN
 SELECT r.*
 FROM huesped hu
-         INNER JOIN reserva r ON hu.Id_Huesped=r.Id_Huesped
-         INNER JOIN habitacion ha ON r.Id_Hab=ha.Id_Hab
-WHERE r.Id_Hab=vid_hab AND r.Fec_Ingreso BETWEEN fec_ini AND fec_fin;
+         INNER JOIN reserva r ON hu.Id_Huesped = r.Id_Huesped
+         INNER JOIN habitacion ha ON r.Id_Hab = ha.Id_Hab
+WHERE r.Id_Hab = vid_hab
+  AND r.Fec_Ingreso BETWEEN fec_ini AND fec_fin;
+END$$
+DELIMITER ;
+
+DELIMITER
+$$
+CREATE PROCEDURE usp_ver_detalle_reserva_habitacion(
+    IN vid_hab INT)
+BEGIN
+SELECT r.*
+FROM reserva r
+         INNER JOIN habitacion h ON r.Id_Hab = h.Id_Hab
+WHERE r.Id_Hab = vid_hab
+  AND r.Estado = 1;
 END$$
 DELIMITER ;

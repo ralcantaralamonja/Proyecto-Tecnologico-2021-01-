@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Cuarto } from 'src/app/entity/habitacion';
 import { CuartosService } from 'src/app/service/cuartos.service';
+import { DetalleReservaService } from 'src/app/service/detalle-reserva.service';
 import { TokenService } from 'src/app/service/token.service';
 
 @Component({
@@ -24,6 +25,7 @@ export class CuartosComponent implements OnInit {
 
   constructor(
     private cuartoService: CuartosService,
+    private detalleReservaService: DetalleReservaService,
     private toastr: ToastrService,
     private tokenService: TokenService
   ) { }
@@ -57,7 +59,7 @@ export class CuartosComponent implements OnInit {
     );
   }
 
-  setDisponible(id: number, estado:string) {
+  setDisponible(id: number, estado: string) {
     if (estado != 'Disponible') {
       this.cuartoService.setDisponible(id).subscribe(
         data => {
@@ -75,6 +77,18 @@ export class CuartosComponent implements OnInit {
     }
   }
 
+  verDetalleReservaActiva(id: number) {
+    this.detalleReservaService.detalleReservaActivaPorHabitacion(id).subscribe(
+      data => {
+        this.toastr.success('debe redireccionar a la pagina de detalle. le agregas botones para finalizar reserva o volver a la pagina anterior', 'OK', {
+          timeOut: 10000, positionClass: 'toast-top-center'})
+      },
+      err => {
+        this.toastr.error(err.error.mensaje, 'Fail', {
+          timeOut: 3000, positionClass: 'toast-top-center',})        
+      }
+    )
+  }
 
   validarEstado(estado: number): string {
     switch (estado) {

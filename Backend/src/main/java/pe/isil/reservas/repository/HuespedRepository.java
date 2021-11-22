@@ -18,7 +18,7 @@ public interface HuespedRepository extends JpaRepository<Huesped, Integer> {
     @Query(
             value = "SELECT * FROM vw_huespedesconreserva",
             nativeQuery = true)
-    List<Huesped> listarHuespedesConReserva();
+    List<Huesped> listarHuespedesConReservaActivaOPendiente();
 
     //FIXME
     //SP DEBE DEVOLVER ROW
