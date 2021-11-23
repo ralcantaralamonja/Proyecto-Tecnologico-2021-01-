@@ -44,7 +44,7 @@ const routes: Routes = [
   { path: 'nuevo-usuario', component: NuevoUsuarioComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'MANAGER', 'USER'] } },
 
   { path: 'cuartos', component: CuartosComponent },
-  { path: 'editarcuarto/:habitacionId', component: CuartosEditarComponent },
+  { path: 'editarcuarto/reserva-activa/:habitacionId', component: CuartosEditarComponent },
 
   { path: 'reservas', component: ReservasComponent },
   { path: 'reservasagregar', component: ReservasAgregarComponent },

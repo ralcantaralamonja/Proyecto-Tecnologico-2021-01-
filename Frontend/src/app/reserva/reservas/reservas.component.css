@@ -92,3 +92,11 @@
     padding: 0.65em 1em;
         margin-top: 0%;}
 
+    .form-label{
+            color: whitesmoke;
+            
+        }
+.form-control{
+    width: 10%;
+    margin-bottom: 50px;
+}

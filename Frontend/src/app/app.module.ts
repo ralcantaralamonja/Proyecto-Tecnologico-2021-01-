@@ -6,6 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { interceptorProvider } from './interceptor/interceptors.service';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FilterPipeModule } from 'ngx-filter-pipe';
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -54,6 +57,7 @@ import { ListadoReservasMvcComponent } from './mvcReservas/listado-reservas-mvc/
     ReservasComponent,
     ReservasAgregarComponent,
     ListadoReservasMvcComponent,
+    
    
   ],
   imports: [
@@ -63,6 +67,7 @@ import { ListadoReservasMvcComponent } from './mvcReservas/listado-reservas-mvc/
     FormsModule,
     ReactiveFormsModule,
     NgxCaptchaModule,
+    FilterPipeModule,
     ToastrModule.forRoot(
       {
         timeOut: 3000, positionClass:'toast-top-center',
