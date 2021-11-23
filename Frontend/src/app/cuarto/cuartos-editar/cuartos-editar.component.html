@@ -1,3 +1,31 @@
-<p>it works
-    
-</p>
+<app-navbar></app-navbar>
+
+<body>
+  <div class="container">
+    <div class="row mt-5" *ngIf="detallereserva">
+      <div class="col-md-5 mx-auto">
+        <div class="card" style="width: 28rem;">
+          <div class="card-header text-center">
+            Detalle
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><b>ID: </b>{{detallereserva.huespedId}}</li>
+            <li class="list-group-item"><b>TIPO DOCUMENTO: </b>{{detallereserva.nombre}}</li>
+            <li class="list-group-item"><b>NUMERO DOCUMENTO: </b>{{detallereserva.apellido}}</li>
+            <li class="list-group-item"><b>NOMBRES: </b>{{detallereserva.habitacionId}}</li>
+            <li class="list-group-item"><b>APELLIDOS: </b>{{detallereserva.habitacionTipoNombre}}</li>
+            <li class="list-group-item"><b>TELFONO: </b>{{detallereserva.reservaId}}</li>
+            <li class="list-group-item"><b>CORREO: </b>{{detallereserva.fechaSolicita}}</li>
+            <li class="list-group-item"><b>FECHA DE REGISTRO: </b>{{detallereserva.fechaIngreso}}</li>
+            <li class="list-group-item"><b>USUARIO REGISTRO: </b>{{detallereserva.fechaSalida}}</li>
+            <li class="list-group-item"><b>FECHA DE ULTIMA MODIFICACION: </b>{{detallereserva.estadoReserva}}</li>
+          
+
+          </ul>
+         
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>

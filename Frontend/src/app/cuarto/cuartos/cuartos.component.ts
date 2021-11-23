@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Cuarto } from 'src/app/entity/habitacion';
 import { CuartosService } from 'src/app/service/cuartos.service';
@@ -27,7 +28,8 @@ export class CuartosComponent implements OnInit {
     private cuartoService: CuartosService,
     private detalleReservaService: DetalleReservaService,
     private toastr: ToastrService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -81,12 +83,14 @@ export class CuartosComponent implements OnInit {
     this.detalleReservaService.detalleReservaActivaPorHabitacion(id).subscribe(
       data => {
         this.toastr.success('debe redireccionar a la pagina de detalle. le agregas botones para finalizar reserva o volver a la pagina anterior', 'OK', {
-          timeOut: 10000, positionClass: 'toast-top-center'})
+          timeOut: 10000, positionClass: 'toast-top-center'});
+          this.router.navigate(['/editarcuarto']);
       },
       err => {
         this.toastr.error(err.error.mensaje, 'Fail', {
           timeOut: 3000, positionClass: 'toast-top-center',})        
       }
+      
     )
   }
 

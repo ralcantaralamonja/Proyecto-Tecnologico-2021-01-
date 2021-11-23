@@ -67,7 +67,7 @@ export class ReservasComponent implements OnInit {
   }
 
   cargarHabitaciones(){
-    this.cuartoService.listarDisponibles().subscribe(
+    this.cuartoService.lista().subscribe(
       data => {
         this.habitaciones = data;
       },
@@ -78,7 +78,7 @@ export class ReservasComponent implements OnInit {
   }
 
   cargarHuespedes(){
-    this.huespedService.listarDisponibles().subscribe(
+    this.huespedService.lista().subscribe(
       data => {
         this.huespedes = data;
         console.log(this.huespedes);        

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { DetalleReserva } from 'src/app/entity/detalleReserva';
 import { Cuarto } from 'src/app/entity/habitacion';
 import { CuartosService } from 'src/app/service/cuartos.service';
+import { DetalleReservaService } from 'src/app/service/detalle-reserva.service';
 import { TokenService } from 'src/app/service/token.service';
 
 @Component({
@@ -13,13 +15,14 @@ import { TokenService } from 'src/app/service/token.service';
 export class CuartosEditarComponent implements OnInit {
 
   cuartos: Cuarto = null;
-
+  detallereserva: DetalleReserva = null;
   constructor(
 
     private cuartoService: CuartosService,
     private actiavedRouter: ActivatedRoute,
     private toastr: ToastrService,
     private router: Router,
+    private detalleReservaService: DetalleReservaService,
 
 
   ) { }
@@ -27,15 +30,15 @@ export class CuartosEditarComponent implements OnInit {
   ngOnInit(): void {
 
     const id = this.actiavedRouter.snapshot.params.habitacionId;
-    this.cuartoService.detalle(id).subscribe(
+    this.detalleReservaService.detalleReservaActivaPorHabitacion(id).subscribe(
       data => {
-        this.cuartos = data;
+        this.detallereserva = data;
       },
       err => {
         this.toastr.error(err.error.mensaje, 'Fail', {
           timeOut: 3000,  positionClass: 'toast-top-center',
         });
-        this.router.navigate(['/']);
+        this.router.navigate(['/cuartos']);
       }
     );
 

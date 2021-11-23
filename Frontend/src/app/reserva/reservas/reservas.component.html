@@ -14,18 +14,20 @@
 
 <div class="container">
     <h3 id="Texto">Listado de Reservas</h3>
-  
-    <form >
 
-    <div>
-        <div>
-
-            <div class="mb-3">
+    
+   <div class="mb-3">
 
                 <label class="form-label" > Indique ID de la reserva que desea buscar</label>
                 <input type="text" class="form-control" placeholder="Escriba aqui" [(ngModel)]="reservaFilter.reservaId">
     
             </div>
+    <form >
+
+    <div>
+        <div>
+
+           
 
 
             <table class="table">
@@ -35,6 +37,7 @@
                     <th scope="col">Fecha de ingreso</th>
                     <th scope="col">Fecha de salida</th>
                     <th scope="col">Fecha de reserva</th>
+                    <th scope="col">Estado</th>
                     <th scope="col">Huesped</th>
                     <th scope="col">Habitacion</th>
                     <th colspan="3"></th>
@@ -46,8 +49,9 @@
                     <td>{{res.fecIngreso}}</td>
                     <td>{{res.fecSalida}}</td>
                     <td>{{res.fechaRegistro}}</td>
-                    <td *ngFor="let huesped of huespedes" >{{huesped.huespedId}} </td>                   
-                    <td *ngFor="let habitacion of habitaciones">{{habitacion.habitacionId}} </td>                   
+                    <td>{{res.estado}}</td>
+                    <td  >{{res.huespedId}} </td>                   
+                    <td >{{res.habitacionId}} </td>                   
               
 
                     <td><button class="btn btn-outline-primary" ><i class="far fa-eye"></i> Ver</button></td>
