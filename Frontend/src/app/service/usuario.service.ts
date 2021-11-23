@@ -1,0 +1,46 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { LoginUsuario } from '../entity/login-usuario';
+import { NuevoUsuario } from '../entity/nuevo-usuario';
+import { Usuario } from '../entity/usuario';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UsuarioService {
+
+  usuarioURL = 'http://127.0.0.1:8080/admin/';
+
+  constructor(private httpClient: HttpClient) { }
+
+  public listaParaElAdmin(): Observable<Usuario[]> {
+    return this.httpClient.get<Usuario[]>(this.usuarioURL + 'users');
+  }
+
+  public listaParaLaPlebe(): Observable<Usuario[]> {
+    return this.httpClient.get<Usuario[]>(this.usuarioURL + 'users/filter');
+  }
+
+  public bloquear(loginUsuario: LoginUsuario): Observable<any> {
+    return this.httpClient.put<any>(this.usuarioURL + `users/bloqueo`, loginUsuario);
+  }
+
+  public activar(username: string, loginUsuario: LoginUsuario): Observable<any> {
+    return this.httpClient.put<any>(this.usuarioURL + `users/activate/` + `${username}`, loginUsuario);
+  }
+
+  public eliminar(username: string, loginUsuario: LoginUsuario): Observable<any> {
+    return this.httpClient.put<any>(this.usuarioURL + `users/delete/` + `${username}`, loginUsuario);
+  }
+
+  public nuevoUsuario(username: string, nuevoUsuario: NuevoUsuario): Observable<any> {
+    return this.httpClient.post<any>(this.usuarioURL + 'users/registro-user/' + `${username}`, nuevoUsuario);
+  }
+
+  public nuevoManager(username: string, nuevoUsuario: NuevoUsuario): Observable<any> {
+    return this.httpClient.post<any>(this.usuarioURL + 'users/registro-manager/' + `${username}`, nuevoUsuario);
+  }
+
+}

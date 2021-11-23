@@ -1,0 +1,23 @@
+body {
+    background-image: url("https://cdnb.artstation.com/p/assets/images/images/029/539/383/original/kelly-roake-brassey-garden-min.gif?1597866294");
+    background-repeat: no-repeat;
+    font-family: 'Open Sans', sans-serif;
+    height: 100vh;
+}
+label{
+    color: aliceblue;
+    background-color: black;
+    border-radius: 80%;
+}
+.form-group{
+    padding-bottom: 7%;
+}
+.btn
+{
+
+    margin: 10%;
+
+}
+.mt-5 {
+    margin-top: 0rem!important;
+}

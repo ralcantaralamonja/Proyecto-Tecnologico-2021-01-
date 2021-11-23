@@ -1,0 +1,133 @@
+
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+
+    *, *:before, *:after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-image: url("https://cdnb.artstation.com/p/assets/images/images/029/539/383/original/kelly-roake-brassey-garden-min.gif?1597866294");
+        background-repeat: no-repeat;
+        font-family: 'Open Sans', sans-serif;
+        height: 100vh;
+    }
+    table {
+        background: #012B39;
+        border-radius: 0.25em;
+        border-collapse: collapse;
+        margin: 1em;
+    }
+    th {
+        border-bottom: 1px solid #364043;
+        color: #E2B842;
+        font-size: 0.85em;
+        font-weight: 600;
+        padding: 0.5em 1em;
+        text-align: left;
+    }
+    td {
+        color: #fff;
+        font-weight: 400;
+        padding: 0.65em 1em;
+    }
+    .disabled td {
+        color: #4F5F64;
+    }
+    tbody tr {
+        transition: background 0.25s ease;
+    }
+    tbody tr:hover {
+        background: #014055;
+    }
+
+#Texto{
+    color: wheat;
+    text-align: center;
+}
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        display: inline-flex;
+    }
+
+    a {
+        position: relative;
+        padding: 1rem 0 0.5rem;
+        margin: 0 1.5rem;
+        color: white;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+    a::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        -webkit-transform: translateX(-50%) scaleX(0);
+        transform: translateX(-50%) scaleX(0);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        width: 100%;
+        height: 1px;
+        background-color: rgba(255, 255, 255, 0.8);
+        transition: -webkit-transform 250ms;
+        transition: transform 250ms;
+        transition: transform 250ms, -webkit-transform 250ms;
+    }
+    a:hover::after {
+        -webkit-transform: translateX(-50%) scaleX(1);
+        transform: translateX(-50%) scaleX(1);
+    }
+
+   .mt-3{
+    padding: 0.65em 1em;
+        margin-top: 0%;}
+
+    #habitacion{
+        margin-right: 10px;
+        
+
+    }
+    #fecini{
+        margin-right: 5px;
+        margin-left: 80px;
+    }
+    #fecfin{
+        margin-right: 5px;
+        margin-left: 80px;
+
+    }
+    #rol{
+        width:200px; 
+    }
+    #outer
+    {
+        width:100%;
+        text-align: center;
+    }
+    .inner
+    {
+        display: inline-block;
+    }
+    #consultar
+    {
+        margin-left: 40px;
+    }
+    .controls {
+        width:200px; 
+        background: #24303c;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 16px;
+        border: 1px solid #1f53c5;
+        font-family: 'calibri';
+        font-size: 18px;
+        color: white;
+      }
