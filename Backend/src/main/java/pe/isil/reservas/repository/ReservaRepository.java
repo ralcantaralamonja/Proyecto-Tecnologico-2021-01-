@@ -17,8 +17,8 @@ import java.util.List;
 @Repository
 public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 
-    @Procedure("usp_crear_reserva")
-    void crearReserva(LocalDateTime fecIngreso, LocalDateTime fecSalida, Integer huespedId, Integer habitacionId, String usuarioRegistro);
+    @Query(value = "{call usp_crear_reserva(:vfec_ing, :vfec_sal, :vid_huesped, :vid_hab, :vusu_reg)}", nativeQuery = true)
+    Reserva crearReserva(@Param("vfec_ing") LocalDateTime fecIngreso, @Param("vfec_sal") LocalDateTime fecSalida, @Param("vid_huesped") Integer huespedId, @Param("vid_hab") Integer habitacionId, @Param("vusu_reg") String usuarioRegistro);
 
     @Procedure("usp_finalizar_reserva")
     void finalizarReserva(Integer id, String usuarioUltMod);

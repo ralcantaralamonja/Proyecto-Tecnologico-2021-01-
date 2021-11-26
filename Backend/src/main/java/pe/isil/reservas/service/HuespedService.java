@@ -30,13 +30,12 @@ public class HuespedService implements CrudService<Huesped, Integer> {
         for (Huesped huesped : all) {
             boolean flag = true;
             for (Huesped hConReserva : conReserva) {
-                if (huesped == hConReserva){
+                if (huesped == hConReserva) {
                     flag = false;
                     break;
                 }
             }
-            if (flag)
-                sinReserva.add(huesped);
+            if (flag) sinReserva.add(huesped);
         }
         System.out.println("sinReserva = " + conReserva);
         return sinReserva;

@@ -62,8 +62,8 @@ public class ReservaService implements CrudService<Reserva, Integer> {
         return reservaRepository.existsById(id);
     }
 
-    public void crearReserva(Reserva reserva) {
-        reservaRepository.crearReserva(reserva.getFecIngreso(), reserva.getFecSalida(),
+    public Reserva crearReserva(Reserva reserva) {
+        return reservaRepository.crearReserva(reserva.getFecIngreso(), reserva.getFecSalida(),
                 reserva.getHuespedId(), reserva.getHabitacionId(), reserva.getUsuarioRegistro());
     }
 

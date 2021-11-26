@@ -15,7 +15,7 @@ public interface HabitacionRepository extends JpaRepository<Habitacion, Integer>
     // usar native query
 
     @Query(
-            value = "SELECT * FROM vw_habitacionesDisponibles",
+            value = "SELECT * FROM vw_habitaciones_disponibles",
             nativeQuery = true)
     List<Habitacion> listarDisponibles();
 

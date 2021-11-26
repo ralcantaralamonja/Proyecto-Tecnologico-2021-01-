@@ -286,6 +286,7 @@ vestado_res = 1;
 END IF;
 INSERT INTO reserva (Fec_Ingreso, Fec_Salida, Id_Huesped, Id_Hab, Usuario_Registro, Fecha_Registro, Estado)
 VALUES (vfec_ing, vfec_sal, vid_huesped, vid_hab, vusu_reg, SYSDATE(), vestado_res);
+SELECT * FROM reserva ORDER BY Id_Reserva DESC LIMIT 1;
 END$$
 DELIMITER ;
 
