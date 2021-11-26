@@ -45,6 +45,7 @@ export class ReservasComponent implements OnInit {
     this.cargarHuespedes();
     this.cargarHabitaciones();
     this.roles = this.tokenService.getAuthorities();
+    this.usuarioLogeado = this.tokenService.getUserName();
     this.roles.forEach(rol => {
       if (rol === 'MANAGER') {
         this.permiso = true;

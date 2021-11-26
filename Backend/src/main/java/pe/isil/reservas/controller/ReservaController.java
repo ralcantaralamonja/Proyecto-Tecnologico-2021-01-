@@ -11,6 +11,7 @@ import pe.isil.reservas.service.HuespedService;
 import pe.isil.reservas.service.ReservaService;
 import pe.isil.security.dto.LoginUsuario;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,10 @@ public class ReservaController {
             return new ResponseEntity(new Mensaje("Huesped no registrado"), HttpStatus.NOT_FOUND);
         if (!habitacionService.existsById(reservaDto.getHabitacionId()))
             return new ResponseEntity(new Mensaje("Habitacion no registrada"), HttpStatus.NOT_FOUND);
+        if (reservaDto.getFecIngreso().isBefore(LocalDateTime.now()))
+            return new ResponseEntity(new Mensaje("Solo se pueden registrar reservas a partir de la fecha actual"), HttpStatus.FORBIDDEN);
+        if (reservaDto.getFecIngreso().isAfter(reservaDto.getFecSalida()))
+            return new ResponseEntity(new Mensaje("La fecha de salida debe ser posterior a la fecha de ingreso"), HttpStatus.FORBIDDEN);
         reservaService.crearReserva(toReserva(reservaDto));
         return new ResponseEntity(new Mensaje("Reserva registrada con exito"), HttpStatus.CREATED);
     }
@@ -62,8 +67,7 @@ public class ReservaController {
     @PutMapping("/final/{id}")
     public ResponseEntity<?> finalizarReserva(@PathVariable("id") Integer id, @RequestBody LoginUsuario loginUsuario) {
         if (!reservaService.existsById(id))
-            return new ResponseEntity(new Mensaje("No se encontro la reserva"), HttpStatus.NOT_FOUND);
-        reservaService.finalizarReserva(id, loginUsuario);
+            return new ResponseEntity(new Mensaje("No se encontro la reserva"), HttpStatus.NOT_FOUND);reservaService.finalizarReserva(id, loginUsuario);
         return new ResponseEntity(new Mensaje("Reserva terminada"), HttpStatus.OK);
     }
 
@@ -71,6 +75,8 @@ public class ReservaController {
     public ResponseEntity<?> cancelarReserva(@PathVariable("id") Integer id, @RequestBody LoginUsuario loginUsuario) {
         if (!reservaService.existsById(id))
             return new ResponseEntity(new Mensaje("no se encontro reserva"), HttpStatus.NOT_FOUND);
+        if (reservaService.findById(id).get().getEstado()!=0)
+            return new ResponseEntity(new Mensaje("Solo se pueden cancelar reservas pendientes"), HttpStatus.FORBIDDEN);
         reservaService.cancelarReserva(id, loginUsuario);
         return new ResponseEntity(new Mensaje("Reserva cancelada"), HttpStatus.OK);
     }
