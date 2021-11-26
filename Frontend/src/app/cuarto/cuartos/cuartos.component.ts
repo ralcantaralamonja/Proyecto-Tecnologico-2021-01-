@@ -82,10 +82,7 @@ export class CuartosComponent implements OnInit {
   verDetalleReservaActiva(id: number) {
     this.detalleReservaService.detalleReservaActivaPorHabitacion(id).subscribe(
       data => {
-        this.toastr.success('pa la proxima profe', 'OK', {
-          timeOut: 10000, positionClass: 'toast-top-center'
-        });
-        this.router.navigate(['/editarcuarto']);
+        this.router.navigate(['/editarcuarto/' + id]);
       },
       err => {
         this.toastr.error(err.error.mensaje, 'Fail', {

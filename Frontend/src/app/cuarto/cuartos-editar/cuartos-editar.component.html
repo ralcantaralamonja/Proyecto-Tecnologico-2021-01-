@@ -10,21 +10,18 @@
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><b>ID: </b>{{detallereserva.huespedId}}</li>
-            <li class="list-group-item"><b>TIPO DOCUMENTO: </b>{{detallereserva.nombre}}</li>
-            <li class="list-group-item"><b>NUMERO DOCUMENTO: </b>{{detallereserva.apellido}}</li>
-            <li class="list-group-item"><b>NOMBRES: </b>{{detallereserva.habitacionId}}</li>
-            <li class="list-group-item"><b>APELLIDOS: </b>{{detallereserva.habitacionTipoNombre}}</li>
-            <li class="list-group-item"><b>TELFONO: </b>{{detallereserva.reservaId}}</li>
-            <li class="list-group-item"><b>CORREO: </b>{{detallereserva.fechaSolicita}}</li>
-            <li class="list-group-item"><b>FECHA DE REGISTRO: </b>{{detallereserva.fechaIngreso}}</li>
-            <li class="list-group-item"><b>USUARIO REGISTRO: </b>{{detallereserva.fechaSalida}}</li>
-            <li class="list-group-item"><b>FECHA DE ULTIMA MODIFICACION: </b>{{detallereserva.estadoReserva}}</li>
-          
-
+            <li class="list-group-item"><b>NOMBRES: </b>{{detallereserva.nombre}}</li>
+            <li class="list-group-item"><b>APELLIDOS: </b>{{detallereserva.apellido}}</li>
+            <li class="list-group-item"><b>TIPO HABITACION: </b>{{detallereserva.habitacionTipoNombre}}</li>
+            <li class="list-group-item"><b>ID RESERVA: </b>{{detallereserva.reservaId}}</li>
+            <li class="list-group-item"><b>FECHA DE RESERVA: </b>{{detallereserva.fechaSolicita}}</li>
+            <li class="list-group-item"><b>FECHA DE INGRESO: </b>{{detallereserva.fechaIngreso}}</li>
+            <li class="list-group-item"><b>FECHA DE SALIDA: </b>{{detallereserva.fechaSalida}}</li>
           </ul>
-         
+          <button class="btn btn-danger" type="button" (click)="finalizarReserva(detallereserva.reservaId)">
+            Finalizar
+          </button>
         </div>
-
       </div>
     </div>
   </div>

@@ -16,7 +16,7 @@ public interface HuespedRepository extends JpaRepository<Huesped, Integer> {
     List<Huesped> findAllByEstadoEquals(int estado);
 
     @Query(
-            value = "SELECT * FROM vw_huespedesconreserva",
+            value = "SELECT * FROM vw_huespedes_con_reserva",
             nativeQuery = true)
     List<Huesped> listarHuespedesConReservaActivaOPendiente();
 
