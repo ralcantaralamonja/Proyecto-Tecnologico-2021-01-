@@ -65,7 +65,7 @@ export class ReservasAgregarComponent implements OnInit {
   }
 
   cargarHabitaciones(){
-    this.cuartoService.listarDisponibles().subscribe(
+    this.cuartoService.lista().subscribe(
       data => {
         this.habitaciones = data;
       },
