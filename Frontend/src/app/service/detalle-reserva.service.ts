@@ -18,7 +18,7 @@ export class DetalleReservaService {
   }
 
   public historicoHuespedesPorHabitacion(id: number, habitacionConsulta: HabitacionConsulta): Observable<DetalleReserva> {
-    return this.httpClient.get<DetalleReserva>(this.ENDPOINT + `huespedes-fechas/${id}`);
+    return this.httpClient.post<DetalleReserva>(this.ENDPOINT + `huespedes-fechas/${id}`, habitacionConsulta);
   }
 
   

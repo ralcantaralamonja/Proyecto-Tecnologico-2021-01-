@@ -35,7 +35,7 @@ public class ConsultasController {
         this.tipoHabitacionService = tipoHabitacionService;
     }
 
-    @GetMapping("/habitacion/huespedes-fechas/{id}")
+    @PostMapping("/habitacion/huespedes-fechas/{id}")
     public ResponseEntity<List<DetalleReservaHabDto>> huespedesPorHabitacionList(@PathVariable Integer id, @RequestBody HabitacionConsultaDto dto) {
         if (!habitacionService.existsById(id))
             return new ResponseEntity(new Mensaje("habitacion no registrada"), HttpStatus.NOT_FOUND);

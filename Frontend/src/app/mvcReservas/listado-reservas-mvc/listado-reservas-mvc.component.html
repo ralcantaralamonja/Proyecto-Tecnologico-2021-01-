@@ -26,11 +26,13 @@
                             <div class="inner">
                                 <button class="btn btn-success" id="habitacion">
                                     <i class="fas fa-plus-circle"></i> Habitacion</button>
-                                <div class="inner">
-                                    <select class="custom-select form-control" [(ngModel)]="habitacion" id="habitacion"
-                                        name="habitacion">
-                                        <option *ngFor="let item of habitaciones">
-                                            {{item}}
+                                <div class="form-group">
+                                    <select class="custom-select form-control controls" [(ngModel)]="habitacionId"
+                                        id="habitacion" name="habitacion" required>
+                                        <option [ngValue]="null" [disabled]="true" [selected]="true">Seleccionar
+                                            habitacion</option>
+                                        <option *ngFor="let item of habitaciones" value="{{item.habitacionId}}">
+                                            {{item.tipo}}
                                         </option>
                                     </select>
                                 </div>
@@ -40,15 +42,14 @@
                                 <button class="btn btn-success" id="fecini">
                                     <i class="fas fa-plus-circle"></i> Fecha inicio</button>
                                 <input class="controls" type="date" id="end" name="trip-end" value="2018-07-22"
-                                    min="2018-01-01" max="2999-12-31">
-
+                                    min="2018-01-01" max="2999-12-31" [(ngModel)]="fecIni">
                             </div>
 
                             <div class="inner">
                                 <button class="btn btn-success" id="fecfin">
                                     <i class="fas fa-plus-circle"></i> Fecha Fin</button>
                                 <input class="controls" type="date" id="end" name="trip-end" value="2018-07-22"
-                                    min="2018-01-01" max="2999-12-31">
+                                    min="2018-01-01" max="2999-12-31" [(ngModel)]="fecFin">
 
                             </div>
                             <div class="inner">
@@ -66,24 +67,19 @@
                                 <th scope="col">Fec de Reserva</th>
                                 <th scope="col">Fec Ingreso</th>
                                 <th scope="col">Fec Salida</th>
-                                <th scope="col">Estado de Reserva</th>
+                                <th scope="col">Habitacion</th>
                                 <th scope="col">IdReserva</th>
-                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <button>Ver Detalles de Reserva(modal we)</button>
-                                </td>
-
+                            <tr *ngFor="let detalle of detalleReserva">
+                                <td>{{detalle.huespedId}}</td>
+                                <td>{{detalle.nombre}} {{detalleReserva.apellido}}</td>
+                                <td>{{detalle.fechaSolicita}}</td>
+                                <td>{{detalle.fechaIngreso}}</td>
+                                <td>{{detalle.fechaSalida}}</td>
+                                <td>{{detalle.habitacionTipoNombre}}</td>
+                                <td>{{detalle.reservaId}}</td>    
                             </tr>
                         </tbody>
                     </table>

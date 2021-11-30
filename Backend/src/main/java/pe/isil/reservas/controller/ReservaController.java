@@ -11,7 +11,9 @@ import pe.isil.reservas.service.HuespedService;
 import pe.isil.reservas.service.ReservaService;
 import pe.isil.security.dto.LoginUsuario;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +58,7 @@ public class ReservaController {
             return new ResponseEntity(new Mensaje("Huesped no registrado"), HttpStatus.NOT_FOUND);
         if (!habitacionService.existsById(reservaDto.getHabitacionId()))
             return new ResponseEntity(new Mensaje("Habitacion no registrada"), HttpStatus.NOT_FOUND);
-        if (reservaDto.getFecIngreso().isBefore(LocalDateTime.now()))
+        if (reservaDto.getFecIngreso().toLocalDate().isBefore(LocalDate.now()))
             return new ResponseEntity(new Mensaje("Solo se pueden registrar reservas a partir de la fecha actual"), HttpStatus.FORBIDDEN);
         if (reservaDto.getFecIngreso().isAfter(reservaDto.getFecSalida()))
             return new ResponseEntity(new Mensaje("La fecha de salida debe ser posterior a la fecha de ingreso"), HttpStatus.FORBIDDEN);

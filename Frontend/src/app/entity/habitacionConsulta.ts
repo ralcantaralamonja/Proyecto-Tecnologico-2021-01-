@@ -8,5 +8,4 @@ export class HabitacionConsulta{
         this.fechaIni=fechaIni;
         this.fechaFin=fechaFin;
     }
-
 }
