@@ -40,9 +40,13 @@ export class ListaHuespedComponent implements OnInit {
   }
 
   cargarHuespedes(): void {
+    var re = /T/gi;
     this.huespedService.lista().subscribe(
       data => {
         this.huesped = data;
+        this.huesped.forEach(
+          h => h.fechaRegistro = h.fechaRegistro.toString().replace(re, ' ').substring(0, 16)
+        )
       },
       err => {
         console.log(err);

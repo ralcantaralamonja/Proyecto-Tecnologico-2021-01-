@@ -36,10 +36,10 @@ const routes: Routes = [
 
   { path: 'lista-huesped', component: ListaHuespedComponent, canActivate: [guard], data: { expectRol: ['MANAGER', 'USER'] } },
   { path: 'nuevo', component: NuevoHuespedComponent, canActivate: [guard], data: { expectRol: ['MANAGER', 'USER'] }  },
-  { path: 'editar/:huespedId', component: EditarHuespedComponent, canActivate: [guard], data: { expectRol: ['MANAGER'] } },
+  { path: 'editar/:huespedId', component: EditarHuespedComponent, canActivate: [guard], data: { expectRol: ['MANAGER', 'USER'] } },
   { path: 'lista-usuario', component: ListaUsuarioComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'MANAGER'] } },
 
-  { path: 'detalle/:huespedId', component: DetalleHuespedComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'MANAGER'] } },
+  { path: 'detalle/:huespedId', component: DetalleHuespedComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'MANAGER', 'USER'] } },
 
   { path: 'nuevo-usuario', component: NuevoUsuarioComponent, canActivate: [guard], data: { expectRol: ['ADMIN', 'MANAGER', 'USER'] } },
 

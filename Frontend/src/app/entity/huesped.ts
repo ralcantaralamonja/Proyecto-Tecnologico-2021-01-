@@ -6,7 +6,7 @@ apellido: string;
 telefono: string;
 correo: string;
 usuarioRegistro: string;
-fechaRegistro: Date;
+fechaRegistro: any;
 usuarioUltModificacion: string;
 fechaUltModificacion: Date;
 observaciones: string;
@@ -15,7 +15,7 @@ numeroDocumento: string;
 estado: any;
 
     constructor(huespedId: number,nombre: string,apellido: string,telefono: string,correo: string,
-        usuarioRegistro: string,fechaRegistro: Date,usuarioUltModificacion: string,
+        usuarioRegistro: string,fechaRegistro: any,usuarioUltModificacion: string,
         fechaUltModificacion: Date,observaciones: string,tipoDocumento: string,numeroDocumento: string,
         estado: any){
         
