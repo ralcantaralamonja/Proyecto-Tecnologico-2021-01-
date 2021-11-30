@@ -28,7 +28,7 @@ export class ReservasComponent implements OnInit {
 
   roles: string[];
   permiso = false;
-  reservaFilter: any = { reservaId : '' };
+  reservaFilter: any = { estado : '' };
   usuarioLogeado: string;
 
   constructor(

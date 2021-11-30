@@ -101,7 +101,7 @@
     }
     #fecfin{
         margin-right: 5px;
-        margin-left: 80px;
+        margin-left: 100px;
 
     }
     #rol{
@@ -118,7 +118,13 @@
     }
     #consultar
     {
-        margin-left: 40px;
+        margin-left: 600px;
+        
+
+    }
+    div p{
+        color: yellow;
+        
     }
     .controls {
         width:200px; 
@@ -131,3 +137,4 @@
         font-size: 18px;
         color: white;
       }
+    
