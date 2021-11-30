@@ -67,18 +67,18 @@
                                 <th scope="col">Fec de Reserva</th>
                                 <th scope="col">Fec Ingreso</th>
                                 <th scope="col">Fec Salida</th>
-                                <th scope="col">Habitacion</th>
+                                <th scope="col">Estado</th>
                                 <th scope="col">IdReserva</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let detalle of detalleReserva">
                                 <td>{{detalle.huespedId}}</td>
-                                <td>{{detalle.nombre}} {{detalleReserva.apellido}}</td>
+                                <td>{{detalle.nombre}} {{detalle.apellido}}</td>
                                 <td>{{detalle.fechaSolicita}}</td>
                                 <td>{{detalle.fechaIngreso}}</td>
                                 <td>{{detalle.fechaSalida}}</td>
-                                <td>{{detalle.habitacionTipoNombre}}</td>
+                                <td>{{detalle.estadoReserva}}</td>
                                 <td>{{detalle.reservaId}}</td>    
                             </tr>
                         </tbody>

@@ -16,7 +16,7 @@ import { CuartosService } from 'src/app/service/cuartos.service';
 export class ListadoReservasMvcComponent implements OnInit {
 
   habitacionConsulta: HabitacionConsulta;
-  detalleReserva: DetalleReserva;
+  detalleReserva: DetalleReserva[] = [];
 
   habitacion: Cuarto;
   habitaciones: Cuarto[] = [];
