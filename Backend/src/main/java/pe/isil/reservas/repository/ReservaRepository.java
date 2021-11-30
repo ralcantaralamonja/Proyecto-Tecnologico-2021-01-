@@ -35,4 +35,8 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 
     @Query(value = "{call usp_ver_detalle_reserva_habitacion(:id_hab)}", nativeQuery = true)
     Reserva verDetalleReservaHabitacion(@Param("id_hab") Integer habitacionId);
+
+    @Query(value = "SELECT * FROM reserva WHERE estado=0 and Id_Hab=?1",
+            nativeQuery = true)
+    List<Reserva> reservasPendientesPorHabitacion(Integer habitacionId);
 }
