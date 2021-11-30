@@ -15,6 +15,7 @@ export class Cuarto {
     precio: number;
 
     color: number;
+    pendientes: any;
 
     constructor(numeros: string, foto: string, tipoId: number, usuarioRegistro: string, fecha_Registro: Date, usuarioUltModificacion: string,
         fechaUltModificacion: Date, estado: any, tipo: string, aforo:number, banio: any, precio:number) {

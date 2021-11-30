@@ -38,5 +38,4 @@ export class CuartosService {
    public setDisponible(id: number): Observable<any> {
     return this.httpClient.put<any>(this.cuartoURL + `/mantenimiento/${id}`, null);
    }
-
 }

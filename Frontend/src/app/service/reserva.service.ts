@@ -33,5 +33,8 @@ export class ReservaService {
   public cancelarReserva(id: number, usuario:LoginUsuario): Observable<any> {
     return this.httpClient.put<any>(this.reservaURL+`/cancelar/${id}`, usuario);
   }
-
+  
+  public ultimaReservaPendiente(id: number): Observable<Reserva> {
+    return this.httpClient.get<Reserva>(this.reservaURL + `/pendiente/${id}`);
+  }
 }

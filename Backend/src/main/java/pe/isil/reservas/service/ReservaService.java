@@ -83,4 +83,7 @@ public class ReservaService implements CrudService<Reserva, Integer> {
         return reservaRepository.verDetalleReservaHabitacion(habitacionId);
     }
 
+    public List<Reserva> reservasPendientesPorHabitacion(Integer habitacionId){
+        return reservaRepository.reservasPendientesPorHabitacion(habitacionId);
+    }
 }
