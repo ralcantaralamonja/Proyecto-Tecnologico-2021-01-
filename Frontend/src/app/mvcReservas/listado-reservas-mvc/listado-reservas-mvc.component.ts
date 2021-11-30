@@ -76,17 +76,20 @@ export class ListadoReservasMvcComponent implements OnInit {
 
   validarEstado(estado: number): string {
     switch (estado) {
-      case 1:
-        return "Disponible";
+      case 0:
+        return "Pendiente";
         break;
+        case 1:
+          return "Activa";
+          break;
       case 2:
-        return "Ocupado";
+        return "Finalizada";
         break;
       case 3:
-        return "Mantenimiento";
+        return "Cancelada";
         break;
       default:
-        return "Quien sabe";
+        return "Grillos";
         break;
     }
   }
