@@ -54,7 +54,6 @@ export class ListadoReservasMvcComponent implements OnInit {
       },
       err => {
         console.log("Ricardo chipi");
-
       }
     )
   }
