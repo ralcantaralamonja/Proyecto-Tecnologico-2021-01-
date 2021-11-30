@@ -22,6 +22,7 @@ export class ListadoReservasMvcComponent implements OnInit {
   habitaciones: Cuarto[] = [];
   habitacionId: number;
 
+  cuarto: Cuarto[] = [];
   fecIni: Date;
   fecFin: Date;
 
@@ -35,6 +36,7 @@ export class ListadoReservasMvcComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarHabitaciones();
+    this.validarEstado(1);
   }
 
   onRegister(): void {
@@ -51,9 +53,12 @@ export class ListadoReservasMvcComponent implements OnInit {
     this.detalleReservaService.historicoHuespedesPorHabitacion(idHab, habitacionConsulta).subscribe(
       data => {
         this.detalleReserva = data;
+        this.detalleReserva.forEach(
+          dr => dr.estadoReserva = this.validarEstado(dr.estadoReserva)
+        )
       },
       err => {
-        console.log("Ricardo chipi");
+        console.log("Ricardo gordito chipi");
 
       }
     )
@@ -70,4 +75,20 @@ export class ListadoReservasMvcComponent implements OnInit {
     )
   }
 
+  validarEstado(estado: number): string {
+    switch (estado) {
+      case 1:
+        return "Disponible";
+        break;
+      case 2:
+        return "Ocupado";
+        break;
+      case 3:
+        return "Mantenimiento";
+        break;
+      default:
+        return "Quien sabe";
+        break;
+    }
+  }
 }
