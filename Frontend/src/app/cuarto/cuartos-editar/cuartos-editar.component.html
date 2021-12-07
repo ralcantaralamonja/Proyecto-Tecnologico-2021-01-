@@ -18,12 +18,14 @@
             <li class="list-group-item"><b>FECHA DE INGRESO: </b>{{detallereserva.fechaIngreso}}</li>
             <li class="list-group-item"><b>FECHA DE SALIDA: </b>{{detallereserva.fechaSalida}}</li>
           </ul>
-          <button class="btn btn-danger" type="button" (click)="finalizarReserva(detallereserva.reservaId)">
-            Finalizar
-          </button>
-          <button class="btn btn-danger" type="button" routerLink="/cuartos">
-            Regresar
-          </button>
+          <ul>
+            <button class="btn btn-danger" type="button" (click)="finalizarReserva(detallereserva.reservaId)">
+              Finalizar
+            </button>
+            <button class="btn btn-danger" type="button" routerLink="/cuartos">
+              Regresar
+            </button>
+          </ul>
         </div>
       </div>
     </div>

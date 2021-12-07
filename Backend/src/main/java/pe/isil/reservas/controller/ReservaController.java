@@ -62,13 +62,13 @@ public class ReservaController {
             return new ResponseEntity(new Mensaje("Solo se pueden registrar reservas a partir de la fecha actual"), HttpStatus.FORBIDDEN);
         if (reservaDto.getFecIngreso().isAfter(reservaDto.getFecSalida()))
             return new ResponseEntity(new Mensaje("La fecha de salida debe ser posterior a la fecha de ingreso"), HttpStatus.FORBIDDEN);
-        Reserva reserva = reservaService.reservasPendientesPorHabitacion(reservaDto.getHabitacionId()).get(0);
-        if (reserva == null) {
-            return new ResponseEntity(new Mensaje("No hay reserva registrada para esta habitacion"), HttpStatus.NOT_FOUND);
+        List<Reserva> reservas = reservaService.reservasPendientesPorHabitacion(reservaDto.getHabitacionId());
+        if (reservas.size() != 0) {
+            LocalDateTime fecIngreso = reservas.get(0).getFecIngreso();
+            LocalDateTime fecSalida = reservas.get(0).getFecSalida();
+            if (fecIngreso.isAfter(reservaDto.getFecIngreso()) && fecIngreso.isBefore(reservaDto.getFecSalida()) || fecSalida.isAfter(reservaDto.getFecIngreso()) && fecSalida.isBefore(reservaDto.getFecSalida()))
+                return new ResponseEntity(new Mensaje("La habitacion ya se encuentra reservada para ese rango de fechas. Cambie sus fechas o intente con otra habitacion"), HttpStatus.FORBIDDEN);
         }
-        if (reservaDto.getFecSalida().isAfter(reserva.getFecIngreso()) || reservaDto.getFecIngreso().isAfter(reserva.getFecIngreso()))
-            return new ResponseEntity(new Mensaje("La habitacion ya se encuentra reservada para ese rango de fechas. Cambie sus fechas o intente con otra habitacion"), HttpStatus.FORBIDDEN);
-
         reservaService.crearReserva(toReserva(reservaDto));
         return new ResponseEntity(new Mensaje("Reserva registrada con exito"), HttpStatus.CREATED);
     }
