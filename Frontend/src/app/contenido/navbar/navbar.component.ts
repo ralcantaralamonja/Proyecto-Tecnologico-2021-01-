@@ -55,11 +55,15 @@ export class NavbarComponent implements OnInit {
     
     this.roles = this.tokenService.getAuthorities();
     this.roles.forEach(rol => {
-      if (rol === 'USER') {
+      if (rol === 'MANAGER') {
+        this.isUserPermiso = true;
+      }
+      else if(rol === 'USER'){
         this.isUserPermiso = false;
       }
     });
   }
+  
 
   onLogOut(): void{
     this.tokenService.logOut();
