@@ -14,7 +14,7 @@
 
     <div class="container">
 
-        <div class="card" style="height: 360px;">
+        <div *ngIf="isAdminPermiso" class="card" style="height: 360px;">
 
             <div class="top-row background-top-row">
                 <h4>Nuevo Huesped</h4>
@@ -30,14 +30,14 @@
 
         </div>
 
-        <div class="card" style="height: 360px;">
+        <div *ngIf ="isUserPermiso" class="card" style="height: 360px;">
 
             <div class="top-row background-top-row">
                 <h4>Nuevo usuario</h4>
                 <i aria-hidden="true"></i>
             </div>
 
-            <div class="content" style="height: 200px;">
+            <div   class="content" style="height: 200px;">
                 <h2>Crear nuevo usuario</h2>
                 <p>Haga click aca para crear nuevo usuario</p>
             </div>

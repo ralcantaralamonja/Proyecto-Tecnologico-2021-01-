@@ -9,9 +9,11 @@ import { TokenService } from 'src/app/service/token.service';
 export class NavbarComponent implements OnInit {
 
   isLogged = true;
-  isAdmin = false;
+  isAdmin = true;
   nombreUsuario = '';
   roles: string[];
+  isUserPermiso = true;
+
 
   constructor(
     
@@ -21,12 +23,17 @@ export class NavbarComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+
+
     this.PermisosAdmin();
+    this.PermisoUser();
+
     if(this.tokenService.getToken()){
       this.isLogged = true
       this.nombreUsuario = this.tokenService.getUserName();
       
     }
+    
     else{
       this.isLogged = false;
       this.nombreUsuario = '';
@@ -42,6 +49,16 @@ export class NavbarComponent implements OnInit {
       }
     });
    
+  }
+
+  PermisoUser(){
+    
+    this.roles = this.tokenService.getAuthorities();
+    this.roles.forEach(rol => {
+      if (rol === 'USER') {
+        this.isUserPermiso = false;
+      }
+    });
   }
 
   onLogOut(): void{

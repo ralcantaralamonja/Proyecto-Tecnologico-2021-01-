@@ -11,7 +11,9 @@ export class InicioComponent implements OnInit {
 
   roles: string[];
   isAdmin = false;
-  
+  isAdminPermiso = true;
+  isUserPermiso = true;
+
   constructor(
     private toastr: ToastrService,
     private tokenService: TokenService
@@ -19,10 +21,31 @@ export class InicioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.PermisioAdmin();
+    this.PermisoUser();
     this.roles = this.tokenService.getAuthorities();
     this.roles.forEach(rol => {
       if (rol === 'ADMIN') {
         this.isAdmin = true;
+      }
+    });
+  }
+
+  PermisioAdmin(){
+    this.roles = this.tokenService.getAuthorities();
+    this.roles.forEach(rol => {
+      if (rol === 'ADMIN') {
+        this.isAdminPermiso = false;
+      }
+    });
+  }
+
+  PermisoUser(){
+    
+    this.roles = this.tokenService.getAuthorities();
+    this.roles.forEach(rol => {
+      if (rol === 'USER') {
+        this.isUserPermiso = false;
       }
     });
   }
