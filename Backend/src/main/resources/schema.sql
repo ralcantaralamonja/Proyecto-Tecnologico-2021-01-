@@ -433,7 +433,8 @@ FROM huesped hu
          INNER JOIN habitacion ha ON r.Id_Hab = ha.Id_Hab
 WHERE r.Id_Hab = vid_hab
   AND r.Fec_Ingreso >= fec_ini
-  AND r.Fec_Salida <= fec_fin;
+  AND r.Fec_Salida <= fec_fin
+  AND r.Estado = 2;
 END$$
 DELIMITER ;
 
