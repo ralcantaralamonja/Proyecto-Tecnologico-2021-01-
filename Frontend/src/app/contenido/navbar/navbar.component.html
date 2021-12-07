@@ -21,9 +21,11 @@
                 <li class="nav-item" *ngIf="isLogged" (click)="onLogOut()">
                     <a class="nav-link" href="#">Cerrar sesion</a>
                 </li>
+
                 <li class="nav-item" *ngIf="isLogged">
                     <a class="nav-link" routerLink="/registro">Crear nueva cuenta</a>
                 </li>
+
                 <li class="nav-item" *ngIf="isLogged">
                     <a class="nav-link" routerLink="/lista-usuario">Listado de Usuarios</a>
                 </li>
@@ -48,7 +50,7 @@
                     <span>Mantenimientos</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li>
+                    <li *ngIf="isAdmin">
                         <a routerLink="/lista-huesped" class="dropdown-item"><i
                                 class="bi bi-lock-fill"></i>Huespedes</a>
                     </li>

@@ -17,6 +17,8 @@
     <div class="container">
         <h3 id="Texto">Listado</h3>
 
+        
+
         <form #f="ngForm" (ngSubmit)="onRegister()" novalidate>
             <div>
                 <div>
@@ -67,7 +69,6 @@
                                 <th scope="col">Fec de Reserva</th>
                                 <th scope="col">Fec Ingreso</th>
                                 <th scope="col">Fec Salida</th>
-                                <th scope="col">Estado</th>
                                 <th scope="col">IdReserva</th>
                             </tr>
                         </thead>
@@ -78,7 +79,6 @@
                                 <td>{{detalle.fechaSolicita}}</td>
                                 <td>{{detalle.fechaIngreso}}</td>
                                 <td>{{detalle.fechaSalida}}</td>
-                                <td>{{detalle.estadoReserva}}</td>
                                 <td>{{detalle.reservaId}}</td>    
                             </tr>
                         </tbody>

@@ -8,23 +8,40 @@ import { TokenService } from 'src/app/service/token.service';
 })
 export class NavbarComponent implements OnInit {
 
-  isLogged = false;
+  isLogged = true;
+  isAdmin = false;
   nombreUsuario = '';
-  
-  constructor(private tokenService: TokenService) { }
+  roles: string[];
+
+  constructor(
+    
+    private tokenService: TokenService,
+    
+    
+    ) { }
 
   ngOnInit(): void {
-
+    this.PermisosAdmin();
     if(this.tokenService.getToken()){
       this.isLogged = true
       this.nombreUsuario = this.tokenService.getUserName();
-
+      
     }
     else{
       this.isLogged = false;
       this.nombreUsuario = '';
 
     }
+  }
+
+  PermisosAdmin(){
+    this.roles = this.tokenService.getAuthorities();
+    this.roles.forEach(rol => {
+      if (rol === 'ADMIN') {
+        this.isAdmin = false;
+      }
+    });
+   
   }
 
   onLogOut(): void{
