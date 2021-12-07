@@ -74,7 +74,9 @@ export class CuartosEditarComponent implements OnInit {
         //calcular el total (precio * tiempo)
         var entro: Date = new Date(detalle.fechaIngreso);
         var sale: Date = new Date();
+        //tiempo que ocupo la habitacion en segundos
         var diferencia:number = (sale.getTime() - entro.getTime()) / (1000 * 60 * 60);
+        //precio por hora
         var precioHora = this.cuartoActual.precio / 24;
         var totalACobrar = precioHora * diferencia
         this.toastr.success('Cobrar S/.' + totalACobrar.toFixed(2), 'OK', {
