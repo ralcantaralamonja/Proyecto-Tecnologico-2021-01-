@@ -84,9 +84,9 @@ public class HuespedController {
     public ResponseEntity<?> deleteHuesped(@PathVariable("id") Integer id) {
         if (!huespedService.existsById(id))
             return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
-
+        if (huespedService.validarHuespedSinReserva(id))
+            return new ResponseEntity(new Mensaje("No es posible eliminar un huesped con reserva"), HttpStatus.METHOD_NOT_ALLOWED);
         huespedService.delete(id, " ");
-
         return new ResponseEntity(new Mensaje("Huesped eliminado"), HttpStatus.OK);
     }
 

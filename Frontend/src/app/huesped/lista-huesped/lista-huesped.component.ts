@@ -66,6 +66,9 @@ export class ListaHuespedComponent implements OnInit {
         this.isLogged = false;
         this.isLoginFail = true;
         this.errMsj = err.error.mensaje;
+        this.toastr.error(this.errMsj, 'OK', {
+          timeOut: 3000, positionClass: 'toast-top-center'
+        });
         console.log("error -> " + err.error.mensaje);
       }
     );

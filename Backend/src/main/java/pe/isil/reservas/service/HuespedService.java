@@ -23,6 +23,18 @@ public class HuespedService implements CrudService<Huesped, Integer> {
         return huespedRepository.findAllByEstadoEquals(1);
     }
 
+    public boolean validarHuespedSinReserva(Integer huespedId) {
+        List<Huesped> conReserva = huespedRepository.listarHuespedesConReservaActivaOPendiente();
+        boolean flag = false;
+        for (Huesped h : conReserva) {
+            if (h.getHuespedId() == huespedId) {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
+    }
+
     public List<Huesped> listarHuespedesSinReserva() {
         List<Huesped> all = findAll();
         List<Huesped> sinReserva = new ArrayList<>();
