@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.stereotype.Repository;
 import pe.isil.reservas.model.Habitacion;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -21,4 +22,5 @@ public interface HabitacionRepository extends JpaRepository<Habitacion, Integer>
 
     @Procedure("usp_habitaciones_reservadas")
     List<Habitacion> listarReservadas();
+
 }

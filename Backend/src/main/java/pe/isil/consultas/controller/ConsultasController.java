@@ -1,10 +1,12 @@
 package pe.isil.consultas.controller;
 
+import com.sun.istack.NotNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.isil.consultas.dto.HabitacionConsultaDto;
 import pe.isil.consultas.dto.DetalleReservaHabDto;
+import pe.isil.reservas.dto.HabitacionDto;
 import pe.isil.reservas.dto.Mensaje;
 import pe.isil.reservas.model.Habitacion;
 import pe.isil.reservas.model.Huesped;
@@ -15,6 +17,7 @@ import pe.isil.reservas.service.HuespedService;
 import pe.isil.reservas.service.ReservaService;
 import pe.isil.reservas.service.TipoHabitacionService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +63,17 @@ public class ConsultasController {
         return new ResponseEntity<DetalleReservaHabDto>(consultaDto, HttpStatus.OK);
     }
 
+    @PostMapping("/habitaciones/ocupabilidad")
+    public ResponseEntity<List<HabitacionDto>> habitacionesOcupabilidadList(@RequestBody HabitacionConsultaDto dto) {
+
+        List<Habitacion> habitaciones = habitacionService.findAll();
+        List<HabitacionDto> dtoList = getHabitacionDtos(habitaciones);
+        for (HabitacionDto h : dtoList) {
+            h.setOcupacion(reservaService.porcentajeOcupacionHabitacionEntreFechas(new HabitacionConsultaDto(h.getHabitacionId(), dto.getFechaIni(), dto.getFechaFin())));
+        }
+        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+    }
+
     private DetalleReservaHabDto getDetalleReservaHabDto(Reserva reserva) {
         Huesped huesped = huespedService.findById(reserva.getHuespedId()).get();
         Habitacion habitacion = habitacionService.findById(reserva.getHabitacionId()).get();
@@ -78,4 +92,37 @@ public class ConsultasController {
         consultaDto.setEstadoReserva(reserva.getEstado());
         return consultaDto;
     }
+
+    @NotNull
+    private List<HabitacionDto> getHabitacionDtos(List<Habitacion> habitaciones) {
+        List<HabitacionDto> dtoList = new ArrayList<>();
+        for (Habitacion habitacion : habitaciones) {
+            HabitacionDto dto = toDto(habitacion);
+            dtoList.add(dto);
+        }
+        return dtoList;
+    }
+
+    private HabitacionDto toDto(Habitacion habitacion) {
+        HabitacionDto dto = new HabitacionDto();
+        dto.setHabitacionId(habitacion.getHabitacionId());
+        dto.setNumero(habitacion.getNumero());
+        dto.setFoto(habitacion.getFoto());
+        dto.setTipoId(habitacion.getTipoId());
+        dto.setUsuarioRegistro(habitacion.getUsuarioRegistro());
+        dto.setFecha_Registro(habitacion.getFecha_Registro());
+        dto.setUsuarioUltModificacion(habitacion.getUsuarioUltModificacion());
+        dto.setFechaUltModificacion(habitacion.getFechaUltModificacion());
+        dto.setEstado(habitacion.getEstado());
+
+        if (tipoHabitacionService.existsById(habitacion.getTipoId())) {
+            TipoHabitacion tipoHabitacion = tipoHabitacionService.findById(habitacion.getTipoId()).get();
+            dto.setTipo(tipoHabitacion.getNombre());
+            dto.setAforo(tipoHabitacion.getAforo());
+            dto.setBanio(tipoHabitacion.getBanio());
+            dto.setPrecio(tipoHabitacion.getPrecio());
+        }
+        return dto;
+    }
+
 }

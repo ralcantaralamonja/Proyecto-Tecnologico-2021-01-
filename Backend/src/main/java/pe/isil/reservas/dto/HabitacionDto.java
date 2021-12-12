@@ -31,5 +31,6 @@ public class HabitacionDto {
     private int aforo;
     private int banio;
     private double precio;
+    private double ocupacion;
 
 }

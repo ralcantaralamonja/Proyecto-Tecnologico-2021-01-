@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import pe.isil.reservas.model.Habitacion;
 import pe.isil.reservas.model.Reserva;
 import pe.isil.security.dto.LoginUsuario;
 import pe.isil.security.model.UsuarioPrincipal;
@@ -39,4 +40,9 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
     @Query(value = "SELECT * FROM reserva WHERE estado=0 and Id_Hab=?1 ORDER BY Fec_Ingreso",
             nativeQuery = true)
     List<Reserva> reservasPendientesPorHabitacion(Integer habitacionId);
+
+    @Query(value = "SELECT * FROM reserva WHERE Id_Hab = ?1 AND Fec_Ingreso BETWEEN ?2 AND ?3 GROUP BY DATE(Fec_Ingreso)",
+            nativeQuery = true)
+    List<Reserva> fechasEnQueSeOcupoHabitacionPorRango(Integer habitacionId, LocalDate fecIni, LocalDate fecFin);
+
 }

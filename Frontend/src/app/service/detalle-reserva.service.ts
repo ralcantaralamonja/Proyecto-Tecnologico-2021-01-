@@ -21,7 +21,4 @@ export class DetalleReservaService {
     return this.httpClient.post<DetalleReserva[]>(this.ENDPOINT + `huespedes-fechas/${id}`, habitacionConsulta);
   }
 
-  
-  
-
 }

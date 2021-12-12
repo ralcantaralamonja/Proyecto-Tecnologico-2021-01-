@@ -1,17 +1,17 @@
 package pe.isil.reservas.service;
 
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pe.isil.consultas.dto.HabitacionConsultaDto;
+import pe.isil.reservas.model.Habitacion;
 import pe.isil.reservas.model.Reserva;
 import pe.isil.reservas.repository.ReservaRepository;
 import pe.isil.security.dto.LoginUsuario;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
 @Transactional
@@ -79,11 +79,18 @@ public class ReservaService implements CrudService<Reserva, Integer> {
         return reservaRepository.listarReservasPorHabitacionEntreFechas(dto.getHabitacionId(), dto.getFechaIni(), dto.getFechaFin());
     }
 
-    public Reserva verDetalleReservaHabitacion(Integer habitacionId){
+    public Reserva verDetalleReservaHabitacion(Integer habitacionId) {
         return reservaRepository.verDetalleReservaHabitacion(habitacionId);
     }
 
-    public List<Reserva> reservasPendientesPorHabitacion(Integer habitacionId){
+    public List<Reserva> reservasPendientesPorHabitacion(Integer habitacionId) {
         return reservaRepository.reservasPendientesPorHabitacion(habitacionId);
     }
+
+    public Double porcentajeOcupacionHabitacionEntreFechas(HabitacionConsultaDto dto) {
+        int totalDias = (int) DAYS.between(dto.getFechaIni(), dto.getFechaFin());
+        int numeroDeDiasOcupados = reservaRepository.fechasEnQueSeOcupoHabitacionPorRango(dto.getHabitacionId(), dto.getFechaIni(), dto.getFechaFin()).size();
+        return numeroDeDiasOcupados * 1.0 / totalDias;
+    }
+
 }

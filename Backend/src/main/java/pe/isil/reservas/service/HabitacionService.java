@@ -2,12 +2,15 @@ package pe.isil.reservas.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pe.isil.consultas.dto.HabitacionConsultaDto;
 import pe.isil.reservas.model.Habitacion;
 import pe.isil.reservas.repository.HabitacionRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
 @Transactional
